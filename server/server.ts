@@ -4,8 +4,8 @@ const app = express();
 
 app.use('/',express.static('build'));
 
-app.get('/user',(req,res) => {
-    const data = fetch(`${process.env.jsonurl}`)
+app.get('/user', async (req,res) => {
+    const data = await fetch(`${process.env.jsonurl}`)
       .then(response => response.json())
       res.send(data);
 })
