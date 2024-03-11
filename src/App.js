@@ -3,7 +3,7 @@
 function App() {
   return (
     <div>
-      Code Smash
+      Code Smash!!
     </div>
   );
 }
