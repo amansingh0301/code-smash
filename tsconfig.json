@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+      "target": "es2015",
+      "module": "NodeNext",
+      "strict": true,
+      "sourceMap": true,
+      "jsx": "react",
+      "lib": ["dom", "dom.iterable", "esnext"],
+      "allowJs": true, // Allow compilation of plain JavaScript files
+      "types": ["react-redux"],
+      "moduleResolution": "NodeNext"
+    },
+    "include": ["src/**/*.ts", "src/**/*.tsx"],
+    "exclude": ["node_modules", "**/*.spec.ts"] // Exclude test files
+  }
+  
