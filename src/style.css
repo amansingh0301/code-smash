@@ -1,6 +1,7 @@
 body {
     box-sizing: border-box;
-    padding: 1%;
+    background-color: #376690;
+    color: aliceblue;
 }
 
 .header {
@@ -9,18 +10,20 @@ body {
     flex-direction: row;
     height: 8rem;
     width: 100%;
-    min-width: 30rem;
-    background-color: #4D537F;
-    border-top-left-radius: 100%;
-    border-top-right-radius: 100%;
-    border-bottom-left-radius: 100%;
-    border-bottom-right-radius: 100%;
+    box-sizing: border-box;
+    left: 0;
+    top: 0;
+    margin: 0;
+    background-color: #124E83;
+    border-radius: 100%;
+    align-items: center;
+    
 }
 
 .logo {
     flex: 1;
     display: flex;
-    align-items: center;
+    justify-content: center;
 }
 
 .logo__image {
@@ -31,15 +34,43 @@ body {
     width: 4rem;
     height: 4rem;
     border-radius: 100%;
-    margin-left: 10rem;
 }
-
 
 .about {
     flex: 1;
     display: flex;
-    justify-content: flex-end;
-    align-self: center;
-    margin-right: 10rem;
+    justify-content: center;
     font-size: 1.7rem;
+}
+
+.home {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.7rem;
+}
+
+.form {
+    display: grid;
+    background-color: rgb(238, 238, 238, 0.2);
+    width: 30%;
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+.label {
+    opacity: 80%;
+}
+
+.input {
+    margin-top: 0.3rem;
+    margin-bottom: 1.5rem;
+    outline: none;
+    border-radius: 5px;
+    height: 2rem;
+    font-size: 1.2rem;
+    color: #434343 ;
+    width: 100%;
+    max-width: 80%;
 }
