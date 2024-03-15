@@ -1,3 +1,4 @@
+import { Store } from "@reduxjs/toolkit"
 import { CONSTANTS } from "../utils/CONSTANTS"
 
 export const updateName = (name: string) => {
@@ -25,5 +26,19 @@ export const updateOpponentScore = (score: number) => {
     return {
         type: CONSTANTS.UPDATE_OPPONENT_SCORE,
         payload: score
+    }
+}
+
+export const updateTime = (time: number) => {
+    return {
+        type: CONSTANTS.UPDATE_TIME,
+        payload: time
+    }
+}
+
+export const updateNoOfQuestions= (questions: number) => {
+    return {
+        type: CONSTANTS.UPDATE_NUMBER_OF_QUESTIONS,
+        payload: questions
     }
 }

@@ -1,8 +1,9 @@
 export interface InitialFormState {
     name: string,
+    questions: number,
     startingDifficulty: string,
     endingDifficulty: string,
-    timer: number,
+    time: number,
     roomCode: string,
 }
 

@@ -116,6 +116,10 @@ body {
     cursor: pointer;
 }
 
+.numberPicker:disabled {
+  background: #376690;
+}
+
 svg {
     /* position: absolute; */
     display: block;
@@ -126,7 +130,7 @@ svg {
     /* height: 80%; */
   }
   path {
-    stroke: #09151b;
+    stroke: #124E83;
     stroke-linecap:round;
     stroke-width: 42;
     fill:none;
@@ -134,6 +138,7 @@ svg {
   #sec {
     stroke: #6f7f24;
     stroke-width: 20;
+    transform: rotate(30deg);
   }
 
   .time-selector {

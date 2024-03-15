@@ -1,11 +1,14 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { InitialState } from '../../store/initialState';
+import { updateTime } from '../../store/actions';
 
 export function  Slider(){
-    const [time, setTime] = useState(10);
+    const time = useSelector((state: InitialState) => state.form.time);
+    const dispatch = useDispatch();
 
     const handleChange = (event: any) => {
-        setTime(event.target.value);
+        dispatch(updateTime(event.target.value));
     }
 
   return (
