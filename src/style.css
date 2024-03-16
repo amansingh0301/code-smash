@@ -1,6 +1,9 @@
+html {
+  background-color: #376690;
+}
+
 body {
     box-sizing: border-box;
-    background-color: #376690;
     color: aliceblue;
 }
 
@@ -18,6 +21,10 @@ body {
     border-radius: 100%;
     align-items: center;
     
+}
+
+.footer {
+  height: 200rem;
 }
 
 .logo {
@@ -61,10 +68,6 @@ body {
     padding: 1rem;
 }
 
-.label {
-    opacity: 80%;
-}
-
 .input {
     margin-top: 0.3rem;
     margin-bottom: 1.5rem;
@@ -75,7 +78,7 @@ body {
     color: #434343 ;
     width: 100%;
     max-width: 80%;
-    border: 0;
+    border: none;
 }
 
 .picker {
@@ -179,11 +182,11 @@ svg {
   }
 
   .range-slider__range::-webkit-slider-thumb:hover {
-    background: #1abc9c;
+    background: #124E83;
   }
 
   .range-slider__range:active::-webkit-slider-thumb {
-    background: #1abc9c;
+    background: #124E83;
   }
 
   .range-slider__range::-moz-range-thumb {
@@ -199,29 +202,27 @@ svg {
   }
 
   .range-slider__range::-moz-range-thumb:hover {
-    background: #1abc9c;
+    background: #124E83;
   }
 
   .range-slider__range:active::-moz-range-thumb {
-    background: #1abc9c;
+    background: #124E83;
   }
 
   .range-slider__range:focus::-webkit-slider-thumb {
     box-shadow: 0 0 0 3px #fff,
-                0 0 0 6px #1abc9c;
+                0 0 0 6px #124E83;
   }
   
   .range-slider__value {
     display: inline-block;
-    position: relative;
     width: 60px;
     color: #fff;
     line-height: 20px;
     text-align: center;
     border-radius: 3px;
     background: #2c3e50;
-    padding: 5px 10px;
-    margin-left: 8px;
+    padding: 5px;
   }
 
   .range-slider__value:after {
@@ -244,4 +245,26 @@ svg {
   input::-moz-focus-inner,
   input::-moz-focus-outer { 
     border: 0; 
+  }
+
+  .submit {
+    font-size: inherit;
+    border-radius: 8px;
+    padding: 0.2rem 2rem;
+    border: 2px solid #124E83;
+    /* border-width: 2px;
+    border-color: #124E83; */
+    background: #124E83;
+    color: aliceblue;  
+    transition: border 0 ease;
+  }
+
+  .submit:hover{
+    cursor: pointer;
+    border: 2px solid #d7dcdf;
+    background: none;
+  }
+
+  .submit:active {
+    transform: translateY(2px);
   }
