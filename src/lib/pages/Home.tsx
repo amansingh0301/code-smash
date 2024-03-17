@@ -4,7 +4,9 @@ import { Clock, Input, Label, NumberPicker } from '../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { InitialState } from '../../store/initialState';
 import { updateName } from '../../store/actions';
+import { useNavigate } from 'react-router-dom';
 export function Home() {
+    const navigate = useNavigate();
     const name = useSelector((state: InitialState) => state.form.name);
     const dispatch = useDispatch();
     const nameRef = useRef(null)
@@ -23,6 +25,8 @@ export function Home() {
             } else {
                 console.error('nameRef is not attached to a DOM element yet.');
             }
+        }else{
+            navigate('/contest');
         }
     }
     return (
@@ -34,7 +38,8 @@ export function Home() {
                 <NumberPicker/>
             </div>
             <Clock/>
-            <button className='submit' onClick={handleStart}>Start</button>
+                <button className='submit' onClick={handleStart}>Start</button>
+            {/* </Link> */}
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 export function Contest() {
     return (
-        <div>
+        <div className='contest-page'>
             Contest Page
         </div>
     )

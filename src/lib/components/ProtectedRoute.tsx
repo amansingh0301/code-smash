@@ -13,13 +13,12 @@ export function ProtectedRoute({children}: ProtectedRouteProps){
     useEffect(() => {
         setTimeout(()=>{
             setNavigate(true);
-        },10000)
+        },1000)
     },[])
 
     return (
-        <div>
-        {navigate && <Navigate to="/" />}
-        <header>Loading</header>
-        </div>
+        <>
+        {children}
+        </>
     )
 }
