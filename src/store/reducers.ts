@@ -5,9 +5,12 @@ import { InitialContestState, InitialFormState } from "./initialState";
 const initialFormState: InitialFormState = {
     name: '',
     questions: 5,
+    maxQuestions: 120,
     startingDifficulty: '',
     endingDifficulty: '',
     time: 1,
+    minimumTime: 1,
+    maximumTime: 60,
     roomCode: '',
 
 };

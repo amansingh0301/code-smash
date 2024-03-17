@@ -13,7 +13,7 @@ export function Home() {
     }
 
     const handleStart = (event: React.MouseEvent<HTMLButtonElement>) => {
-        if(!name){
+        if(!name.trim()){
             if (nameRef.current) {
                 const inputElement = nameRef.current as HTMLInputElement; 
                 inputElement.scrollIntoView({ behavior: "smooth", block: 'center', inline: 'center' });

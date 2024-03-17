@@ -1,9 +1,12 @@
 export interface InitialFormState {
     name: string,
     questions: number,
+    maxQuestions: number,
     startingDifficulty: string,
     endingDifficulty: string,
     time: number,
+    minimumTime: number,
+    maximumTime: number,
     roomCode: string,
 }
 

@@ -5,6 +5,8 @@ import { updateTime } from '../../store/actions';
 
 export function  Slider(){
     const time = useSelector((state: InitialState) => state.form.time);
+    const minimumTime = useSelector((state: InitialState) => state.form.minimumTime);
+    const maximumTime = useSelector((state: InitialState) => state.form.maximumTime);
     const dispatch = useDispatch();
 
     const handleChange = (event: any) => {
@@ -13,7 +15,7 @@ export function  Slider(){
 
   return (
     <div className="range-slider">
-        <input className="range-slider__range" type="range" value={time} min="5" max="60" onChange={handleChange}/>
+        <input className="range-slider__range" type="range" value={time} min={minimumTime} max={maximumTime} onChange={handleChange}/>
         <span className="range-slider__value">{time}</span>
     </div>
   );

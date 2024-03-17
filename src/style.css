@@ -1,10 +1,20 @@
+
 html {
-  background-color: #376690;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    #5c8eb9 0%,
+    rgb(217, 237, 250) 50%,
+    rgb(217, 237, 250) 50%,
+    #5c8eb9 100%
+  );
+  background-repeat: no-repeat;
 }
 
 body {
     box-sizing: border-box;
     color: aliceblue;
+    font-size: 1.7rem;
+    margin: 0;
 }
 
 .header {
@@ -24,8 +34,18 @@ body {
 }
 
 .footer {
-  height: 200rem;
-}
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    height: 6rem;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #124E83;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    font-size: inherit;
+  }
 
 .logo {
     flex: 1;
@@ -47,7 +67,6 @@ body {
     flex: 1;
     display: flex;
     justify-content: center;
-    font-size: 1.7rem;
 }
 
 .home {
@@ -57,7 +76,6 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 2rem;
-    font-size: 1.7rem;
 }
 
 .form {
@@ -124,13 +142,11 @@ body {
 }
 
 svg {
-    /* position: absolute; */
     display: block;
     top: 10%;
     width: 10%;
     max-width: 20rem;
     min-width: 10rem;
-    /* height: 80%; */
   }
   path {
     stroke: #124E83;
@@ -164,7 +180,7 @@ svg {
     width: calc(100% - ( 60px + 13px));
     height: 10px;
     border-radius: 5px;
-    background:#d7dcdf;
+    background:#6f7f24;
     outline: none;
     padding: 0;
     /* margin: 0 auto; */
@@ -224,18 +240,6 @@ svg {
     background: #2c3e50;
     padding: 5px;
   }
-
-  .range-slider__value:after {
-    position: absolute;
-    top: 8px;
-    left: 7px;
-    width: 0;
-    height: 0;
-    border-top: 7px solid transparent;
-    border-right: 7px solid #2c3e50;
-    border-bottom: 7px solid transparent;
-    content: '';
-  }
   
   ::-moz-range-track {
       background: #d7dcdf;
@@ -252,8 +256,6 @@ svg {
     border-radius: 8px;
     padding: 0.2rem 2rem;
     border: 2px solid #124E83;
-    /* border-width: 2px;
-    border-color: #124E83; */
     background: #124E83;
     color: aliceblue;  
     transition: border 0 ease;
@@ -273,6 +275,10 @@ svg {
     .header {
       height: 4rem;
     }
+    .footer {
+      height: 3rem;
+      font-size: 1.3rem;
+    }
     .about {
       font-size: 1.3rem;
     }
@@ -288,11 +294,13 @@ svg {
     .form {
       width: 90%;
       border-radius: 10px;
+      /* margin: 1rem; */
     }
   }
 
-  @media screen and (orientation: landscape) {
+  @media screen and (orientation: landscape) and (max-width: 768px) {
     .home {
-      margin-top: 10rem;
+      height: 150vh;
+      margin-top: 5rem
     }
   }
