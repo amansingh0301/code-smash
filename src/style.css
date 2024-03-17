@@ -268,3 +268,31 @@ svg {
   .submit:active {
     transform: translateY(2px);
   }
+
+  @media screen and (max-width: 768px) {
+    .header {
+      height: 4rem;
+    }
+    .about {
+      font-size: 1.3rem;
+    }
+    .logo__image {
+      width: 3rem;
+      height: 3rem;
+    }
+    .home {
+      height: 100vh;
+      gap: 1rem;
+      font-size: 1.3rem;
+    }
+    .form {
+      width: 90%;
+      border-radius: 10px;
+    }
+  }
+
+  @media screen and (orientation: landscape) {
+    .home {
+      margin-top: 10rem;
+    }
+  }
