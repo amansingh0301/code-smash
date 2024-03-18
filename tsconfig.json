@@ -10,7 +10,7 @@
       "types": ["react-redux"],
       "moduleResolution": "NodeNext"
     },
-    "include": ["src/**/*.ts", "src/**/*.tsx"],
+    "include": ["src/**/*.ts", "src/**/*.tsx", "server/**/*.ts"],
     "exclude": ["node_modules", "**/*.spec.ts"] // Exclude test files
   }
   
