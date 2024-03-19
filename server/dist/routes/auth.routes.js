@@ -12,7 +12,7 @@ class AuthenticationRoutes {
         this.handleToken = this.handleToken.bind(this);
     }
     createRoutes() {
-        this.router.post('/token', middlewares_1.tokenInputValidator, this.handleToken);
+        this.router.post('/token', (0, middlewares_1.tokenInputValidator)(middlewares_1.tokenInputs), this.handleToken);
         return this.router;
     }
     handleToken(request, response) {

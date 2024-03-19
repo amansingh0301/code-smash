@@ -14,7 +14,4 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.tokenInputValidator = void 0;
-__exportStar(require("./inputs"), exports);
-const tokenInput_validation_1 = require("./tokenInput.validation");
-exports.tokenInputValidator = new tokenInput_validation_1.TokenInputValidator().validateInput;
+__exportStar(require("./CONSTANTS"), exports);
