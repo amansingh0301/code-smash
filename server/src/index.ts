@@ -1,20 +1,5 @@
-import express from 'express'
-import { authRoutes } from "./routes";
-import dotenv from 'dotenv';
-dotenv.config();
+import { App } from "./application";
 
-const app = express();
-
-app.use('/',express.static('build'));
-
-app.use('/auth', authRoutes);
-
-app.get('/health',(rea,res) => {
-    console.log('received');
-    res.send('ok');
-})
-
-const port = process.env.PORT || 8080;
-app.listen(port,()=>{
-    console.log(`server-started ${port}`);
-})
+new App().start(process.env.PORT || '8080')
+.then(port => console.log(`server started on ${port}`))
+.catch(err => console.log(err));
