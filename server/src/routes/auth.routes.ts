@@ -1,6 +1,7 @@
 import express, { Request, Response, Router } from 'express';
 import { IRoute } from "../interfaces";
-import { tokenInputValidator } from '../middlewares';
+import { tokenInputValidator, tokenInputs } from '../middlewares';
+import { body } from 'express-validator';
 
 export class AuthenticationRoutes implements IRoute {
     private router: Router;
@@ -10,7 +11,7 @@ export class AuthenticationRoutes implements IRoute {
     }
     
     createRoutes(): Router {
-        this.router.post('/token',tokenInputValidator,this.handleToken);
+        this.router.post('/token',tokenInputValidator(tokenInputs),this.handleToken);
         return this.router;
     }
 

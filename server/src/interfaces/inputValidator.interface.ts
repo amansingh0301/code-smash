@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
+import { ContextRunner } from "express-validator";
 
 export interface IInputValidator {
-    validateInput(req: Request, res: Response, next: () => void): Promise<void> | void;
+    validateInput(validations: ContextRunner[]): void;
 }
