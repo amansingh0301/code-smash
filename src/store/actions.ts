@@ -1,4 +1,4 @@
-import { Store } from "@reduxjs/toolkit"
+import { createAsyncThunk } from "@reduxjs/toolkit"
 import { CONSTANTS } from "../utils/CONSTANTS"
 
 export const updateName = (name: string) => {
@@ -42,3 +42,26 @@ export const updateNoOfQuestions= (questions: number) => {
         payload: questions
     }
 }
+
+export const toggleLoading = () => {
+    return {
+        type: CONSTANTS.TOGGLE_LOADING
+    }
+}
+
+export const fetchData = createAsyncThunk(
+    'data/fetch', // Action type string
+    async ( _, { dispatch } ) => {
+        try{
+            dispatch(toggleLoading());
+            const response = await fetch('/health');
+            const data = await response.json();
+            dispatch(toggleLoading());
+            return data;
+        }catch(err){
+            dispatch(toggleLoading());
+            console.log(err);
+        }
+    }
+  );
+  

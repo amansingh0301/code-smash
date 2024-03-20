@@ -1,6 +1,7 @@
 
-import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import { ThunkDispatch, combineReducers, configureStore } from '@reduxjs/toolkit'
 import { contestReducer, formReducer } from './reducers';
+import { fetchData } from './actions';
 
 const rootReducer = combineReducers({
     form: formReducer,
@@ -8,7 +9,9 @@ const rootReducer = combineReducers({
   });
 
 export const store = configureStore({
-  reducer: rootReducer
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware()
 });
 
+const dispatch = store.dispatch as ThunkDispatch<any, any, any>;
 

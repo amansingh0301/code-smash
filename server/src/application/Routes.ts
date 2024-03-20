@@ -17,7 +17,8 @@ export class Routes {
 
         //custom routes for healthcheck and metrics
         server.get('/health', (req: Request, res: Response) => {
-            res.send('OK');
+            console.log('request received')
+            res.json('health ok');
         })
 
         server.use(errorMiddleware);

@@ -8,6 +8,7 @@ export interface InitialFormState {
     minimumTime: number,
     maximumTime: number,
     roomCode: string,
+    toggleLoading: boolean
 }
 
 export interface InitialContestState {

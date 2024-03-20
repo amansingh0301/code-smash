@@ -271,6 +271,60 @@ svg {
     transform: translateY(2px);
   }
 
+  .loading {
+    z-index: 1;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    opacity: 70%;
+    background-color: rgb(212, 228, 243);
+  }
+
+  .loader {
+    width: 2rem;
+    height: 2rem;
+    display: block;
+    color: #124E83;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+  }
+  .loader::after,
+  .loader::before {
+    content: '';  
+    box-sizing: border-box;
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    top: 50%;
+    left: 50%;
+    transform: scale(0.5) translate(0, 0);
+    background-color: #124E83;
+    border-radius: 50%;
+    animation: animloader 1s infinite ease-in-out;
+  }
+  .loader::before {
+    background-color: #6f7f24;
+    transform: scale(0.5) translate(-48px, -48px);
+  }
+  
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  } 
+  @keyframes animloader {
+    50% {
+      transform: scale(1) translate(-50%, -50%);
+    }
+  }
+
+  
   @media screen and (max-width: 768px) {
     .header {
       height: 4rem;

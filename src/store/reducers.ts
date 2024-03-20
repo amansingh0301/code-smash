@@ -12,6 +12,7 @@ const initialFormState: InitialFormState = {
     minimumTime: 1,
     maximumTime: 60,
     roomCode: '',
+    toggleLoading: false
 
 };
 
@@ -29,9 +30,11 @@ export function formReducer(state = initialFormState, action: any) {
     case CONSTANTS.STARTING_DIFFICULTY:
       return { ...state, startingDifficulty: action.payload };
     case CONSTANTS.UPDATE_TIME: 
-      return { ...state, time: action.payload}
+      return { ...state, time: action.payload }
     case CONSTANTS.UPDATE_NUMBER_OF_QUESTIONS: 
-      return { ...state, questions: action.payload}
+      return { ...state, questions: action.payload }
+    case CONSTANTS.TOGGLE_LOADING: 
+      return { ...state, toggleLoading: !state.toggleLoading }
     default:
       return state;
   }
