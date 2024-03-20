@@ -1,5 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { CONSTANTS } from "../utils/CONSTANTS"
+import { prepareTokenBody } from "../utils"
+import { InitialState } from "./initialState"
 
 export const updateName = (name: string) => {
     return {
@@ -51,13 +53,26 @@ export const toggleLoading = () => {
 
 export const fetchData = createAsyncThunk(
     'data/fetch', // Action type string
-    async ( _, { dispatch } ) => {
+    async ( _, thunkAPI ) => {
+        const dispatch = thunkAPI.dispatch;
+        const state: InitialState = thunkAPI.getState() as InitialState;
         try{
+            
             dispatch(toggleLoading());
-            const response = await fetch('/health');
-            const data = await response.json();
+            const tokenResponse = await fetch('/auth/token', {
+                method: 'POST',
+                body: prepareTokenBody(state.form),
+                headers: {
+                    'content-type': 'application/json'
+                }
+            });
+            const data = await tokenResponse.json();
+            const verifyResponse = await fetch('/auth/verify',{
+                method: 'POST'
+            });
+            const response = await verifyResponse.json();
             dispatch(toggleLoading());
-            return data;
+            return response;
         }catch(err){
             dispatch(toggleLoading());
             console.log(err);

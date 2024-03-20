@@ -6,14 +6,23 @@ dotenv.config();
 export class AppConfig {
     private port: string | undefined;
     private jsonurl: string | undefined;
+    private secret: string | undefined;
 
     constructor() {
         this.port = process.env.PORT;
         this.jsonurl = process.env.jsonurl;
+        this.secret = process.env.secret
     }
 
     getPort() {
         return this.port ? this.port : '8080';
+    }
+
+    getSecret() {
+        if(this.secret)   
+            return this.secret;
+        
+        throw new ConfigAbsentError(CONSTANTS.SECRET_ABSENT);
     }
 
     getJsonurl() {

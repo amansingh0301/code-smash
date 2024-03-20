@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser'
 const path = require('path');
 import { authRoutes } from '../routes';
 import { errorMiddleware } from '../middlewares';
@@ -10,6 +11,7 @@ export class Routes {
 
         server.use(bodyParser.json());
         server.use(bodyParser.urlencoded({ extended: true }))
+        server.use(cookieParser());
         server.use('/',express.static(path.join(__dirname,'../../build')));
 
         //All features routes
