@@ -11,8 +11,9 @@ dotenv_1.default.config();
 class AppConfig {
     constructor() {
         this.port = process.env.PORT;
-        this.jsonurl = process.env.jsonurl;
         this.secret = process.env.secret;
+        this.mongodb_uri = process.env.mongodb_uri;
+        this.db = process.env.db;
     }
     getPort() {
         return this.port ? this.port : '8080';
@@ -22,10 +23,15 @@ class AppConfig {
             return this.secret;
         throw new errors_1.ConfigAbsentError(utils_1.CONSTANTS.SECRET_ABSENT);
     }
-    getJsonurl() {
-        if (this.jsonurl)
-            return this.jsonurl;
-        throw new errors_1.ConfigAbsentError(utils_1.CONSTANTS.JSON_URL_ABSENT_MESSAGE);
+    getMonogdb_uri() {
+        if (this.mongodb_uri)
+            return this.mongodb_uri;
+        throw new errors_1.ConfigAbsentError(utils_1.CONSTANTS.MONGODB_URI_ABSENT);
+    }
+    getDbName() {
+        if (this.db)
+            return this.db;
+        throw new errors_1.ConfigAbsentError(utils_1.CONSTANTS.DB_NAME_ABSENT);
     }
 }
 exports.AppConfig = AppConfig;

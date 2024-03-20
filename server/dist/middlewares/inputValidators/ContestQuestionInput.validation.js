@@ -9,18 +9,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ContestServiceInterface = void 0;
-const clients_1 = require("../clients");
-const utils_1 = require("../utils");
-class ContestServiceInterface {
-    getQuestions(contestQuestion, config) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const numberOfQuestions = contestQuestion.questions;
-            const collectionName = contestQuestion.type;
-            const totalDocuments = yield clients_1.dbClient.getTotalDocuments(collectionName);
-            const generatedQuestionNumbers = (0, utils_1.generateUniquePositiveNumbers)(numberOfQuestions, totalDocuments);
-            return yield clients_1.dbClient.getQuestions(generatedQuestionNumbers, collectionName);
+exports.FetchQuestionsInputValidator = void 0;
+const express_validator_1 = require("express-validator");
+const errors_1 = require("../../errors");
+class FetchQuestionsInputValidator {
+    validateInput(validations) {
+        return (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            for (let validation of validations) {
+                yield validation.run(req);
+            }
+            const errors = (0, express_validator_1.validationResult)(req);
+            if (!errors.isEmpty()) {
+                return next(new errors_1.InvalidInputError('Input field error', errors.array()));
+            }
+            return next();
         });
     }
+    ;
 }
-exports.ContestServiceInterface = ContestServiceInterface;
+exports.FetchQuestionsInputValidator = FetchQuestionsInputValidator;

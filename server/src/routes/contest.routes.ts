@@ -1,6 +1,6 @@
 import express, { Request, Response, Router } from 'express';
 import { IRoute } from "../interfaces";
-import { tokenValidator } from '../middlewares';
+import { contestQuestionInputInputValidator, fetchQuestionsInputs, tokenValidator } from '../middlewares';
 import { contestHandler } from '../handlers';
 
 export class ContestRoutes implements IRoute {
@@ -11,7 +11,7 @@ export class ContestRoutes implements IRoute {
     }
     
     createRoutes(): Router {
-        this.router.post('/questions',tokenValidator,this.handleQuestion);
+        this.router.post('/questions',contestQuestionInputInputValidator(fetchQuestionsInputs), tokenValidator,this.handleQuestion);
         return this.router;
     }
 

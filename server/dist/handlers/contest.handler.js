@@ -20,7 +20,7 @@ class ContestHandler {
             const config = configs_1.appConfig;
             //getServiceInterface and mappers
             //call service Interface
-            const svcResponse = yield service_interface_1.contestServiceInterface.getQuestions(request.body.questions, config);
+            const svcResponse = yield service_interface_1.contestServiceInterface.getQuestions(request.body, config);
             //call mapper with response from service Interface
             return response_mappers_1.contestMapper.mapQuestions(svcResponse);
         });

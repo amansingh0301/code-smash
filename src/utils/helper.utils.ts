@@ -6,8 +6,9 @@ export const prepareTokenBody = (form: any) => {
     })
 }
 
-export const prepareGetQuestionsBody = (form: any) => {
+export const prepareContestQuestionsBody = (form: any) => {
     return JSON.stringify({
-        questions: form.questions
+        questions: form.questions,
+        type: 'GK'
     })
 }

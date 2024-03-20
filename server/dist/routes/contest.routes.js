@@ -22,7 +22,7 @@ class ContestRoutes {
         this.handleQuestion = this.handleQuestion.bind(this);
     }
     createRoutes() {
-        this.router.post('/questions', middlewares_1.tokenValidator, this.handleQuestion);
+        this.router.post('/questions', (0, middlewares_1.contestQuestionInputInputValidator)(middlewares_1.fetchQuestionsInputs), middlewares_1.tokenValidator, this.handleQuestion);
         return this.router;
     }
     handleQuestion(request, response) {

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { CONSTANTS } from "../utils/CONSTANTS"
-import { prepareGetQuestionsBody, prepareTokenBody } from "../utils"
+import { prepareContestQuestionsBody, prepareTokenBody } from "../utils"
 import { InitialState } from "./initialState"
 
 export const updateName = (name: string) => {
@@ -88,13 +88,14 @@ export const fetchToken = createAsyncThunk(
         try{
             const response = await fetch('/contest/questions', {
                 method: 'POST',
-                body: prepareGetQuestionsBody(state.form),
+                body: prepareContestQuestionsBody(state.form),
                 headers: {
                     'content-type': 'application/json'
                 }
             });
             const questionsList = await response.json();
             dispatch(updateQuestionsList(questionsList));
+            dispatch(toggleLoading());
         }catch(err){
             dispatch(toggleLoading());
             console.log(err);

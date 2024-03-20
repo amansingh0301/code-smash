@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ContestMapper = void 0;
 class ContestMapper {
     mapQuestions(svcResponse) {
-        return svcResponse.map(idx => idx + 2);
+        return svcResponse;
     }
 }
 exports.ContestMapper = ContestMapper;

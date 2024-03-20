@@ -1,5 +1,7 @@
+import { ObjectId } from "mongodb";
+
 export class ContestMapper {
-    mapQuestions(svcResponse: number[]) {
-        return svcResponse.map(idx => idx+2);
+    mapQuestions(svcResponse: (ObjectId | undefined)[]) {
+        return svcResponse;
     }
 }
