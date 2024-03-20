@@ -3,14 +3,14 @@ import { useRef } from 'react';
 import { Clock, Input, Label, NumberPicker } from '../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { InitialState } from '../../store/initialState';
-import { fetchData, updateName } from '../../store/actions';
+import { fetchToken, updateName } from '../../store/actions';
 import { useNavigate } from 'react-router-dom';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 export function Home() {
     const navigate = useNavigate();
     const name = useSelector((state: InitialState) => state.form.name);
     const toggleLoading = useSelector((state: InitialState) => state.form.toggleLoading);
-    const dispatch = useDispatch() as ThunkDispatch<any, any, any>;;
+    const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
     const nameRef = useRef(null)
     const handleOnNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(updateName(event.target.value));
@@ -28,7 +28,7 @@ export function Home() {
                 console.error('nameRef is not attached to a DOM element yet.');
             }
         }else{
-            await dispatch(fetchData());
+            await dispatch(fetchToken());
             navigate('/contest');
         }
     }

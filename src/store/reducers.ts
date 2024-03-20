@@ -12,7 +12,7 @@ const initialFormState: InitialFormState = {
     minimumTime: 1,
     maximumTime: 60,
     roomCode: '',
-    toggleLoading: false
+    toggleLoading: false,
 
 };
 
@@ -20,7 +20,8 @@ const initialContestState: InitialContestState = {
     score: 0,
     opponentScore: 0,
     totalAttempt: 0,
-    successfulAttempt: 0
+    successfulAttempt: 0,
+    questionsList: []
 };
 
 export function formReducer(state = initialFormState, action: any) {
@@ -46,6 +47,8 @@ export function contestReducer(state = initialContestState, action: any) {
         return { ...state, score: state.score + action.payload };
       case CONSTANTS.UPDATE_OPPONENT_SCORE:
         return { ...state, opponentScore: state.score + action.payload };
+      case CONSTANTS.UPDATE_QUESTIONS_LIST:
+        return { ...state, questionsList: action.payload };
       default:
         return state;
     }

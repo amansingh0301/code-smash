@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { CONSTANTS } from "../utils/CONSTANTS"
-import { prepareTokenBody } from "../utils"
+import { prepareGetQuestionsBody, prepareTokenBody } from "../utils"
 import { InitialState } from "./initialState"
 
 export const updateName = (name: string) => {
@@ -51,32 +51,54 @@ export const toggleLoading = () => {
     }
 }
 
-export const fetchData = createAsyncThunk(
+export const updateQuestionsList = (questions: number[]) => {
+    return {
+        type: CONSTANTS.UPDATE_QUESTIONS_LIST,
+        payload: questions
+    }
+}
+
+export const fetchToken = createAsyncThunk(
     'data/fetch', // Action type string
     async ( _, thunkAPI ) => {
         const dispatch = thunkAPI.dispatch;
         const state: InitialState = thunkAPI.getState() as InitialState;
         try{
-            
             dispatch(toggleLoading());
-            const tokenResponse = await fetch('/auth/token', {
+            await fetch('/auth/token', {
                 method: 'POST',
                 body: prepareTokenBody(state.form),
                 headers: {
                     'content-type': 'application/json'
                 }
             });
-            const data = await tokenResponse.json();
-            const verifyResponse = await fetch('/auth/verify',{
-                method: 'POST'
-            });
-            const response = await verifyResponse.json();
-            dispatch(toggleLoading());
-            return response;
+            dispatch(fetchQuestionsList());
         }catch(err){
             dispatch(toggleLoading());
             console.log(err);
         }
     }
   );
+
+  export const fetchQuestionsList = createAsyncThunk(
+    'data/fetch',
+    async ( _, thunkAPI ) => {
+        const dispatch = thunkAPI.dispatch;
+        const state: InitialState = thunkAPI.getState() as InitialState;
+        try{
+            const response = await fetch('/contest/questions', {
+                method: 'POST',
+                body: prepareGetQuestionsBody(state.form),
+                headers: {
+                    'content-type': 'application/json'
+                }
+            });
+            const questionsList = await response.json();
+            dispatch(updateQuestionsList(questionsList));
+        }catch(err){
+            dispatch(toggleLoading());
+            console.log(err);
+        }
+    }
+  )
   

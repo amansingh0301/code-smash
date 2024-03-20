@@ -8,14 +8,15 @@ export interface InitialFormState {
     minimumTime: number,
     maximumTime: number,
     roomCode: string,
-    toggleLoading: boolean
+    toggleLoading: boolean,
 }
 
 export interface InitialContestState {
     score: number,
     opponentScore: number,
     totalAttempt: number,
-    successfulAttempt: number
+    successfulAttempt: number,
+    questionsList: number[]
 }
 
 export interface InitialState {
