@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Routes = void 0;
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const path = require('path');
 const routes_1 = require("../routes");
 const middlewares_1 = require("../middlewares");
@@ -13,12 +14,15 @@ class Routes {
     constructor(server) {
         server.use(body_parser_1.default.json());
         server.use(body_parser_1.default.urlencoded({ extended: true }));
+        server.use((0, cookie_parser_1.default)());
         server.use('/', express_1.default.static(path.join(__dirname, '../../build')));
         //All features routes
         server.use('/auth', routes_1.authRoutes);
+        server.use('/contest', routes_1.contestRoutes);
         //custom routes for healthcheck and metrics
         server.get('/health', (req, res) => {
-            res.send('OK');
+            console.log('request received');
+            res.json('health ok');
         });
         server.use(middlewares_1.errorMiddleware);
     }

@@ -12,9 +12,15 @@ class AppConfig {
     constructor() {
         this.port = process.env.PORT;
         this.jsonurl = process.env.jsonurl;
+        this.secret = process.env.secret;
     }
     getPort() {
         return this.port ? this.port : '8080';
+    }
+    getSecret() {
+        if (this.secret)
+            return this.secret;
+        throw new errors_1.ConfigAbsentError(utils_1.CONSTANTS.SECRET_ABSENT);
     }
     getJsonurl() {
         if (this.jsonurl)
