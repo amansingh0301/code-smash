@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { CONSTANTS } from "../utils/CONSTANTS"
-import { prepareContestQuestionsBody, prepareGetQuestionBody, prepareTokenBody } from "../utils"
-import { InitialState, Question } from "./initialState"
+import { getNextQuestionId, prepareContestQuestionsBody, prepareGetQuestionBody, prepareTokenBody, preparecheckAnswerBody } from "../utils"
+import { InitialState, Question, Verdict } from "./initialState"
 
 export const updateName = (name: string) => {
     return {
@@ -51,16 +51,17 @@ export const toggleLoading = () => {
     }
 }
 
-export const updateQuestionsList = (questions: number[]) => {
+export const updateQuestionsList = (questions: string[]) => {
     return {
         type: CONSTANTS.UPDATE_QUESTIONS_LIST,
         payload: questions
     }
 }
 
-export const updateCurrentQuestionId = () => {
+export const updateCurrentQuestionId = (questionId: string) => {
     return {
         type: CONSTANTS.UPDATE_CURRENT_QUESTION_ID,
+        payload: questionId
     }
 }
 
@@ -88,6 +89,20 @@ export const updateSelectedOption = (option: string) => {
     return {
         type: CONSTANTS.UPDATE_SELCTED_OPTION,
         payload: option
+    }
+}
+
+export const updateVerdict = (verdict: Verdict) => {
+    return {
+        type: CONSTANTS.UPDATE_VERDICT,
+        payload: verdict
+    }
+}
+
+export const updateIsLast = (isLast: boolean) => {
+    return {
+        type: CONSTANTS.UPDATE_IS_LAST,
+        payload: isLast
     }
 }
 
@@ -127,9 +142,8 @@ export const fetchToken = createAsyncThunk(
                 }
             });
             const questionsList = await response.json();
-            dispatch(updateQuestionsList(questionsList));
             dispatch(toggleLoading());
-            dispatch(updateCurrentQuestionId());
+            dispatch(updateQuestionsList(questionsList));
         }catch(err){
             dispatch(toggleLoading());
             console.log(err);
@@ -153,6 +167,30 @@ export const fetchToken = createAsyncThunk(
             });
             const question = await response.json();
             dispatch(updateCurrentQuestion(question));
+            dispatch(toggleLoading());
+        }catch(err){
+            dispatch(toggleLoading());
+            console.log(err);
+        }
+    }
+  )
+
+  export const checkAnswer = createAsyncThunk(
+    'data/fetch',
+    async ( _, thunkAPI ) => {
+        const dispatch = thunkAPI.dispatch;
+        const state: InitialState = thunkAPI.getState() as InitialState;
+        try{
+            dispatch(toggleLoading());
+            const response = await fetch('/contest/check', {
+                method: 'POST',
+                body: preparecheckAnswerBody(state),
+                headers: {
+                    'content-type': 'application/json'
+                }
+            });
+            const verdict = await response.json();
+            dispatch(updateVerdict(verdict));
             dispatch(toggleLoading());
         }catch(err){
             dispatch(toggleLoading());

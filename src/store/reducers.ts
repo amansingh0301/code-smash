@@ -25,7 +25,13 @@ const initialContestState: InitialContestState = {
       options: []
     },
     selectedOption: '',
-    contestType: 'GK'
+    contestType: 'GK',
+    verdict: {
+      correct: false,
+      answer: '',
+      explanation: ''
+    },
+    isLastQuestion: false
 };
 
 export function formReducer(state = initialFormState, action: any) {
@@ -50,7 +56,7 @@ export function contestReducer(state = initialContestState, action: any) {
       case CONSTANTS.UPDATE_QUESTIONS_LIST:
         return { ...state, questionsList: action.payload };
       case CONSTANTS.UPDATE_CURRENT_QUESTION_ID:
-        return { ...state, currentQuestionId: getNextQuestionId(state.questionsList, state.currentQuestionId) };
+        return { ...state, currentQuestionId: action.payload };
       case CONSTANTS.UPDATE_CURRENT_QUESTION:
         return { ...state, currentQuestion: action.payload };
       case CONSTANTS.RESET:
@@ -59,6 +65,10 @@ export function contestReducer(state = initialContestState, action: any) {
         return { ...state, contestType: action.payload };
       case CONSTANTS.UPDATE_SELCTED_OPTION:
         return { ...state, selectedOption: action.payload };
+      case CONSTANTS.UPDATE_VERDICT:
+        return { ...state, verdict: action.payload };
+      case CONSTANTS.UPDATE_IS_LAST:
+        return { ...state, isLastQuestion: action.payload };
       default:
         return state;
     }

@@ -26,6 +26,15 @@ export const prepareGetQuestionBody = (state: InitialState) => {
     })
 }
 
+export const preparecheckAnswerBody = (state: InitialState) => {
+    const contest = state.contest;
+    return JSON.stringify({
+        questionId: contest.currentQuestionId,
+        selectedOption: contest.selectedOption,
+        type: contest.contestType
+    })
+}
+
 export const getNextQuestionId = (questionsList: string[], currentQuestionId: string) => {
 
     if(!currentQuestionId)
@@ -36,4 +45,12 @@ export const getNextQuestionId = (questionsList: string[], currentQuestionId: st
         return '-1';
 
     return questionsList[nextQuestionIdIndex];
+}
+
+export const isLastQuestion = (questionsList: string[], nextQuestionId: string) => {
+    const nextQuestionIdIndex = questionsList.indexOf(nextQuestionId);
+    if(nextQuestionIdIndex === questionsList.length-1) 
+        return true;
+
+    return false;
 }

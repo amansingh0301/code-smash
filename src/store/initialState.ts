@@ -3,6 +3,12 @@ export interface Question {
     options: string[];
 }
 
+export interface Verdict {
+    correct: boolean,
+    answer: string,
+    explanation: string
+}
+
 export interface InitialFormState {
     name: string,
     questions: number,
@@ -21,7 +27,9 @@ export interface InitialContestState {
     currentQuestionId: string,
     currentQuestion: Question,
     selectedOption: string,
-    contestType: string
+    contestType: string,
+    verdict: Verdict,
+    isLastQuestion: boolean
 }
 
 export interface InitialState {
