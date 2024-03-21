@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { appConfig } from "../configs";
 import { GKQuestions } from "../models";
+import { QuestionNotFoundError } from "../errors";
 
 export class DBClient {
     private client: MongoClient;
@@ -58,8 +59,18 @@ export class DBClient {
     async getQuestions(questionNumbers: number[], collectionName: string) {
         const collection = this.db.collection(collectionName);
 
-        const cursor = collection.find({ questionNo: { $in: questionNumbers } }); // Filter by questionNo
+        const cursor = collection.find({ questionNo: { $in: questionNumbers } });
         const filteredDocuments = await cursor.toArray();
         return filteredDocuments.map((document: GKQuestions) => document._id);
+    }
+
+    async getQuestion(questionId: string, collectionName: string) {
+        const objectId = new ObjectId(questionId);
+        const collection = this.db.collection(collectionName);
+        const document = await collection.findOne({ _id: objectId });
+        if(!document){
+            throw new QuestionNotFoundError(`Question with ${questionId} not found`);
+        }
+        return document;
     }
 }

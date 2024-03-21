@@ -1,3 +1,4 @@
+import { getNextQuestionId } from "../utils";
 import { CONSTANTS } from "../utils/CONSTANTS";
 import { InitialContestState, InitialFormState } from "./initialState";
 
@@ -17,11 +18,12 @@ const initialFormState: InitialFormState = {
 };
 
 const initialContestState: InitialContestState = {
-    score: 0,
-    opponentScore: 0,
-    totalAttempt: 0,
-    successfulAttempt: 0,
-    questionsList: []
+    questionsList: [],
+    currentQuestionId: '',
+    currentQuestion: {
+      question: '',
+      options: []
+    }
 };
 
 export function formReducer(state = initialFormState, action: any) {
@@ -43,12 +45,14 @@ export function formReducer(state = initialFormState, action: any) {
 
 export function contestReducer(state = initialContestState, action: any) {
     switch (action.type) {
-      case CONSTANTS.UPDATE_SCORE:
-        return { ...state, score: state.score + action.payload };
-      case CONSTANTS.UPDATE_OPPONENT_SCORE:
-        return { ...state, opponentScore: state.score + action.payload };
       case CONSTANTS.UPDATE_QUESTIONS_LIST:
         return { ...state, questionsList: action.payload };
+      case CONSTANTS.UPDATE_CURRENT_QUESTION_ID:
+        return { ...state, currentQuestionId: getNextQuestionId(state.questionsList, state.currentQuestionId) };
+      case CONSTANTS.UPDATE_CURRENT_QUESTION:
+        return { ...state, currentQuestion: action.payload };
+      case CONSTANTS.RESET:
+        return initialContestState;
       default:
         return state;
     }

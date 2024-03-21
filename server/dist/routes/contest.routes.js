@@ -19,15 +19,22 @@ const handlers_1 = require("../handlers");
 class ContestRoutes {
     constructor() {
         this.router = express_1.default.Router();
-        this.handleQuestion = this.handleQuestion.bind(this);
+        this.handleQuestions = this.handleQuestions.bind(this);
     }
     createRoutes() {
-        this.router.post('/questions', (0, middlewares_1.contestQuestionInputInputValidator)(middlewares_1.fetchQuestionsInputs), middlewares_1.tokenValidator, this.handleQuestion);
+        this.router.post('/questions', (0, middlewares_1.contestQuestionInputInputValidator)(middlewares_1.fetchQuestionsInputs), middlewares_1.tokenValidator, this.handleQuestions);
+        this.router.post('/question', (0, middlewares_1.contestQuestionInputInputValidator)(middlewares_1.fetchQuestionInputs), middlewares_1.tokenValidator, this.handleQuestion);
         return this.router;
+    }
+    handleQuestions(request, response) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const questions = yield handlers_1.contestHandler.handleQuestions(request, response);
+            return response.json(questions);
+        });
     }
     handleQuestion(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
-            const questions = yield handlers_1.contestHandler.handleQuestions(request, response);
+            const questions = yield handlers_1.contestHandler.handleQuestion(request, response);
             return response.json(questions);
         });
     }

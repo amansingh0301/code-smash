@@ -22,5 +22,14 @@ class ContestServiceInterface {
             return yield clients_1.dbClient.getQuestions(generatedQuestionNumbers, collectionName);
         });
     }
+    getQuestion(question, config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const questionId = question.questionId;
+            const collectionName = question.type;
+            // const totalDocuments = await dbClient.getTotalDocuments(collectionName);
+            // const generatedQuestionNumbers = generateUniquePositiveNumbers(numberOfQuestions, totalDocuments)
+            return yield clients_1.dbClient.getQuestion(questionId, collectionName);
+        });
+    }
 }
 exports.ContestServiceInterface = ContestServiceInterface;

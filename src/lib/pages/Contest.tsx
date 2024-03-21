@@ -1,20 +1,29 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { InitialState } from '../../store/initialState';
-import { fetchQuestionsList } from '../../store/actions';
+import { fetchQuestion, fetchQuestionsList, updateCurrentQuestionId } from '../../store/actions';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 export function Contest() {
-    const questionsList = useSelector((state: InitialState) => state.contest.questionsList);
+    const currentQuestionId = useSelector((state: InitialState) => state.contest.currentQuestionId);
+    const currentQuestion = useSelector((state: InitialState) => state.contest.currentQuestion);
     const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
 
-    useEffect(()=>{
-        
-    }, [])
+    const handleNextQuestionClick = () => {
+        if(currentQuestionId !== '-1')
+            dispatch(updateCurrentQuestionId());
+    }
+
+    useEffect(() => {
+        if(currentQuestionId !== '-1')
+            dispatch(fetchQuestion());
+    }, [currentQuestionId])
     return (
         <div className='contest-page'>
+            <div>{currentQuestion.question}</div>
             {
-                questionsList.map(questions => <div>{questions}</div>)
+                currentQuestion.options.map((option: string) => <div>{option}</div>)
             }
+            <button onClick={handleNextQuestionClick}>Next</button>
         </div>
     )
 }

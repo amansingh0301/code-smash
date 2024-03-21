@@ -10,3 +10,8 @@ export const fetchQuestionsInputs = [
     body('type').exists().withMessage('type is Required'),
     body('questions').exists().withMessage('No of questions is Required').isNumeric().withMessage('Should be Numeric')
 ];
+
+export const fetchQuestionInputs = [
+    body('type').exists().withMessage('type is Required'),
+    body('questionId').exists().withMessage('questionId is Required')
+];

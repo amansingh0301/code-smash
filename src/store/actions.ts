@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { CONSTANTS } from "../utils/CONSTANTS"
-import { prepareContestQuestionsBody, prepareTokenBody } from "../utils"
-import { InitialState } from "./initialState"
+import { prepareContestQuestionsBody, prepareGetQuestionBody, prepareTokenBody } from "../utils"
+import { InitialState, Question } from "./initialState"
 
 export const updateName = (name: string) => {
     return {
@@ -58,6 +58,25 @@ export const updateQuestionsList = (questions: number[]) => {
     }
 }
 
+export const updateCurrentQuestionId = () => {
+    return {
+        type: CONSTANTS.UPDATE_CURRENT_QUESTION_ID,
+    }
+}
+
+export const updateCurrentQuestion = (question: Question) => {
+    return {
+        type: CONSTANTS.UPDATE_CURRENT_QUESTION,
+        payload: question
+    }
+}
+
+export const resetContest = () => {
+    return {
+        type: CONSTANTS.RESET
+    }
+}
+
 export const fetchToken = createAsyncThunk(
     'data/fetch', // Action type string
     async ( _, thunkAPI ) => {
@@ -72,7 +91,7 @@ export const fetchToken = createAsyncThunk(
                     'content-type': 'application/json'
                 }
             });
-            dispatch(fetchQuestionsList());
+            await dispatch(fetchQuestionsList());
         }catch(err){
             dispatch(toggleLoading());
             console.log(err);
@@ -96,6 +115,7 @@ export const fetchToken = createAsyncThunk(
             const questionsList = await response.json();
             dispatch(updateQuestionsList(questionsList));
             dispatch(toggleLoading());
+            dispatch(updateCurrentQuestionId());
         }catch(err){
             dispatch(toggleLoading());
             console.log(err);
@@ -103,3 +123,26 @@ export const fetchToken = createAsyncThunk(
     }
   )
   
+  export const fetchQuestion = createAsyncThunk(
+    'data/fetch',
+    async ( _, thunkAPI ) => {
+        const dispatch = thunkAPI.dispatch;
+        const state: InitialState = thunkAPI.getState() as InitialState;
+        try{
+            dispatch(toggleLoading());
+            const response = await fetch('/contest/question', {
+                method: 'POST',
+                body: prepareGetQuestionBody(state.contest),
+                headers: {
+                    'content-type': 'application/json'
+                }
+            });
+            const question = await response.json();
+            dispatch(updateCurrentQuestion(question));
+            dispatch(toggleLoading());
+        }catch(err){
+            dispatch(toggleLoading());
+            console.log(err);
+        }
+    }
+  )

@@ -17,3 +17,4 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./TokenPayload"), exports);
 __exportStar(require("./ContestQuestionPayload"), exports);
 __exportStar(require("./GKQuestions"), exports);
+__exportStar(require("./QuestionPayload"), exports);

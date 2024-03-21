@@ -17,6 +17,7 @@ const mongodb_1 = require("mongodb");
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const configs_1 = require("../configs");
+const errors_1 = require("../errors");
 class DBClient {
     constructor() {
         this.client = new mongodb_1.MongoClient(configs_1.appConfig.getMonogdb_uri(), {
@@ -67,9 +68,20 @@ class DBClient {
     getQuestions(questionNumbers, collectionName) {
         return __awaiter(this, void 0, void 0, function* () {
             const collection = this.db.collection(collectionName);
-            const cursor = collection.find({ questionNo: { $in: questionNumbers } }); // Filter by questionNo
+            const cursor = collection.find({ questionNo: { $in: questionNumbers } });
             const filteredDocuments = yield cursor.toArray();
             return filteredDocuments.map((document) => document._id);
+        });
+    }
+    getQuestion(questionId, collectionName) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const objectId = new mongodb_1.ObjectId(questionId);
+            const collection = this.db.collection(collectionName);
+            const document = yield collection.findOne({ _id: objectId });
+            if (!document) {
+                throw new errors_1.QuestionNotFoundError(`Question with ${questionId} not found`);
+            }
+            return document;
         });
     }
 }

@@ -1,9 +1,9 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { useRef } from 'react';
 import { Clock, Input, Label, NumberPicker } from '../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { InitialState } from '../../store/initialState';
-import { fetchToken, updateName } from '../../store/actions';
+import { fetchToken, resetContest, updateName } from '../../store/actions';
 import { useNavigate } from 'react-router-dom';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 export function Home() {
@@ -15,6 +15,10 @@ export function Home() {
     const handleOnNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(updateName(event.target.value));
     }
+
+    useEffect(() => {
+        dispatch(resetContest());
+    }, [])
 
     const handleStart = async (event: React.MouseEvent<HTMLButtonElement>) => {
         if(!name.trim()){

@@ -1,12 +1,4 @@
-export class ContestQuestionPayload {
-    questions?: number;
-    type?: string;
-
-    getQuestions(){
-        return this.questions;
-    }
-
-    getType(){
-        return this.type;
-    }
+export interface ContestQuestionPayload {
+    questions: number;
+    type: string;
 }

@@ -1,3 +1,8 @@
+export interface Question {
+    question: string;
+    options: string[];
+}
+
 export interface InitialFormState {
     name: string,
     questions: number,
@@ -12,11 +17,9 @@ export interface InitialFormState {
 }
 
 export interface InitialContestState {
-    score: number,
-    opponentScore: number,
-    totalAttempt: number,
-    successfulAttempt: number,
-    questionsList: number[]
+    questionsList: string[],
+    currentQuestionId: string,
+    currentQuestion: Question
 }
 
 export interface InitialState {

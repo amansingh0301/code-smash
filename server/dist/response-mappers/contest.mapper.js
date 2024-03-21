@@ -5,5 +5,11 @@ class ContestMapper {
     mapQuestions(svcResponse) {
         return svcResponse;
     }
+    mapQuestion(svcResponse) {
+        return {
+            question: svcResponse.question,
+            options: svcResponse.options
+        };
+    }
 }
 exports.ContestMapper = ContestMapper;

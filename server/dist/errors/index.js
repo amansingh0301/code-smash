@@ -18,3 +18,4 @@ __exportStar(require("./Base.Error"), exports);
 __exportStar(require("./InvalidInput.Error"), exports);
 __exportStar(require("./ConfigAbsent.Error"), exports);
 __exportStar(require("./InvalidToken.Error"), exports);
+__exportStar(require("./QuestionNotFound.Error"), exports);
