@@ -77,6 +77,20 @@ export const resetContest = () => {
     }
 }
 
+export const updateContestType = (contestType: string) => {
+    return {
+        type: CONSTANTS.UPDATE_CONTEST_TYPE,
+        payload: contestType
+    }
+}
+
+export const updateSelectedOption = (option: string) => {
+    return {
+        type: CONSTANTS.UPDATE_SELCTED_OPTION,
+        payload: option
+    }
+}
+
 export const fetchToken = createAsyncThunk(
     'data/fetch', // Action type string
     async ( _, thunkAPI ) => {
@@ -86,7 +100,7 @@ export const fetchToken = createAsyncThunk(
             dispatch(toggleLoading());
             await fetch('/auth/token', {
                 method: 'POST',
-                body: prepareTokenBody(state.form),
+                body: prepareTokenBody(state),
                 headers: {
                     'content-type': 'application/json'
                 }
@@ -107,7 +121,7 @@ export const fetchToken = createAsyncThunk(
         try{
             const response = await fetch('/contest/questions', {
                 method: 'POST',
-                body: prepareContestQuestionsBody(state.form),
+                body: prepareContestQuestionsBody(state),
                 headers: {
                     'content-type': 'application/json'
                 }
@@ -132,7 +146,7 @@ export const fetchToken = createAsyncThunk(
             dispatch(toggleLoading());
             const response = await fetch('/contest/question', {
                 method: 'POST',
-                body: prepareGetQuestionBody(state.contest),
+                body: prepareGetQuestionBody(state),
                 headers: {
                     'content-type': 'application/json'
                 }

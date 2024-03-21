@@ -1,4 +1,7 @@
-export const prepareTokenBody = (form: any) => {
+import { InitialState } from "../store/initialState"
+
+export const prepareTokenBody = (state: InitialState) => {
+    const form = state.form;
     return JSON.stringify({
         name: form.name,
         time: form.time,
@@ -6,17 +9,20 @@ export const prepareTokenBody = (form: any) => {
     })
 }
 
-export const prepareContestQuestionsBody = (form: any) => {
+export const prepareContestQuestionsBody = (state: InitialState) => {
+    const form = state.form;
+    const contest = state.contest;
     return JSON.stringify({
         questions: form.questions,
-        type: 'GK'
+        type: contest.contestType
     })
 }
 
-export const prepareGetQuestionBody = (contest: any) => {
+export const prepareGetQuestionBody = (state: InitialState) => {
+    const contest = state.contest;
     return JSON.stringify({
         questionId: contest.currentQuestionId,
-        type: 'GK'
+        type: contest.contestType
     })
 }
 

@@ -23,7 +23,9 @@ const initialContestState: InitialContestState = {
     currentQuestion: {
       question: '',
       options: []
-    }
+    },
+    selectedOption: '',
+    contestType: 'GK'
 };
 
 export function formReducer(state = initialFormState, action: any) {
@@ -53,6 +55,10 @@ export function contestReducer(state = initialContestState, action: any) {
         return { ...state, currentQuestion: action.payload };
       case CONSTANTS.RESET:
         return initialContestState;
+      case CONSTANTS.UPDATE_CONTEST_TYPE:
+        return { ...state, contestType: action.payload };
+      case CONSTANTS.UPDATE_SELCTED_OPTION:
+        return { ...state, selectedOption: action.payload };
       default:
         return state;
     }

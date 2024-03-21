@@ -19,7 +19,9 @@ export interface InitialFormState {
 export interface InitialContestState {
     questionsList: string[],
     currentQuestionId: string,
-    currentQuestion: Question
+    currentQuestion: Question,
+    selectedOption: string,
+    contestType: string
 }
 
 export interface InitialState {
