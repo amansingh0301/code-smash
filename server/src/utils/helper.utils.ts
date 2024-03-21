@@ -10,3 +10,17 @@ export const generateUniquePositiveNumbers = (numberOfQuestions: number, totalNu
   
     return Array.from(generatedNumbers);
   }
+
+  export type optionToIdxMap = {
+    'a': number;
+    'b': number;
+    'c': number;
+    'd': number;
+  };
+
+  export const optionToIdxMap: optionToIdxMap = {
+    'a': 0,
+    'b': 1,
+    'c': 2,
+    'd': 3
+  }

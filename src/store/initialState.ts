@@ -9,6 +9,10 @@ export interface Verdict {
     explanation: string
 }
 
+export interface ApplicationState {
+    loadingVerdict: boolean
+}
+
 export interface InitialFormState {
     name: string,
     questions: number,
@@ -33,6 +37,7 @@ export interface InitialContestState {
 }
 
 export interface InitialState {
+    app: ApplicationState,
     form: InitialFormState,
     contest: InitialContestState
 }

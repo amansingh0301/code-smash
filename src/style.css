@@ -335,6 +335,8 @@ svg {
     }
   }
 
+  /*contestpase style*/
+
   .contest-page {
     flex: 1;
     min-height: 100vh;
@@ -349,7 +351,6 @@ svg {
     display: flex;
     flex-direction: column;
     gap: 4rem;
-    /* z-index: 0; */
   }
 
   .question {
@@ -462,21 +463,51 @@ svg {
     transform: translateY(2px);
   }
 
-  .virdictBlock {
-    z-index: 3;
-    position: fixed;
+  .virdict {
+    background: linear-gradient(to right, #0f0f0f, #376690);
+    padding: 1rem;
+    width: 25%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    width: 100vw;
-    height: 100vh;
-    opacity: 70%;
-    background-color: rgb(212, 228, 243);
+    border-radius: 1rem;
+  }
+  
+  .correctAnswer {
+    color: #4CAF50
   }
 
-  .virdict {
-    width: 25%;
-    height: 25%;
+  .correct,
+  .notCorrect {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex; /* Allow centering of content */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    margin-right: 1rem; /* Add some margin for spacing */
+  }
+
+  .correct {
+    background-color: #90EE90; /* Green color for correct answer */
+    border: 2px solid #4CAF50; /* Green border for correct answer */
+  }
+
+  .correct::after {
+    content: "\02713"; /* Checkmark symbol (Unicode) */
+    font-size: 1.2rem;
+    color: #4CAF50; /* Green color for checkmark */
+  }
+
+  .notCorrect {
+    background-color: #F0F0F0; /* Light gray color for incorrect answer */
+    border: 2px solid #FF0000; /* Red border for incorrect answer */
+  }
+
+  .notCorrect::after {
+    content: "\00D7"; /* Cross mark symbol (Unicode) */
+    font-size: 1.2rem;
+    color: #FF0000; /* Red color for cross mark */
   }
 
   @media screen and (max-width: 768px) {
@@ -502,7 +533,40 @@ svg {
     .form {
       width: 90%;
       border-radius: 10px;
-      /* margin: 1rem; */
+    }
+
+    /*Contest Page*/
+
+    .contest-page {
+      font-size: 1.3rem;
+      margin-top: 4rem;
+      margin-bottom: 3rem;
+    }
+  
+    .question {
+      gap: 0.5rem;
+    }
+    
+    .contestButtons{
+      gap: 0.5rem
+    }
+  
+    .checkAnswer{
+      font-size: 1.3rem;
+    }
+  
+    .nextQuestion{
+      font-size: 1.3rem;
+    }
+  
+    .submitContest{
+      font-size: 1.3rem;
+    }
+  
+    .virdict {
+      width: 80%;
+      font-size: 1.3rem;
+      border-radius: 0.7rem;
     }
   }
 

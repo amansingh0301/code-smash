@@ -15,3 +15,9 @@ export const fetchQuestionInputs = [
     body('type').exists().withMessage('type is Required'),
     body('questionId').exists().withMessage('questionId is Required')
 ];
+
+export const checkAnswerInput = [
+    body('questionId').exists().withMessage('questionId is Required'),
+    body('selectedOption').exists().withMessage('selectedOption is Required'),
+    body('type').exists().withMessage('type is Required')
+];

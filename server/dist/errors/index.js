@@ -19,3 +19,4 @@ __exportStar(require("./InvalidInput.Error"), exports);
 __exportStar(require("./ConfigAbsent.Error"), exports);
 __exportStar(require("./InvalidToken.Error"), exports);
 __exportStar(require("./QuestionNotFound.Error"), exports);
+__exportStar(require("./AnswerNotFound.Error"), exports);

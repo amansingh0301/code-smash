@@ -106,6 +106,14 @@ export const updateIsLast = (isLast: boolean) => {
     }
 }
 
+export const updateLoadingVerdict = (loadingVerdict: boolean) => {
+    return {
+        type: CONSTANTS.UPDATE_LOADING_VERDICT,
+        payload: loadingVerdict
+    }
+
+}
+
 export const fetchToken = createAsyncThunk(
     'data/fetch', // Action type string
     async ( _, thunkAPI ) => {
@@ -191,6 +199,7 @@ export const fetchToken = createAsyncThunk(
             });
             const verdict = await response.json();
             dispatch(updateVerdict(verdict));
+            dispatch(updateLoadingVerdict(false));
             dispatch(toggleLoading());
         }catch(err){
             dispatch(toggleLoading());

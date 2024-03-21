@@ -1,6 +1,6 @@
 import { getNextQuestionId } from "../utils";
 import { CONSTANTS } from "../utils/CONSTANTS";
-import { InitialContestState, InitialFormState } from "./initialState";
+import { ApplicationState, InitialContestState, InitialFormState } from "./initialState";
 
 
 const initialFormState: InitialFormState = {
@@ -33,6 +33,19 @@ const initialContestState: InitialContestState = {
     },
     isLastQuestion: false
 };
+
+const intitialApplicationState: ApplicationState = {
+  loadingVerdict: false
+}
+
+export function appReducer(state = intitialApplicationState, action: any) {
+  switch (action.type) {
+    case CONSTANTS.UPDATE_LOADING_VERDICT:
+      return { ...state, loadingVerdict: action.payload };
+    default:
+      return state;
+  }
+}
 
 export function formReducer(state = initialFormState, action: any) {
   switch (action.type) {

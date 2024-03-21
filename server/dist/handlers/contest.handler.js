@@ -36,5 +36,16 @@ class ContestHandler {
             return response_mappers_1.contestMapper.mapQuestion(svcResponse);
         });
     }
+    handleCheckAnswer(request, response) {
+        return __awaiter(this, void 0, void 0, function* () {
+            //getConfig
+            const config = configs_1.appConfig;
+            //getServiceInterface and mappers
+            //call service Interface
+            const svcResponse = yield service_interface_1.contestServiceInterface.getQuestion(request.body, config);
+            //call mapper with response from service Interface
+            return response_mappers_1.contestMapper.mapCheckAnswer(svcResponse, request.body);
+        });
+    }
 }
 exports.ContestHandler = ContestHandler;
