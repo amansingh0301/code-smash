@@ -6,3 +6,4 @@ export * from './Input';
 export * from './NumberPicker';
 export * from './Clock';
 export * from './GK';
+export * from './ExitModel';

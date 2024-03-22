@@ -37,23 +37,25 @@ export function Home() {
         }
     }
     return (
-        <div className='home'>
+        <>
             {
             toggleLoading && 
             <div className='loading'>
                 <span className="loader"></span>
             </div>
             }
-            <div className='form'>
-                <Label>Name</Label>
-                <Input elementRef={nameRef} type="text" placeHolder="War lord" onChange={handleOnNameChange} value={name}/>
-                <Label>Questions</Label>
-                <NumberPicker/>
+            <div className='home'>
+                <div className='form'>
+                    <Label>Name</Label>
+                    <Input elementRef={nameRef} type="text" placeHolder="War lord" onChange={handleOnNameChange} value={name}/>
+                    <Label>Questions</Label>
+                    <NumberPicker/>
+                </div>
+                <Clock/>
+                    <button className='submit' onClick={handleStart}>Start</button>
+                {/* </Link> */}
             </div>
-            <Clock/>
-                <button className='submit' onClick={handleStart}>Start</button>
-            {/* </Link> */}
-        </div>
+        </>
     )
 }
 

@@ -47,9 +47,28 @@ export const getNextQuestionId = (questionsList: string[], currentQuestionId: st
     return questionsList[nextQuestionIdIndex];
 }
 
+export const getPreviousQuestionId = (questionsList: string[], currentQuestionId: string) => {
+
+    if(currentQuestionId === '-1')
+        return '-1';
+
+    const previousQuestionIdIndex = questionsList.indexOf(currentQuestionId) - 1;
+    if(previousQuestionIdIndex < 0) 
+        return '-1';
+
+    return questionsList[previousQuestionIdIndex];
+}
+
 export const isLastQuestion = (questionsList: string[], nextQuestionId: string) => {
     const nextQuestionIdIndex = questionsList.indexOf(nextQuestionId);
     if(nextQuestionIdIndex === questionsList.length-1) 
+        return true;
+
+    return false;
+}
+
+export const isFirstQuestion = (questionsList: string[], previousQuestionId: string) => {
+    if(previousQuestionId === '-1')
         return true;
 
     return false;

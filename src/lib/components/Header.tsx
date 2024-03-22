@@ -5,7 +5,6 @@ export function Header() {
             <div className='logo'>
                 <div className='logo__image'></div>
             </div>
-            <div className='about'>About</div>
         </div>
     )
 }
