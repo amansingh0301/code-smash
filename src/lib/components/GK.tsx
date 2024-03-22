@@ -11,6 +11,7 @@ interface GKprops {
 }
 
 export function GK( { setLoading, setShowExitModel }: GKprops) {
+    const currentPath = window.location.pathname;
     const questionRef = useRef(null)
     
     const questionsList = useSelector((state: InitialState) => state.contest.questionsList);
@@ -68,12 +69,12 @@ export function GK( { setLoading, setShowExitModel }: GKprops) {
         }
     }, [currentQuestionId])
     return (
-        <div className='GK'>
-            <div className='question' ref={questionRef}>
-                <div className='questionLine'>{currentQuestion.question}</div>
+        <div className='GK slide-in-right'>
+            <div className='question slide-in-right' ref={questionRef}>
+                <div className='questionLine slide-in-right'>{currentQuestion.question}</div>
                 {
                     currentQuestion.options.map((option: string, idx: number) => 
-                    <div className='questionOptions' key={option} onClick={() => {selectOption(option)}}>
+                    <div className='questionOptions slide-in-right' key={option} onClick={() => {selectOption(option)}}>
                         <input type='radio' value={option} checked={selectedOption === option}></input>
                         <div className='radioDiv'>
                             <span className="radio-button"></span>
@@ -82,7 +83,7 @@ export function GK( { setLoading, setShowExitModel }: GKprops) {
                     </div>)
                 }
             </div>
-            <div className='contestButtons'>
+            <div className='contestButtons slide-in-right'>
                 <button className='backButton' onClick={handleGoBackClick}>Back</button>
                 <button className='checkAnswer' disabled={selectedOption === ''} onClick={handleCheckAnswer}>Check</button>
                 {!isLast && <button className='nextQuestion' onClick={handleNextQuestionClick}>Next</button>}

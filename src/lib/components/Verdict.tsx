@@ -20,7 +20,7 @@ export function Verdict({loading, removeVerdict}: VerdictProps) {
                 {loadingVerdict && <span className="loader"></span>}
                 {
                     !loadingVerdict &&
-                    <div className='virdict'>
+                    <div className='virdict slide-in-right'>
                         {
                             verdict.correct ? 
                             <div className='correct'></div>

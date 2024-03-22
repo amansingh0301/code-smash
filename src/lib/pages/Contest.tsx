@@ -19,7 +19,7 @@ export function Contest() {
         <>
             {loading && <Verdict loading={loading} removeVerdict={handleRemoveVerdict}/>}
             {showExitModel && <ExitModel removeExitModel={handleRemoveExitMoel}/>}
-            <div className='contest-page'>
+            <div className={`contest-page`}>
                 { contestType === 'GK' && <GK setLoading={setLoading} setShowExitModel={setShowExitModel}/> }
             </div>
         </>

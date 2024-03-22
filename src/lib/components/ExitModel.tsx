@@ -16,7 +16,7 @@ export function ExitModel({removeExitModel}: ExitModelProps) {
 
     return (
         <div className='loading' onClick={removeExitModel}>
-            <div className='exitModel'>
+            <div className='exitModel slide-in-right'>
                 <div className='exitQuestion'>Do you want to exit?</div>
                 <div className='exitOptions'>
                     <button className='exitNo exitButtons' onClick={() => removeExitModel()}>No</button>

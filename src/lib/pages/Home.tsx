@@ -7,6 +7,7 @@ import { fetchToken, resetContest, updateName } from '../../store/actions';
 import { useNavigate } from 'react-router-dom';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 export function Home() {
+    const currentPath = window.location.pathname;
     const navigate = useNavigate();
     const name = useSelector((state: InitialState) => state.form.name);
     const toggleLoading = useSelector((state: InitialState) => state.form.toggleLoading);
@@ -44,7 +45,7 @@ export function Home() {
                 <span className="loader"></span>
             </div>
             }
-            <div className='home'>
+            <div className={`home ${currentPath === '/' ? 'slide-in-right' : '' }`}>
                 <div className='form'>
                     <Label>Name</Label>
                     <Input elementRef={nameRef} type="text" placeHolder="War lord" onChange={handleOnNameChange} value={name}/>

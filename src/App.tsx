@@ -7,6 +7,7 @@ import { Contest, Home, Lobby } from './lib/pages';
 import { Footer, Header, ProtectedRoute } from './lib/components';
 
 function App() {
+  const currentPath = window.location.pathname;
   return (
     <Provider store = {store}>
       <Header/>
