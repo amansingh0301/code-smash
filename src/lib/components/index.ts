@@ -9,3 +9,5 @@ export * from './GK';
 export * from './PopUpModel';
 export * from './GKContestBottons';
 export * from './GKQuestion';
+export * from './Form';
+export * from './Loader';

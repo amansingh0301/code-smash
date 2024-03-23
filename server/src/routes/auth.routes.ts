@@ -8,12 +8,14 @@ export class AuthenticationRoutes implements IRoute {
     constructor() {
         this.router = express.Router();
         this.handleToken = this.handleToken.bind(this);
-        this.verifyToken = this.verifyToken.bind(this);
+        this.invalidateToken = this.invalidateToken.bind(this);
+        this.validateToken = this.validateToken.bind(this);
     }
     
     createRoutes(): Router {
         this.router.post('/token',tokenInputValidator(tokenInputs),this.handleToken);
-        this.router.post('/verify', tokenValidator, this.verifyToken)
+        this.router.get('/invalidate', tokenValidator, this.invalidateToken);
+        this.router.get('/validate',tokenValidator,this.validateToken);
         return this.router;
     }
 
@@ -23,7 +25,15 @@ export class AuthenticationRoutes implements IRoute {
         return response.json('Token Acquired');
     }
 
-    private verifyToken(request: Request, response: Response) {
+    private invalidateToken(request: Request, response: Response) {
+        const oneDayInMilliseconds = 1000 * 60 * 60 * 24;
+        const yesterday = new Date(Date.now() - oneDayInMilliseconds);
+
+        response.cookie('accessToken','', {httpOnly: true, secure: true, expires: yesterday});
+        response.json('Invalidated');
+    }
+
+    private validateToken(request: Request, response: Response) {
         response.json('verified');
     }
 }

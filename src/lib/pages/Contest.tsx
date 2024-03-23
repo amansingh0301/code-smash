@@ -3,7 +3,10 @@ import { GK, PopUpModel } from '../components';
 import { useSelector } from 'react-redux';
 import { InitialState } from '../../store/initialState';
 import { Verdict } from '../components/Verdict';
+import { CONSTANTS } from '../../utils';
+
 export function Contest() {
+    
     const contestType = useSelector((state: InitialState) => state.contest.contestType);
     const [loading, setLoading] = useState(false);
     const [showExitModel, setShowExitModel] = useState(false);
@@ -26,10 +29,10 @@ export function Contest() {
     return (
         <>
             {loading && <Verdict loading={loading} removeVerdict={handleRemoveVerdict}/>}
-            {showExitModel && <PopUpModel removePopUpModel={handleRemovePopUpModel}>{message}</PopUpModel>}
+            {showExitModel && <PopUpModel removePopUpModel={handleRemovePopUpModel} type={CONSTANTS.POPUP_TYPE_SUBMIT_CONTEST}>{message}</PopUpModel>}
             <div className='endContest' onClick={handleEndContest}></div>
             <div className={`contest-page`}>
-                { contestType === 'GK' && <GK setLoading={setLoading} setShowExitModel={setShowExitModel}/> }
+            { contestType === 'GK' && <GK setLoading={setLoading} setShowExitModel={setShowExitModel}/> }
             </div>
         </>
     )

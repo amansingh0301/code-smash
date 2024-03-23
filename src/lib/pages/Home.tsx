@@ -1,24 +1,22 @@
 import React, { useEffect } from 'react';
 import { useRef } from 'react';
-import { Clock, Input, Label, NumberPicker } from '../components';
+import { Clock, Form, Loader } from '../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { InitialState } from '../../store/initialState';
-import { fetchToken, resetContest, updateName } from '../../store/actions';
+import { fetchToken, invalidateToken, resetContest } from '../../store/actions';
 import { useNavigate } from 'react-router-dom';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 export function Home() {
-    const currentPath = window.location.pathname;
     const navigate = useNavigate();
     const name = useSelector((state: InitialState) => state.form.name);
     const toggleLoading = useSelector((state: InitialState) => state.form.toggleLoading);
     const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
     const nameRef = useRef(null)
-    const handleOnNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(updateName(event.target.value));
-    }
+    
 
     useEffect(() => {
         dispatch(resetContest());
+        dispatch(invalidateToken());
     }, [])
 
     const handleStart = async (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -40,21 +38,12 @@ export function Home() {
     return (
         <>
             {
-            toggleLoading && 
-            <div className='loading'>
-                <span className="loader"></span>
-            </div>
+            toggleLoading && <Loader/>
             }
-            <div className={`home ${currentPath === '/' ? 'slide-in-right' : '' }`}>
-                <div className='form'>
-                    <Label>Name</Label>
-                    <Input elementRef={nameRef} type="text" placeHolder="War lord" onChange={handleOnNameChange} value={name}/>
-                    <Label>Questions</Label>
-                    <NumberPicker/>
-                </div>
+            <div className='home slide-in-right'>
+                <Form nameRef={nameRef}/>
                 <Clock/>
-                    <button className='submit' onClick={handleStart}>Start</button>
-                {/* </Link> */}
+                <button className='submit' onClick={handleStart}>Start</button>
             </div>
         </>
     )

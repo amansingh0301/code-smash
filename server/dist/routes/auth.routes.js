@@ -11,11 +11,13 @@ class AuthenticationRoutes {
     constructor() {
         this.router = express_1.default.Router();
         this.handleToken = this.handleToken.bind(this);
-        this.verifyToken = this.verifyToken.bind(this);
+        this.invalidateToken = this.invalidateToken.bind(this);
+        this.validateToken = this.validateToken.bind(this);
     }
     createRoutes() {
         this.router.post('/token', (0, middlewares_1.tokenInputValidator)(middlewares_1.tokenInputs), this.handleToken);
-        this.router.post('/verify', middlewares_1.tokenValidator, this.verifyToken);
+        this.router.get('/invalidate', middlewares_1.tokenValidator, this.invalidateToken);
+        this.router.get('/validate', middlewares_1.tokenValidator, this.validateToken);
         return this.router;
     }
     handleToken(request, response) {
@@ -23,7 +25,13 @@ class AuthenticationRoutes {
         response.cookie('accessToken', token, { httpOnly: true, secure: true });
         return response.json('Token Acquired');
     }
-    verifyToken(request, response) {
+    invalidateToken(request, response) {
+        const oneDayInMilliseconds = 1000 * 60 * 60 * 24;
+        const yesterday = new Date(Date.now() - oneDayInMilliseconds);
+        response.cookie('accessToken', '', { httpOnly: true, secure: true, expires: yesterday });
+        response.json('Invalidated');
+    }
+    validateToken(request, response) {
         response.json('verified');
     }
 }

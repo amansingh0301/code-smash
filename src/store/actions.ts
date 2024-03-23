@@ -146,6 +146,23 @@ export const fetchToken = createAsyncThunk(
     }
   );
 
+  export const invalidateToken = createAsyncThunk(
+    'data/fetch',
+    async ( _, thunkAPI ) => {
+        try{
+            const response = await fetch('/auth/invalidate', {
+                method: 'GET',
+                headers: {
+                    'content-type': 'application/json'
+                }
+            });
+            await response.json();
+        }catch(err){
+            console.log(err);
+        }
+    }
+  )
+
   export const fetchQuestionsList = createAsyncThunk(
     'data/fetch',
     async ( _, thunkAPI ) => {

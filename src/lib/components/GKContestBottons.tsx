@@ -4,6 +4,7 @@ import { InitialState } from '../../store/initialState';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { getNextQuestionId, getPreviousQuestionId, isFirstQuestion, isLastQuestion } from '../../utils';
 import { checkAnswer, updateCurrentQuestionId, updateIsLast, updateLoadingVerdict } from '../../store/actions';
+import { useNavigate } from 'react-router-dom';
 
 interface GKContestButtonprops {
     setLoading: Dispatch<SetStateAction<boolean>>,
@@ -11,6 +12,7 @@ interface GKContestButtonprops {
 }
 
 export function GKContestButtons( {setLoading, setShowExitModel}: GKContestButtonprops) {
+    const navigate = useNavigate();
     const questionsList = useSelector((state: InitialState) => state.contest.questionsList);
     const currentQuestionId = useSelector((state: InitialState) => state.contest.currentQuestionId);
     const selectedOption = useSelector((state: InitialState) => state.contest.selectedOption);
@@ -45,12 +47,16 @@ export function GKContestButtons( {setLoading, setShowExitModel}: GKContestButto
         dispatch(checkAnswer());
     }
 
+    const handleSubmitContest = () => {
+        navigate('/');
+    }
+
     return(
         <div className='contestButtons slide-in-right'>
             <button className='backButton' onClick={handleGoBackClick}>Back</button>
             <button className='checkAnswer' disabled={selectedOption === ''} onClick={handleCheckAnswer}>Check</button>
             {!isLast && <button className='nextQuestion' onClick={handleNextQuestionClick}>Next</button>}
-            {isLast && <button className='submitContest'>Submit</button>}
+            {isLast && <button className='submitContest' onClick={handleSubmitContest}>Submit</button>}
         </div>
     )
 }
