@@ -73,3 +73,10 @@ export const isFirstQuestion = (questionsList: string[], previousQuestionId: str
 
     return false;
 }
+
+export const getSelectedOption = (currentQuestionId: string, selectedOptionsList: Map<string, string>) => {
+    if(selectedOptionsList.has(currentQuestionId))
+        return selectedOptionsList.get(currentQuestionId)
+
+    return '';
+}

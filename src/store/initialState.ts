@@ -33,7 +33,8 @@ export interface InitialContestState {
     selectedOption: string,
     contestType: string,
     verdict: Verdict,
-    isLastQuestion: boolean
+    isLastQuestion: boolean,
+    selectedOptionsList: Map<string, string>
 }
 
 export interface InitialState {

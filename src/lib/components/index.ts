@@ -6,4 +6,6 @@ export * from './Input';
 export * from './NumberPicker';
 export * from './Clock';
 export * from './GK';
-export * from './ExitModel';
+export * from './PopUpModel';
+export * from './GKContestBottons';
+export * from './GKQuestion';

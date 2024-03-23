@@ -31,7 +31,8 @@ const initialContestState: InitialContestState = {
       answer: '',
       explanation: ''
     },
-    isLastQuestion: false
+    isLastQuestion: false,
+    selectedOptionsList: new Map<string, string>()
 };
 
 const intitialApplicationState: ApplicationState = {
@@ -82,6 +83,10 @@ export function contestReducer(state = initialContestState, action: any) {
         return { ...state, verdict: action.payload };
       case CONSTANTS.UPDATE_IS_LAST:
         return { ...state, isLastQuestion: action.payload };
+      case CONSTANTS.UPDATE_SELECTED_OPTIONS_LIST:
+        const questionOptionMap: Map<string, string> = state.selectedOptionsList;
+        questionOptionMap.set(action.payload.currentQuestionId, action.payload.selectedOption);
+        return { ...state, selectedOptionsList: questionOptionMap};
       default:
         return state;
     }

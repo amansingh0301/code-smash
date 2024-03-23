@@ -564,6 +564,32 @@ svg {
     background: linear-gradient(to right, #a36338, #c94949);
   }
 
+  .endContest {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex; /* Allow centering of content */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    background-color: rgb(137, 141, 143, 0.2); /* Light gray color for incorrect answer */
+    border: 2px solid #df3939; /* Red border for incorrect answer */
+    cursor: pointer;
+  }
+
+  .endContest::after {
+    content: "\00D7"; /* Cross mark symbol (Unicode) */
+    font-size: 1.2rem;
+    color: #df3939; /* Red color for cross mark */
+  }
+
+  .endContest:hover {
+    background: transparent;
+    transform: translateY(2px);
+  }
+
   @media screen and (max-width: 768px) {
 
     .header {

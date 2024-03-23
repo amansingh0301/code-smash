@@ -114,6 +114,16 @@ export const updateLoadingVerdict = (loadingVerdict: boolean) => {
 
 }
 
+export const updateSelectedOptionsList = (currentQuestionId: string, selectedOption: string) => {
+    return {
+        type: CONSTANTS.UPDATE_SELECTED_OPTIONS_LIST,
+        payload: {
+            currentQuestionId,
+            selectedOption
+        }
+    }
+}
+
 export const fetchToken = createAsyncThunk(
     'data/fetch', // Action type string
     async ( _, thunkAPI ) => {
