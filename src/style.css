@@ -258,7 +258,8 @@ svg {
   .submit {
     font-size: inherit;
     border-radius: 8px;
-    padding: 0.2rem 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
     border: 0px solid transparent;
     background: linear-gradient(to right, #cacaae, #376690);
     color: aliceblue;  
@@ -653,6 +654,12 @@ svg {
   
     .virdict {
       width: 80%;
+    }
+  }
+
+  @media screen and (max-width: 368px) {
+    .questionLine {
+      font-size: 0.8rem;
     }
   }
 
