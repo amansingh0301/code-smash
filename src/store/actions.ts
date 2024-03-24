@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { CONSTANTS } from "../utils/CONSTANTS"
-import { getNextQuestionId, prepareContestQuestionsBody, prepareGetQuestionBody, prepareTokenBody, preparecheckAnswerBody } from "../utils"
-import { InitialState, Question, Verdict } from "./initialState"
+import { getNextQuestionId, prepareContestQuestionsBody, prepareGetQuestionBody, prepareSubmitContestBody, prepareTokenBody, preparecheckAnswerBody } from "../utils"
+import { InitialState, Question, Result, Verdict } from "./initialState"
 
 export const updateName = (name: string) => {
     return {
@@ -124,6 +124,13 @@ export const updateSelectedOptionsList = (currentQuestionId: string, selectedOpt
     }
 }
 
+export const updateResult = (result: Result) => {
+    return {
+        type: CONSTANTS.UPDATE_RESULT,
+        payload: result
+    }
+}
+
 export const fetchToken = createAsyncThunk(
     'data/fetch', // Action type string
     async ( _, thunkAPI ) => {
@@ -227,6 +234,30 @@ export const fetchToken = createAsyncThunk(
             const verdict = await response.json();
             dispatch(updateVerdict(verdict));
             dispatch(updateLoadingVerdict(false));
+            dispatch(toggleLoading());
+        }catch(err){
+            dispatch(toggleLoading());
+            console.log(err);
+        }
+    }
+  )
+
+  export const submitContest = createAsyncThunk(
+    'data/fetch',
+    async ( _, thunkAPI ) => {
+        const dispatch = thunkAPI.dispatch;
+        const state: InitialState = thunkAPI.getState() as InitialState;
+        try{
+            dispatch(toggleLoading());
+            const response = await fetch('/contest/submit', {
+                method: 'POST',
+                body: prepareSubmitContestBody(state),
+                headers: {
+                    'content-type': 'application/json'
+                }
+            });
+            const result = await response.json();
+            dispatch(updateResult(result));
             dispatch(toggleLoading());
         }catch(err){
             dispatch(toggleLoading());

@@ -3,7 +3,7 @@ import { GKContestButtons, GKQuestion, PopUpModel } from '.';
 import { useDispatch, useSelector } from 'react-redux';
 import { InitialState } from '../../store/initialState';
 import { CONSTANTS, getNextQuestionId, getSelectedOption } from '../../utils';
-import { fetchQuestion, updateCurrentQuestionId, updateSelectedOption } from '../../store/actions';
+import { fetchQuestion, updateCurrentQuestionId, updateSelectedOption, updateSelectedOptionsList } from '../../store/actions';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 
 interface GKprops {
@@ -29,6 +29,7 @@ export function GK( { setLoading, setShowExitModel }: GKprops) {
             dispatch(fetchQuestion());
             const optionSelected = getSelectedOption(currentQuestionId, selectedOptionsList) as string;
             dispatch(updateSelectedOption(optionSelected));
+            dispatch(updateSelectedOptionsList(currentQuestionId, optionSelected));
             if (questionRef.current) {
                 const inputElement = questionRef.current as HTMLInputElement; 
                 inputElement.scrollIntoView({ behavior: "smooth", block: 'center', inline: 'center' });

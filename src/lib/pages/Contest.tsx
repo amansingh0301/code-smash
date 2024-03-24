@@ -11,6 +11,7 @@ export function Contest() {
     const [loading, setLoading] = useState(false);
     const [showExitModel, setShowExitModel] = useState(false);
     const [message, setMessage] = useState('Do you want to exit?');
+    const [type, setType] = useState(CONSTANTS.POPUP_TYPE_END_TEST);
 
     const handleRemoveVerdict = () => {
         setLoading(false);
@@ -22,6 +23,7 @@ export function Contest() {
     }
 
     const handleEndContest = () => {
+        setType(CONSTANTS.POPUP_TYPE_SUBMIT_CONTEST);
         setMessage('Submit?');
         setShowExitModel(true);
     }
@@ -29,7 +31,7 @@ export function Contest() {
     return (
         <>
             {loading && <Verdict loading={loading} removeVerdict={handleRemoveVerdict}/>}
-            {showExitModel && <PopUpModel removePopUpModel={handleRemovePopUpModel} type={CONSTANTS.POPUP_TYPE_SUBMIT_CONTEST}>{message}</PopUpModel>}
+            {showExitModel && <PopUpModel removePopUpModel={handleRemovePopUpModel} type={type}>{message}</PopUpModel>}
             <div className='endContest' onClick={handleEndContest}></div>
             <div className={`contest-page`}>
             { contestType === 'GK' && <GK setLoading={setLoading} setShowExitModel={setShowExitModel}/> }

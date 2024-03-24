@@ -73,4 +73,15 @@ export class DBClient {
         }
         return document;
     }
+
+    async getQuestionsWithId(questionIds: string[], collectionName: string) {
+        const ObjectIds = questionIds.map(questionId => new ObjectId(questionId));
+        const collection = this.db.collection(collectionName);
+        const cursor = await collection.find({ _id: { $in: ObjectIds } });
+        const filteredDocuments = await cursor.toArray();
+        if(!filteredDocuments){
+            throw new QuestionNotFoundError(`Unable to find questions ${questionIds}`);
+        }
+        return filteredDocuments;
+    }
 }

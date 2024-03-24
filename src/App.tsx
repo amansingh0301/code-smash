@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { store } from './store/index';
 import * as React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Contest, Home, Lobby } from './lib/pages';
+import { Contest, Home, Result } from './lib/pages';
 import { Footer, Header, ProtectedRoute } from './lib/components';
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home/>}/>
-          <Route path='/lobby' element={<ProtectedRoute><Lobby/></ProtectedRoute>}/>
+          <Route path='/result' element={<ProtectedRoute><Result/></ProtectedRoute>}/>
           <Route path='/Contest' element={<ProtectedRoute><Contest/></ProtectedRoute>}/>
         </Routes>
       </BrowserRouter>

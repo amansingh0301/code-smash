@@ -35,6 +35,14 @@ export const preparecheckAnswerBody = (state: InitialState) => {
     })
 }
 
+export const prepareSubmitContestBody = (state: InitialState) => {
+    const contest = state.contest;
+    return JSON.stringify({
+        questionResponseMap: Object.fromEntries(contest.selectedOptionsList.entries()),
+        type: contest.contestType
+    })
+}
+
 export const getNextQuestionId = (questionsList: string[], currentQuestionId: string) => {
 
     if(!currentQuestionId)
@@ -45,6 +53,14 @@ export const getNextQuestionId = (questionsList: string[], currentQuestionId: st
         return '-1';
 
     return questionsList[nextQuestionIdIndex];
+}
+
+export const getQuestionNo = (questionsList: string[], currentQuestionId: string) => {
+
+    if(!currentQuestionId)
+        return null;
+
+    return questionsList.indexOf(currentQuestionId) + 1;
 }
 
 export const getPreviousQuestionId = (questionsList: string[], currentQuestionId: string) => {

@@ -26,5 +26,34 @@ class ContestMapper {
             throw new errors_1.AnswerNotFoundError(`Could find the correct answer for questionId: ${answerPayload.questionId}`);
         }
     }
+    mapSubmitContest(svcResponse, submitPayload) {
+        try {
+            const responses = submitPayload.questionResponseMap;
+            svcResponse.forEach(question => {
+                const correctAnswerIdx = utils_1.optionToIdxMap[question.answer.toLowerCase()];
+                const id = question._id.toString();
+                question.marked = responses[id];
+                question.answer = question.options[correctAnswerIdx];
+            });
+            const result = this.getResult(svcResponse);
+            return {
+                result,
+                questions: svcResponse
+            };
+        }
+        catch (err) {
+            throw new errors_1.SubmitError('Error while getting result!');
+        }
+    }
+    getResult(svcResponse) {
+        const correct = svcResponse.filter(question => question.marked === question.answer).length;
+        const unAttempted = svcResponse.filter(question => question.marked === '').length;
+        const inCorrect = svcResponse.filter(question => question.marked !== question.answer && question.marked !== '').length;
+        return {
+            correct,
+            unAttempted,
+            inCorrect
+        };
+    }
 }
 exports.ContestMapper = ContestMapper;

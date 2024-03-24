@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { InitialState } from '../../store/initialState';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { getNextQuestionId, getPreviousQuestionId, isFirstQuestion, isLastQuestion } from '../../utils';
-import { checkAnswer, updateCurrentQuestionId, updateIsLast, updateLoadingVerdict } from '../../store/actions';
+import { checkAnswer, submitContest, updateCurrentQuestionId, updateIsLast, updateLoadingVerdict } from '../../store/actions';
 import { useNavigate } from 'react-router-dom';
 
 interface GKContestButtonprops {
@@ -48,7 +48,8 @@ export function GKContestButtons( {setLoading, setShowExitModel}: GKContestButto
     }
 
     const handleSubmitContest = () => {
-        navigate('/');
+        dispatch(submitContest());
+        navigate('/result');
     }
 
     return(

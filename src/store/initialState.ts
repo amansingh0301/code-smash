@@ -9,6 +9,26 @@ export interface Verdict {
     explanation: string
 }
 
+export interface resultAnalytics {
+    correct: number,
+    inCorrect: number,
+    unAttempted: number
+}
+
+export interface QuestionResponse {
+    _id: string;
+    question: string;
+    options: string[];
+    answer: string;
+    marked: string;
+    explanation: string;
+}
+
+export interface Result {
+    result: resultAnalytics,
+    questions: QuestionResponse[]
+}
+
 export interface ApplicationState {
     loadingVerdict: boolean
 }
@@ -34,7 +54,8 @@ export interface InitialContestState {
     contestType: string,
     verdict: Verdict,
     isLastQuestion: boolean,
-    selectedOptionsList: Map<string, string>
+    selectedOptionsList: Map<string, string>,
+    result: Result
 }
 
 export interface InitialState {

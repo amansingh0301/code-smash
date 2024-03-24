@@ -19,3 +19,4 @@ __exportStar(require("./ContestQuestionPayload"), exports);
 __exportStar(require("./GKQuestions"), exports);
 __exportStar(require("./QuestionPayload"), exports);
 __exportStar(require("./CheckAnswerPayload"), exports);
+__exportStar(require("./SubmitPayload"), exports);

@@ -341,7 +341,7 @@ svg {
     display: flex;
     flex-direction: column;
     /* font-size: 1rem; */
-}
+  }
 
   .GK {
     display: flex;
@@ -590,6 +590,19 @@ svg {
     background: transparent;
     transform: translateY(2px);
   }
+
+  /*Result-page*/
+
+  .result {
+    flex: 1;
+    min-height: 100vh;
+    padding-top: 2rem;
+    margin-bottom: 4rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    /* font-size: 1rem; */
+}
 
   @media screen and (max-width: 768px) {
 

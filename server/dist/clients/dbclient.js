@@ -84,5 +84,17 @@ class DBClient {
             return document;
         });
     }
+    getQuestionsWithId(questionIds, collectionName) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const ObjectIds = questionIds.map(questionId => new mongodb_1.ObjectId(questionId));
+            const collection = this.db.collection(collectionName);
+            const cursor = yield collection.find({ _id: { $in: ObjectIds } });
+            const filteredDocuments = yield cursor.toArray();
+            if (!filteredDocuments) {
+                throw new errors_1.QuestionNotFoundError(`Unable to find questions ${questionIds}`);
+            }
+            return filteredDocuments;
+        });
+    }
 }
 exports.DBClient = DBClient;

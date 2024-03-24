@@ -21,3 +21,8 @@ export const checkAnswerInput = [
     body('selectedOption').exists().withMessage('selectedOption is Required'),
     body('type').exists().withMessage('type is Required')
 ];
+
+export const submitContestInput = [
+    body('questionResponseMap').exists().withMessage('questionResponseMap is Required'),
+    body('type').exists().withMessage('type is Required')
+];
