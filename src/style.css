@@ -601,8 +601,70 @@ svg {
     padding: 1rem;
     display: flex;
     flex-direction: column;
+    font-size: 1rem;
+    align-items: center;
     /* font-size: 1rem; */
-}
+  }
+
+  tr {
+    border: 1px solid rgba(0, 0, 0, 0.12)
+  }
+  
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 4px;
+    margin: auto;
+    transition: .7s
+  }
+  td, th {
+    border-top: 1px solid #dddddd;
+    text-align: left;
+    padding: 0.5rem;
+    text-align: center; 
+    font-weight: bold;
+    color: #646b64;
+  }
+
+  .questionsResponse {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 50%;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .explanation {
+    margin-bottom: 1rem;
+  }
+
+  .noOfQuestionsCorrect {
+    color:#619163;
+  }
+
+  .noOfQuestionsWrong {
+    color:#a74f43;
+  }
+
+  .correctOption {
+    color: #619163;
+  }
+
+  .choseWrong {
+    color: #a74f43;
+  }
+
+  .unattempted {
+    color: #646b64;
+    font-weight: bold;
+  }
 
   @media screen and (max-width: 768px) {
 
@@ -668,11 +730,24 @@ svg {
     .virdict {
       width: 80%;
     }
+
+    /* Result page */
+    .questionsResponse {
+      width: 100%;
+    }
   }
 
   @media screen and (max-width: 368px) {
-    .questionLine {
+    .contest-page {
       font-size: 0.8rem;
+    }
+
+    .result {
+      font-size: 0.8rem;
+    }
+
+    .questionsResponse {
+      width: 100%;
     }
   }
 
