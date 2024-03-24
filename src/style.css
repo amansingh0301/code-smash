@@ -75,6 +75,10 @@ body {
     border-radius: 100%;
 }
 
+.logo__image:hover {
+  cursor: pointer;
+}
+
 .home {
     height: 100vh;
     display: flex;

@@ -10,15 +10,15 @@ function App() {
   const currentPath = window.location.pathname;
   return (
     <Provider store = {store}>
-      <Header/>
       <BrowserRouter>
+        <Header/>
         <Routes>
           <Route path='/' element={<Home/>}/>
           <Route path='/result' element={<ProtectedRoute><Result/></ProtectedRoute>}/>
           <Route path='/Contest' element={<ProtectedRoute><Contest/></ProtectedRoute>}/>
         </Routes>
+        <Footer/>
       </BrowserRouter>
-      <Footer/>
     </Provider>
   );
 }

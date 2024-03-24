@@ -9,8 +9,8 @@ export function Header() {
 
     return (
         <div className='header'>
-            <div className='logo' onClick={goToHome}>
-                <div className='logo__image'></div>
+            <div className='logo'>
+                <div className='logo__image' onClick={goToHome}></div>
             </div>
         </div>
     )
