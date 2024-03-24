@@ -8,6 +8,7 @@ html {
     #ecece7 100%
   );
   background-repeat: no-repeat;
+  font-family: arial, sans-serif;
 }
 
 .slide-in-right {
@@ -744,6 +745,10 @@ svg {
 
     .result {
       font-size: 0.8rem;
+    }
+
+    .questionLine {
+      font-size: 0.5rem;
     }
 
     .questionsResponse {
