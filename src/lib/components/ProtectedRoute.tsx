@@ -19,7 +19,6 @@ export function ProtectedRoute({children}: ProtectedRouteProps){
                     'content-type': 'application/json'
                 }
             }).then(data => {
-                console.log(data);
                 if(data.status == 200)
                     setNavigate(true)
                 else{
