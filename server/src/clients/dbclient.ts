@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { appConfig } from "../configs";
 import { GKQuestions } from "../models";
-import { QuestionNotFoundError } from "../errors";
+import { QueryError, QuestionNotFoundError } from "../errors";
 
 export class DBClient {
     private client: MongoClient;
@@ -52,36 +52,53 @@ export class DBClient {
       }
 
     async getTotalDocuments(collectionName: string) {
-        const collection = this.db.collection(collectionName);
-        return await collection.countDocuments({})
+        try {
+            const collection = this.db.collection(collectionName);
+            return await collection.countDocuments({})
+        }catch(err) {
+            throw new QueryError('Getting total Documents from db error')
+        }
     }
 
     async getQuestions(questionNumbers: number[], collectionName: string) {
-        const collection = this.db.collection(collectionName);
+        try {
+            const collection = this.db.collection(collectionName);
 
-        const cursor = collection.find({ questionNo: { $in: questionNumbers } });
-        const filteredDocuments = await cursor.toArray();
-        return filteredDocuments.map((document: GKQuestions) => document._id);
+            const cursor = collection.find({ questionNo: { $in: questionNumbers } });
+            const filteredDocuments = await cursor.toArray();
+            throw new Error('intentional error');
+            return filteredDocuments.map((document: GKQuestions) => document._id);
+        }catch(err) {
+            throw new QueryError('Getting Questions from db error')
+        }
     }
 
     async getQuestion(questionId: string, collectionName: string) {
-        const objectId = new ObjectId(questionId);
-        const collection = this.db.collection(collectionName);
-        const document = await collection.findOne({ _id: objectId });
-        if(!document){
-            throw new QuestionNotFoundError(`Question with ${questionId} not found`);
+        try {
+            const objectId = new ObjectId(questionId);
+            const collection = this.db.collection(collectionName);
+            const document = await collection.findOne({ _id: objectId });
+            if(!document){
+                throw new QuestionNotFoundError(`Question with ${questionId} not found`);
+            }
+            return document;
+        }catch(err) {
+            throw new QueryError('Getting a question from db error')
         }
-        return document;
     }
 
     async getQuestionsWithId(questionIds: string[], collectionName: string) {
-        const ObjectIds = questionIds.map(questionId => new ObjectId(questionId));
-        const collection = this.db.collection(collectionName);
-        const cursor = await collection.find({ _id: { $in: ObjectIds } });
-        const filteredDocuments = await cursor.toArray();
-        if(!filteredDocuments){
-            throw new QuestionNotFoundError(`Unable to find questions ${questionIds}`);
+        try {
+            const ObjectIds = questionIds.map(questionId => new ObjectId(questionId));
+            const collection = this.db.collection(collectionName);
+            const cursor = await collection.find({ _id: { $in: ObjectIds } });
+            const filteredDocuments = await cursor.toArray();
+            if(!filteredDocuments){
+                throw new QuestionNotFoundError(`Unable to find questions ${questionIds}`);
+            }
+            return filteredDocuments;
+        }catch(err) {
+            throw new QueryError('Getting question with Ids from db error')
         }
-        return filteredDocuments;
     }
 }

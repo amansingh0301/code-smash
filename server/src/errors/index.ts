@@ -5,3 +5,4 @@ export * from './InvalidToken.Error';
 export * from './QuestionNotFound.Error';
 export * from './AnswerNotFound.Error';
 export * from './Submit.Error';
+export * from './Query.Error';
