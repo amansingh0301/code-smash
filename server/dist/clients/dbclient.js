@@ -61,39 +61,59 @@ class DBClient {
     }
     getTotalDocuments(collectionName) {
         return __awaiter(this, void 0, void 0, function* () {
-            const collection = this.db.collection(collectionName);
-            return yield collection.countDocuments({});
+            try {
+                const collection = this.db.collection(collectionName);
+                return yield collection.countDocuments({});
+            }
+            catch (err) {
+                throw new errors_1.QueryError('Getting total Documents from db error');
+            }
         });
     }
     getQuestions(questionNumbers, collectionName) {
         return __awaiter(this, void 0, void 0, function* () {
-            const collection = this.db.collection(collectionName);
-            const cursor = collection.find({ questionNo: { $in: questionNumbers } });
-            const filteredDocuments = yield cursor.toArray();
-            return filteredDocuments.map((document) => document._id);
+            try {
+                const collection = this.db.collection(collectionName);
+                const cursor = collection.find({ questionNo: { $in: questionNumbers } });
+                const filteredDocuments = yield cursor.toArray();
+                return filteredDocuments.map((document) => document._id);
+            }
+            catch (err) {
+                throw new errors_1.QueryError('Getting Questions from db error');
+            }
         });
     }
     getQuestion(questionId, collectionName) {
         return __awaiter(this, void 0, void 0, function* () {
-            const objectId = new mongodb_1.ObjectId(questionId);
-            const collection = this.db.collection(collectionName);
-            const document = yield collection.findOne({ _id: objectId });
-            if (!document) {
-                throw new errors_1.QuestionNotFoundError(`Question with ${questionId} not found`);
+            try {
+                const objectId = new mongodb_1.ObjectId(questionId);
+                const collection = this.db.collection(collectionName);
+                const document = yield collection.findOne({ _id: objectId });
+                if (!document) {
+                    throw new errors_1.QuestionNotFoundError(`Question with ${questionId} not found`);
+                }
+                return document;
             }
-            return document;
+            catch (err) {
+                throw new errors_1.QueryError('Getting a question from db error');
+            }
         });
     }
     getQuestionsWithId(questionIds, collectionName) {
         return __awaiter(this, void 0, void 0, function* () {
-            const ObjectIds = questionIds.map(questionId => new mongodb_1.ObjectId(questionId));
-            const collection = this.db.collection(collectionName);
-            const cursor = yield collection.find({ _id: { $in: ObjectIds } });
-            const filteredDocuments = yield cursor.toArray();
-            if (!filteredDocuments) {
-                throw new errors_1.QuestionNotFoundError(`Unable to find questions ${questionIds}`);
+            try {
+                const ObjectIds = questionIds.map(questionId => new mongodb_1.ObjectId(questionId));
+                const collection = this.db.collection(collectionName);
+                const cursor = yield collection.find({ _id: { $in: ObjectIds } });
+                const filteredDocuments = yield cursor.toArray();
+                if (!filteredDocuments) {
+                    throw new errors_1.QuestionNotFoundError(`Unable to find questions ${questionIds}`);
+                }
+                return filteredDocuments;
             }
-            return filteredDocuments;
+            catch (err) {
+                throw new errors_1.QueryError('Getting question with Ids from db error');
+            }
         });
     }
 }

@@ -13,49 +13,66 @@ exports.ContestHandler = void 0;
 const configs_1 = require("../configs");
 const response_mappers_1 = require("../response-mappers");
 const service_interface_1 = require("../service-interface");
+const utils_1 = require("../utils");
 class ContestHandler {
     handleQuestions(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
+            utils_1.logger.info({ bod: request.body, method: 'ContestHandler-handleQuestions' });
             //getConfig
             const config = configs_1.appConfig;
             //getServiceInterface and mappers
             //call service Interface
             const svcResponse = yield service_interface_1.contestServiceInterface.getQuestions(request.body, config);
+            utils_1.logger.info({ bod: request.body, method: 'ContestHandler-handleQuestions', config: config, svcResponse: svcResponse });
             //call mapper with response from service Interface
-            return response_mappers_1.contestMapper.mapQuestions(svcResponse);
+            const res = response_mappers_1.contestMapper.mapQuestions(svcResponse);
+            utils_1.logger.info({ bod: request.body, method: 'ContestHandler-handleSubmitContest', config: config, res: res });
+            return res;
         });
     }
     handleQuestion(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
+            utils_1.logger.info({ bod: request.body, method: 'ContestHandler-handleQuestion' });
             //getConfig
             const config = configs_1.appConfig;
             //getServiceInterface and mappers
             //call service Interface
             const svcResponse = yield service_interface_1.contestServiceInterface.getQuestion(request.body, config);
+            utils_1.logger.info({ bod: request.body, method: 'ContestHandler-handleQuestion', config: config, svcResponse: svcResponse });
             //call mapper with response from service Interface
-            return response_mappers_1.contestMapper.mapQuestion(svcResponse);
+            const res = response_mappers_1.contestMapper.mapQuestion(svcResponse);
+            utils_1.logger.info({ bod: request.body, method: 'ContestHandler-handleQuestion', config: config, res: res });
+            return res;
         });
     }
     handleCheckAnswer(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
+            utils_1.logger.info({ bod: request.body, method: 'ContestHandler-handleCheckAnswer' });
             //getConfig
             const config = configs_1.appConfig;
             //getServiceInterface and mappers
             //call service Interface
             const svcResponse = yield service_interface_1.contestServiceInterface.getQuestion(request.body, config);
+            utils_1.logger.info({ bod: request.body, method: 'ContestHandler-handleCheckAnswer', config: config, svcResponse: svcResponse });
             //call mapper with response from service Interface
-            return response_mappers_1.contestMapper.mapCheckAnswer(svcResponse, request.body);
+            const res = response_mappers_1.contestMapper.mapCheckAnswer(svcResponse, request.body);
+            utils_1.logger.info({ bod: request.body, method: 'ContestHandler-handleCheckAnswer', config: config, res: res });
+            return res;
         });
     }
     handleSubmitContest(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
+            utils_1.logger.info({ bod: request.body, method: 'ContestHandler-handleSubmitContest' });
             //getConfig
             const config = configs_1.appConfig;
             //getServiceInterface and mappers
             //call service Interface
             const svcResponse = yield service_interface_1.contestServiceInterface.getQuestionList(request.body, config);
+            utils_1.logger.info({ bod: request.body, method: 'ContestHandler-handleSubmitContest', config: config, svcResponse: svcResponse });
             //call mapper with response from service Interface
-            return response_mappers_1.contestMapper.mapSubmitContest(svcResponse, request.body);
+            const res = response_mappers_1.contestMapper.mapSubmitContest(svcResponse, request.body);
+            utils_1.logger.info({ bod: request.body, method: 'ContestHandler-handleSubmitContest', config: config, res: res });
+            return res;
         });
     }
 }
