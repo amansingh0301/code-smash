@@ -32,7 +32,7 @@ const initialContestState: InitialContestState = {
       explanation: ''
     },
     isLastQuestion: false,
-    selectedOptionsList: new Map<string, string>(),
+    selectedOptionsList: {},
     result: {
       result: {
         correct: 0,
@@ -82,7 +82,7 @@ export function contestReducer(state = initialContestState, action: any) {
       case CONSTANTS.UPDATE_CURRENT_QUESTION:
         return { ...state, currentQuestion: action.payload };
       case CONSTANTS.RESET:
-        return initialContestState;
+        return {...initialContestState};
       case CONSTANTS.UPDATE_CONTEST_TYPE:
         return { ...state, contestType: action.payload };
       case CONSTANTS.UPDATE_SELCTED_OPTION:
@@ -92,9 +92,11 @@ export function contestReducer(state = initialContestState, action: any) {
       case CONSTANTS.UPDATE_IS_LAST:
         return { ...state, isLastQuestion: action.payload };
       case CONSTANTS.UPDATE_SELECTED_OPTIONS_LIST:
-        const questionOptionMap: Map<string, string> = state.selectedOptionsList;
-        questionOptionMap.set(action.payload.currentQuestionId, action.payload.selectedOption);
-        return { ...state, selectedOptionsList: questionOptionMap};
+        const newSelectedOptionsList = {
+          ...state.selectedOptionsList,
+          [action.payload.currentQuestionId]: action.payload.selectedOption,
+        };
+        return { ...state, selectedOptionsList: newSelectedOptionsList};
       case CONSTANTS.UPDATE_RESULT:
         return { ...state, result: action.payload };
       default:

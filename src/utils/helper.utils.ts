@@ -1,8 +1,10 @@
-import { InitialState } from "../store/initialState"
+import {v4 as uuid} from 'uuid';
+import { InitialState, SelectedOptionList } from "../store/initialState"
 
 export const prepareTokenBody = (state: InitialState) => {
     const form = state.form;
     return JSON.stringify({
+        reqId: uuid(),
         name: form.name,
         time: form.time,
         questions: form.questions
@@ -13,6 +15,7 @@ export const prepareContestQuestionsBody = (state: InitialState) => {
     const form = state.form;
     const contest = state.contest;
     return JSON.stringify({
+        reqId: uuid(),
         questions: form.questions,
         type: contest.contestType
     })
@@ -21,6 +24,7 @@ export const prepareContestQuestionsBody = (state: InitialState) => {
 export const prepareGetQuestionBody = (state: InitialState) => {
     const contest = state.contest;
     return JSON.stringify({
+        reqId: uuid(),
         questionId: contest.currentQuestionId,
         type: contest.contestType
     })
@@ -29,6 +33,7 @@ export const prepareGetQuestionBody = (state: InitialState) => {
 export const preparecheckAnswerBody = (state: InitialState) => {
     const contest = state.contest;
     return JSON.stringify({
+        reqId: uuid(),
         questionId: contest.currentQuestionId,
         selectedOption: contest.selectedOption,
         type: contest.contestType
@@ -38,7 +43,8 @@ export const preparecheckAnswerBody = (state: InitialState) => {
 export const prepareSubmitContestBody = (state: InitialState) => {
     const contest = state.contest;
     return JSON.stringify({
-        questionResponseMap: Object.fromEntries(contest.selectedOptionsList.entries()),
+        reqId: uuid(),
+        questionResponseMap: contest.selectedOptionsList,
         type: contest.contestType
     })
 }
@@ -90,9 +96,9 @@ export const isFirstQuestion = (questionsList: string[], previousQuestionId: str
     return false;
 }
 
-export const getSelectedOption = (currentQuestionId: string, selectedOptionsList: Map<string, string>) => {
-    if(selectedOptionsList.has(currentQuestionId))
-        return selectedOptionsList.get(currentQuestionId)
+export const getSelectedOption = (currentQuestionId: string, selectedOptionsList: SelectedOptionList) => {
+    if(selectedOptionsList[currentQuestionId])
+        return selectedOptionsList[currentQuestionId]
 
     return '';
 }

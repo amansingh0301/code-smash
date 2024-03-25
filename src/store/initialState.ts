@@ -29,6 +29,10 @@ export interface Result {
     questions: QuestionResponse[]
 }
 
+export interface SelectedOptionList {
+    [key: string]: string;
+}
+
 export interface ApplicationState {
     loadingVerdict: boolean
 }
@@ -54,7 +58,7 @@ export interface InitialContestState {
     contestType: string,
     verdict: Verdict,
     isLastQuestion: boolean,
-    selectedOptionsList: Map<string, string>,
+    selectedOptionsList: SelectedOptionList,
     result: Result
 }
 
