@@ -66,7 +66,6 @@ export class DBClient {
 
             const cursor = collection.find({ questionNo: { $in: questionNumbers } });
             const filteredDocuments = await cursor.toArray();
-            throw new Error('intentional error');
             return filteredDocuments.map((document: GKQuestions) => document._id);
         }catch(err) {
             throw new QueryError('Getting Questions from db error')
