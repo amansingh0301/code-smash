@@ -21,20 +21,32 @@ export class AuthenticationRoutes implements IRoute {
     }
 
     private handleToken(request: Request, response: Response) {
-        const token = authHandler.handleToken(request, response);
-        response.cookie('accessToken', token, { httpOnly: true, secure: true })
-        return response.json('Token Acquired');
+        try{
+            const token = authHandler.handleToken(request, response);
+            response.cookie('accessToken', token, { httpOnly: true, secure: true })
+            response.json('Token Acquired');
+        } catch(err) {
+            response.sendStatus(500).json('Internal Server Error')
+        }
     }
 
     private invalidateToken(request: Request, response: Response) {
-        const oneDayInMilliseconds = 1000 * 60 * 60 * 24;
-        const yesterday = new Date(Date.now() - oneDayInMilliseconds);
+        try{
+            const oneDayInMilliseconds = 1000 * 60 * 60 * 24;
+            const yesterday = new Date(Date.now() - oneDayInMilliseconds);
 
-        response.cookie('accessToken','', {httpOnly: true, secure: true, expires: yesterday});
-        response.json('Invalidated');
+            response.cookie('accessToken','', {httpOnly: true, secure: true, expires: yesterday});
+            response.json('Invalidated');
+        } catch(err) {
+            response.sendStatus(500).json('Internal Server Error')
+        }
     }
 
     private validateToken(request: Request, response: Response) {
-        response.json('verified');
+        try{
+            response.json('verified');
+        } catch(err) {
+            response.sendStatus(500).json('Internal Server Error')
+        }
     }
 }
