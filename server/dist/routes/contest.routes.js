@@ -33,26 +33,46 @@ class ContestRoutes {
     }
     handleQuestions(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
-            const questions = yield handlers_1.contestHandler.handleQuestions(request, response);
-            return response.json(questions);
+            try {
+                const questions = yield handlers_1.contestHandler.handleQuestions(request, response);
+                response.json(questions);
+            }
+            catch (err) {
+                response.sendStatus(500).json('Internal Server Error');
+            }
         });
     }
     handleQuestion(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
-            const questions = yield handlers_1.contestHandler.handleQuestion(request, response);
-            return response.json(questions);
+            try {
+                const questions = yield handlers_1.contestHandler.handleQuestion(request, response);
+                response.json(questions);
+            }
+            catch (err) {
+                response.sendStatus(500).json('Internal Server Error');
+            }
         });
     }
     handleCheckAnswer(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
-            const questions = yield handlers_1.contestHandler.handleCheckAnswer(request, response);
-            return response.json(questions);
+            try {
+                const questions = yield handlers_1.contestHandler.handleCheckAnswer(request, response);
+                response.json(questions);
+            }
+            catch (err) {
+                response.sendStatus(500).json('Internal Server Error');
+            }
         });
     }
     handleSubmitContest(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
-            const questions = yield handlers_1.contestHandler.handleSubmitContest(request, response);
-            return response.json(questions);
+            try {
+                const questions = yield handlers_1.contestHandler.handleSubmitContest(request, response);
+                response.json(questions);
+            }
+            catch (err) {
+                response.sendStatus(500).json('Internal Server Error');
+            }
         });
     }
 }

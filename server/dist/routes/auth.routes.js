@@ -21,18 +21,33 @@ class AuthenticationRoutes {
         return this.router;
     }
     handleToken(request, response) {
-        const token = handlers_1.authHandler.handleToken(request, response);
-        response.cookie('accessToken', token, { httpOnly: true, secure: true });
-        return response.json('Token Acquired');
+        try {
+            const token = handlers_1.authHandler.handleToken(request, response);
+            response.cookie('accessToken', token, { httpOnly: true, secure: true });
+            response.json('Token Acquired');
+        }
+        catch (err) {
+            response.sendStatus(500).json('Internal Server Error');
+        }
     }
     invalidateToken(request, response) {
-        const oneDayInMilliseconds = 1000 * 60 * 60 * 24;
-        const yesterday = new Date(Date.now() - oneDayInMilliseconds);
-        response.cookie('accessToken', '', { httpOnly: true, secure: true, expires: yesterday });
-        response.json('Invalidated');
+        try {
+            const oneDayInMilliseconds = 1000 * 60 * 60 * 24;
+            const yesterday = new Date(Date.now() - oneDayInMilliseconds);
+            response.cookie('accessToken', '', { httpOnly: true, secure: true, expires: yesterday });
+            response.json('Invalidated');
+        }
+        catch (err) {
+            response.sendStatus(500).json('Internal Server Error');
+        }
     }
     validateToken(request, response) {
-        response.json('verified');
+        try {
+            response.json('verified');
+        }
+        catch (err) {
+            response.sendStatus(500).json('Internal Server Error');
+        }
     }
 }
 exports.AuthenticationRoutes = AuthenticationRoutes;
