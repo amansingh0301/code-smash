@@ -2,7 +2,6 @@ import express, { Request, Response, Router } from 'express';
 import { IRoute } from "../interfaces";
 import { tokenInputValidator, tokenInputs, tokenValidator } from '../middlewares';
 import { authHandler } from '../handlers';
-import { logger } from '../utils';
 
 export class AuthenticationRoutes implements IRoute {
     private router: Router;

@@ -28,13 +28,19 @@ export function Contest() {
         setShowExitModel(true);
     }
 
+    const handleInvalidTest = () => {
+        setType(CONSTANTS.POPUP_TYPE_INVALID_TEST);
+        setMessage('Not Valid! Go to home page')
+        setShowExitModel(true);
+    }
+
     return (
         <>
             {loading && <Verdict loading={loading} removeVerdict={handleRemoveVerdict}/>}
             {showExitModel && <PopUpModel removePopUpModel={handleRemovePopUpModel} type={type}>{message}</PopUpModel>}
             <div className='endContest' onClick={handleEndContest}></div>
             <div className={`contest-page`}>
-            { contestType === 'GK' && <GK setLoading={setLoading} setShowExitModel={setShowExitModel}/> }
+            { contestType === 'GK' && <GK setLoading={setLoading} setShowExitModel={setShowExitModel} handleInvalidTest={handleInvalidTest}/> }
             </div>
         </>
     )

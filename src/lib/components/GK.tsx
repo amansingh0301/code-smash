@@ -8,10 +8,11 @@ import { ThunkDispatch } from '@reduxjs/toolkit';
 
 interface GKprops {
     setLoading: Dispatch<SetStateAction<boolean>>,
-    setShowExitModel: Dispatch<SetStateAction<boolean>>
+    setShowExitModel: Dispatch<SetStateAction<boolean>>,
+    handleInvalidTest: () => void;
 }
 
-export function GK( { setLoading, setShowExitModel }: GKprops) {
+export function GK( { setLoading, setShowExitModel, handleInvalidTest }: GKprops) {
     const questionRef = useRef(null)
     const questionsList = useSelector((state: InitialState) => state.contest.questionsList);
     const currentQuestionId = useSelector((state: InitialState) => state.contest.currentQuestionId);
@@ -22,6 +23,8 @@ export function GK( { setLoading, setShowExitModel }: GKprops) {
     useEffect(() => {
         const nextQuestionId = getNextQuestionId(questionsList, currentQuestionId)
         dispatch(updateCurrentQuestionId(nextQuestionId));
+        if(questionsList && questionsList.length === 0) 
+            handleInvalidTest()
     }, [questionsList])
 
     useEffect(() => {
@@ -40,16 +43,7 @@ export function GK( { setLoading, setShowExitModel }: GKprops) {
     return (
         <>
         {
-            questionsList && questionsList.length === 0 ?
-                <PopUpModel type={CONSTANTS.POPUP_TYPE_INVALID_TEST}>
-                    <div>
-                        Your test is no longer valid!
-                    </div>
-                    <div>
-                        Go to home page?
-                    </div>
-                </PopUpModel>
-                :
+            !(questionsList && questionsList.length === 0) &&
                 <div className='GK slide-in-right'>
                     <GKQuestion ref={questionRef}/>
                     <GKContestButtons setLoading={setLoading} setShowExitModel={setShowExitModel}/>
