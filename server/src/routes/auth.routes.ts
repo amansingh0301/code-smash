@@ -25,7 +25,7 @@ export class AuthenticationRoutes implements IRoute {
             response.cookie('accessToken', token, { httpOnly: true, secure: true })
             response.json('Token Acquired');
         } catch(err) {
-            response.sendStatus(500).json('Internal Server Error')
+            response.sendStatus(500);
         }
     }
 
@@ -37,7 +37,7 @@ export class AuthenticationRoutes implements IRoute {
             response.cookie('accessToken','', {httpOnly: true, secure: true, expires: yesterday});
             response.json('Invalidated');
         } catch(err) {
-            response.sendStatus(500).json('Internal Server Error')
+            response.sendStatus(500);
         }
     }
 
@@ -45,7 +45,7 @@ export class AuthenticationRoutes implements IRoute {
         try{
             response.json('verified');
         } catch(err) {
-            response.sendStatus(500).json('Internal Server Error')
+            response.sendStatus(500);
         }
     }
 }

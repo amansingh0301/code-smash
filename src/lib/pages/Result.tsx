@@ -1,10 +1,22 @@
-import * as React from 'react';
+import React, {useEffect} from 'react';
 import { useSelector } from 'react-redux';
 import { InitialState } from '../../store/initialState';
+import { useNavigate } from 'react-router-dom';
 export function Result() {
+    const navigate = useNavigate();
     const currentPath = window.location.pathname;
     const questionsList = useSelector((state: InitialState) => state.contest.questionsList);
     const result = useSelector((state: InitialState) => state.contest.result);
+
+    const onPopState = () => {
+        navigate('/');
+    }
+
+    useEffect(() => {
+        window.addEventListener('popstate', onPopState);
+
+        return () => window.removeEventListener('popstate', onPopState);
+    },[])
     return (
         <div className='result slide-in-right'>
             <div className='analytics'>

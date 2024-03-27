@@ -38,7 +38,7 @@ class ContestRoutes {
                 response.json(questions);
             }
             catch (err) {
-                response.sendStatus(500).json('Internal Server Error');
+                response.sendStatus(500);
             }
         });
     }
@@ -49,7 +49,7 @@ class ContestRoutes {
                 response.json(questions);
             }
             catch (err) {
-                response.sendStatus(500).json('Internal Server Error');
+                response.sendStatus(500);
             }
         });
     }
@@ -60,7 +60,7 @@ class ContestRoutes {
                 response.json(questions);
             }
             catch (err) {
-                response.sendStatus(500).json('Internal Server Error');
+                response.sendStatus(500);
             }
         });
     }
@@ -71,7 +71,7 @@ class ContestRoutes {
                 response.json(questions);
             }
             catch (err) {
-                response.sendStatus(500).json('Internal Server Error');
+                response.sendStatus(500);
             }
         });
     }

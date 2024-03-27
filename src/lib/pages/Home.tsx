@@ -12,11 +12,18 @@ export function Home() {
     const toggleLoading = useSelector((state: InitialState) => state.form.toggleLoading);
     const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
     const nameRef = useRef(null)
+
+    const onPopState = () => {
+        navigate('/');
+    }
     
 
     useEffect(() => {
         dispatch(resetContest());
         dispatch(invalidateToken());
+        window.addEventListener('popstate', onPopState);
+
+        return () => window.removeEventListener('popstate', onPopState);
     }, [])
 
     const handleStart = async (event: React.MouseEvent<HTMLButtonElement>) => {

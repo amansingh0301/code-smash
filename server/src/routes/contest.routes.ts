@@ -26,7 +26,7 @@ export class ContestRoutes implements IRoute {
             const questions = await contestHandler.handleQuestions(request, response);
             response.json(questions);
         } catch(err) {
-            response.sendStatus(500).json('Internal Server Error')
+            response.sendStatus(500);
         }
     }
 
@@ -35,7 +35,7 @@ export class ContestRoutes implements IRoute {
             const questions = await contestHandler.handleQuestion(request, response);
             response.json(questions);
         } catch(err) {
-            response.sendStatus(500).json('Internal Server Error')
+            response.sendStatus(500);
         }
     }
 
@@ -44,7 +44,7 @@ export class ContestRoutes implements IRoute {
             const questions = await contestHandler.handleCheckAnswer(request, response);
             response.json(questions);
         } catch(err) {
-            response.sendStatus(500).json('Internal Server Error')
+            response.sendStatus(500);
         }
     }
 
@@ -53,7 +53,7 @@ export class ContestRoutes implements IRoute {
             const questions = await contestHandler.handleSubmitContest(request, response);
             response.json(questions);
         } catch(err) {
-            response.sendStatus(500).json('Internal Server Error')
+            response.sendStatus(500);
         }
     }
 }

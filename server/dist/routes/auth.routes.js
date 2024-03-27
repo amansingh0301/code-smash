@@ -27,7 +27,7 @@ class AuthenticationRoutes {
             response.json('Token Acquired');
         }
         catch (err) {
-            response.sendStatus(500).json('Internal Server Error');
+            response.sendStatus(500);
         }
     }
     invalidateToken(request, response) {
@@ -38,7 +38,7 @@ class AuthenticationRoutes {
             response.json('Invalidated');
         }
         catch (err) {
-            response.sendStatus(500).json('Internal Server Error');
+            response.sendStatus(500);
         }
     }
     validateToken(request, response) {
@@ -46,7 +46,7 @@ class AuthenticationRoutes {
             response.json('verified');
         }
         catch (err) {
-            response.sendStatus(500).json('Internal Server Error');
+            response.sendStatus(500);
         }
     }
 }

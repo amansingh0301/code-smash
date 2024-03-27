@@ -24,7 +24,8 @@ export function GK( { setLoading, setShowExitModel, handleInvalidTest }: GKprops
         const nextQuestionId = getNextQuestionId(questionsList, currentQuestionId)
         dispatch(updateCurrentQuestionId(nextQuestionId));
         if(questionsList && questionsList.length === 0) 
-            handleInvalidTest()
+            handleInvalidTest();
+        
     }, [questionsList])
 
     useEffect(() => {

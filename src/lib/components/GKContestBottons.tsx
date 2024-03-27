@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { InitialState } from '../../store/initialState';
 import { ThunkDispatch } from '@reduxjs/toolkit';
@@ -34,12 +34,17 @@ export function GKContestButtons( {setLoading, setShowExitModel}: GKContestButto
     const handleNextQuestionClick = () => {
         if(currentQuestionId !== '-1'){
             const nextQuestionId = getNextQuestionId(questionsList, currentQuestionId);
-            if(isLastQuestion(questionsList,nextQuestionId))
-                dispatch(updateIsLast(true));
             if(nextQuestionId !== '-1')
                 dispatch(updateCurrentQuestionId(nextQuestionId));
         }
     }
+
+    useEffect(() => {
+        if(currentQuestionId === '-1')
+            navigate('/');
+        if(isLastQuestion(questionsList,currentQuestionId))
+            dispatch(updateIsLast(true));
+    },[currentQuestionId])
 
     const handleCheckAnswer = () => {
         setLoading(true);

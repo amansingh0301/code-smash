@@ -2,6 +2,9 @@ import { createAsyncThunk } from "@reduxjs/toolkit"
 import { CONSTANTS } from "../utils/CONSTANTS"
 import { getNextQuestionId, prepareContestQuestionsBody, prepareGetQuestionBody, prepareSubmitContestBody, prepareTokenBody, preparecheckAnswerBody } from "../utils"
 import { InitialState, Question, Result, Verdict } from "./initialState"
+import { useNavigate } from "react-router-dom"
+
+
 
 export const updateName = (name: string) => {
     return {
