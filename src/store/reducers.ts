@@ -44,13 +44,20 @@ const initialContestState: InitialContestState = {
 };
 
 const intitialApplicationState: ApplicationState = {
-  loadingVerdict: false
+  loadingVerdict: false,
+  popup: {
+    type: '',
+    message: '',
+    show: false
+  }
 }
 
 export function appReducer(state = intitialApplicationState, action: any) {
   switch (action.type) {
     case CONSTANTS.UPDATE_LOADING_VERDICT:
       return { ...state, loadingVerdict: action.payload };
+    case CONSTANTS.UPDATE_POPUP:
+      return { ...state, popup: action.payload };
     default:
       return state;
   }

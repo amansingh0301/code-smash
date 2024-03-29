@@ -2,16 +2,15 @@ import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { InitialState } from '../../store/initialState';
 import { ThunkDispatch } from '@reduxjs/toolkit';
-import { getNextQuestionId, getPreviousQuestionId, isFirstQuestion, isLastQuestion } from '../../utils';
-import { checkAnswer, submitContest, updateCurrentQuestionId, updateIsLast, updateLoadingVerdict } from '../../store/actions';
+import { CONSTANTS, getNextQuestionId, getPreviousQuestionId, isFirstQuestion, isLastQuestion } from '../../utils';
+import { checkAnswer, submitContest, updateCurrentQuestionId, updateIsLast, updateLoadingVerdict, updatePopup } from '../../store/actions';
 import { useNavigate } from 'react-router-dom';
 
 interface GKContestButtonprops {
     setLoading: Dispatch<SetStateAction<boolean>>,
-    setShowExitModel: Dispatch<SetStateAction<boolean>>
 }
 
-export function GKContestButtons( {setLoading, setShowExitModel}: GKContestButtonprops) {
+export function GKContestButtons( {setLoading}: GKContestButtonprops) {
     const navigate = useNavigate();
     const questionsList = useSelector((state: InitialState) => state.contest.questionsList);
     const currentQuestionId = useSelector((state: InitialState) => state.contest.currentQuestionId);
@@ -24,7 +23,11 @@ export function GKContestButtons( {setLoading, setShowExitModel}: GKContestButto
         if(currentQuestionId !== '-1'){
             const previousQuestionId = getPreviousQuestionId(questionsList, currentQuestionId);
             if(isFirstQuestion(questionsList,previousQuestionId)){
-                setShowExitModel(true);
+                dispatch(updatePopup({
+                    type: CONSTANTS.POPUP_TYPE_END_TEST,
+                    message: 'Do you want to exit?',
+                    show: true
+                }))
             }
             else if(previousQuestionId !== '-1')
                 dispatch(updateCurrentQuestionId(previousQuestionId));

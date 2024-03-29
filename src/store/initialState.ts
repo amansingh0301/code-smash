@@ -33,8 +33,15 @@ export interface SelectedOptionList {
     [key: string]: string;
 }
 
+export interface Popup {
+    type: string,
+    message: string,
+    show: boolean
+}
+
 export interface ApplicationState {
-    loadingVerdict: boolean
+    loadingVerdict: boolean;
+    popup: Popup
 }
 
 export interface InitialFormState {

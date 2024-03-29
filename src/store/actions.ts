@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { CONSTANTS } from "../utils/CONSTANTS"
 import { getNextQuestionId, prepareContestQuestionsBody, prepareGetQuestionBody, prepareSubmitContestBody, prepareTokenBody, preparecheckAnswerBody } from "../utils"
-import { InitialState, Question, Result, Verdict } from "./initialState"
+import { InitialState, Popup, Question, Result, Verdict } from "./initialState"
 import { useNavigate } from "react-router-dom"
 
 
@@ -131,6 +131,13 @@ export const updateResult = (result: Result) => {
     return {
         type: CONSTANTS.UPDATE_RESULT,
         payload: result
+    }
+}
+
+export const updatePopup = (popup: Popup) => {
+    return {
+        type: CONSTANTS.UPDATE_POPUP,
+        payload: popup
     }
 }
 
