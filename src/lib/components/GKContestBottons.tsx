@@ -61,7 +61,7 @@ export function GKContestButtons( {setLoading}: GKContestButtonprops) {
     }
 
     return(
-        <div className='contestButtons slide-in-right'>
+        <div className='contestButtons slide-in-top'>
             <button className='backButton' onClick={handleGoBackClick}>Back</button>
             <button className='checkAnswer' disabled={selectedOption === ''} onClick={handleCheckAnswer}>Check</button>
             {!isLast && <button className='nextQuestion' onClick={handleNextQuestionClick}>Next</button>}

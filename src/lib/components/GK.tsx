@@ -44,7 +44,7 @@ export function GK( { setLoading, handleInvalidTest }: GKprops) {
         <>
         {
             !(questionsList && questionsList.length === 0) &&
-                <div className='GK slide-in-right'>
+                <div className='GK slide-in-top'>
                     <GKQuestion ref={questionRef}/>
                     <GKContestButtons setLoading={setLoading}/>
                 </div>

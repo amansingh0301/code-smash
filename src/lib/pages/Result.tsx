@@ -18,7 +18,7 @@ export function Result() {
         return () => window.removeEventListener('popstate', onPopState);
     },[])
     return (
-        <div className='result slide-in-right'>
+        <div className='result slide-in-top'>
             <div className='analytics'>
                 <table>
                     <thead>
@@ -47,17 +47,17 @@ export function Result() {
                     </tbody>
                 </table>
             </div>
-            <div className='questionsResponse slide-in-right'>
+            <div className='questionsResponse slide-in-top'>
                 {
                     questionsList.map((questionId, index) => {
                         return result.questions.filter(questionDetail => questionDetail._id === questionId).map(
                             question => {
                                 return (
                                     <>
-                                        <div className='questionLine slide-in-right'>
+                                        <div className='questionLine slide-in-top'>
                                             Q{index+1}. {question.question}
                                         </div>
-                                        <div className='options slide-in-right'>
+                                        <div className='options slide-in-top'>
                                             {
                                                 question.options.map(option => {
                                                     return (

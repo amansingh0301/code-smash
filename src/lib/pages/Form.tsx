@@ -47,7 +47,7 @@ export function Form() {
             {
             toggleLoading && <Loader/>
             }
-            <div className='form slide-in-right'>
+            <div className='form slide-in-top'>
                 <FormDeatils nameRef={nameRef}/>
                 <Clock/>
                 <button className='submit' onClick={handleStart}>Start</button>

@@ -30,8 +30,8 @@ export function GKQuestion({ref} : GKQuestionsProps) {
 
     return (
 
-        <div className='question slide-in-right' ref={ref}>
-            <div className='questionLine slide-in-right'>{`Q${questionNo}.`} {currentQuestion.question}</div>
+        <div className='question slide-in-top' ref={ref}>
+            <div className='questionLine slide-in-top'>{`Q${questionNo}.`} {currentQuestion.question}</div>
             {
                 currentQuestion.options.map((option: string, idx: number) => <Option option={option} selectedOption={selectedOption} selectOption={selectOption}/>)
             }
