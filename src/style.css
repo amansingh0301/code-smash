@@ -49,6 +49,26 @@ body {
     background: transparent;
 }
 
+.header-back {
+  position: absolute;
+  margin: 2rem;
+  box-sizing: border-box;
+  height: 2rem;
+  width: 2rem;
+  border-style: solid;
+  border-color: white;
+  border-width: 0px 1px 1px 0px;
+  transform: rotate(135deg);
+  transition: border-width 50ms ease-in-out;
+  left: 1rem;
+}
+
+.header-back:hover {
+  cursor: pointer;
+  border-bottom-width: 3px;
+  border-right-width: 3px;
+}
+
 .footer {
     margin-top: auto;
     display: flex;
@@ -64,8 +84,66 @@ body {
     font-size: inherit;
   }
 
+  .home{
+    position: relative;
+    height: 90vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .revision {
+    flex: 1;
+    width: auto;
+    align-content:end;
+  }
+
+  .main-revise {
+    font-size: 4rem;
+    text-align: center;
+    color: #9bb13b;
+  }
+
+  .arrow-button {
+    flex: 1;
+    align-content: end;
+    padding: 3rem;
+  }
+
+  .arrow {
+    box-sizing: border-box;
+    height: 2rem;
+    width: 2rem;
+    border-style: solid;
+    border-color: white;
+    border-width: 0px 1px 1px 0px;
+    transform: rotate(45deg);
+    transition: border-width 50ms ease-in-out;
+    animation: move 1s ease-in-out infinite alternate;
+  }
+  
+  .arrow:hover {
+    cursor: pointer;
+    border-bottom-width: 3px;
+    border-right-width: 3px;
+  }
+
+  @keyframes move {
+    0% {
+      transform: translateY(0px) rotate(45deg);
+    }
+    50% {
+      transform: translateY(-5px) rotate(45deg); /* Adjust this value for desired movement range */
+    }
+    100% {
+      transform: translateY(0px) rotate(45deg);
+    }
+  }
+
 .logo {
-    padding: 1rem;
+  padding: 1rem;
 }
 
 .logo__image {
@@ -82,7 +160,7 @@ body {
   cursor: pointer;
 }
 
-.home {
+.form {
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -91,12 +169,13 @@ body {
     gap: 1rem;
 }
 
-.form {
+.formDetails {
     display: grid;
     background-color: rgb(238, 238, 238, 0.2);
     width: 30%;
     border-radius: 10px;
     padding: 1rem;
+    box-shadow: 5px 10px 8px #202020;
 }
 
 .input {
@@ -130,6 +209,10 @@ body {
     background: none;
     color: aliceblue;
     transition: background 0.3s ease-in-out;
+}
+
+.numberPicker:active {
+  transform: translateY(2px);
 }
 
 .questions {
@@ -283,6 +366,7 @@ svg {
 
   .submit:hover{
     cursor: pointer;
+    transform: translateY(2px);
   }
 
   .submit:active {
@@ -558,6 +642,10 @@ svg {
     font-size: 1rem;
   }
 
+  .exitQuestion {
+    color: #3a3939;
+  }
+
   .exitOptions{
     margin-top: 1rem;
     display: flex;
@@ -621,6 +709,7 @@ svg {
     flex: 1;
     min-height: 100vh;
     padding-top: 2rem;
+    margin-top: 4rem;
     margin-bottom: 4rem;
     padding: 1rem;
     display: flex;
@@ -628,6 +717,10 @@ svg {
     font-size: 1rem;
     align-items: center;
     /* font-size: 1rem; */
+  }
+
+  .analytics {
+    box-shadow: 5px 10px 8px #202020;
   }
 
   tr {
@@ -640,7 +733,7 @@ svg {
     width: 100%;
     border-radius: 4px;
     margin: auto;
-    transition: .7s
+    transition: .7s;
   }
   td, th {
     border-top: 1px solid #dddddd;
@@ -699,15 +792,36 @@ svg {
       height: 2rem;
     }
 
+    .header-back {
+      height: 1.2rem;
+      width: 1.2rem;
+      left: 0.1rem;
+    }
+  
+    .main-revise {
+      font-size: 3rem;
+    }
+
+    .revise-text {
+      font-size: 1rem;
+    }
+  
+    .arrow {
+      box-sizing: border-box;
+      height: 1.5rem;
+      width: 1.5rem;
+    }
+
+
     .logo__image {
       width: 2.5rem;
       height: 2.5rem;
     }
-    .home {
+    .form {
       height: 100vh;
       gap: 0.5rem;
     }
-    .form {
+    .formDetails {
       width: 90%;
       border-radius: 10px;
     }
@@ -758,11 +872,23 @@ svg {
   }
 
   @media screen and (max-width: 368px) {
+
+    .header-back {
+      height: 1.2rem;
+      width: 1.2rem;
+      left: 0.1rem;
+    }
+  
+    .main-revise {
+      font-size: 2rem;
+    }
+
     .contest-page {
       font-size: 0.8rem;
     }
 
     .result {
+      margin-top: 3rem;
       font-size: 0.8rem;
     }
 
@@ -788,7 +914,7 @@ svg {
   }
 
   @media screen and (orientation: landscape) and (max-width: 768px) {
-    .home {
+    .form {
       height: 150vh;
     }
   }

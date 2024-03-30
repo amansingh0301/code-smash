@@ -5,11 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateName } from '../../store/actions';
 import { InitialState } from '../../store/initialState';
 
-interface FormProps {
+interface FormDeatilsProps {
     nameRef: React.MutableRefObject<null>
 }
 
-export function Form({nameRef}: FormProps) {
+export function FormDeatils({nameRef}: FormDeatilsProps) {
 
     const name = useSelector((state: InitialState) => state.form.name);
 
@@ -20,7 +20,7 @@ export function Form({nameRef}: FormProps) {
     }
 
     return (
-        <div className='form'>
+        <div className='formDetails'>
             <Label>Name</Label>
             <Input elementRef={nameRef} type="text" placeHolder="War lord" onChange={handleOnNameChange} value={name}/>
             <Label>Questions</Label>

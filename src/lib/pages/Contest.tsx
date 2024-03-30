@@ -38,7 +38,7 @@ export function Contest() {
     }
 
     const onPopState = () => {
-        navigate('/');
+        navigate('/form');
     }
 
     useEffect(() => {

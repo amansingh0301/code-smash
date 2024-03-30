@@ -44,7 +44,7 @@ export function GKContestButtons( {setLoading}: GKContestButtonprops) {
 
     useEffect(() => {
         if(currentQuestionId === '-1')
-            navigate('/');
+            navigate('/form');
         if(isLastQuestion(questionsList,currentQuestionId))
             dispatch(updateIsLast(true));
     },[currentQuestionId])

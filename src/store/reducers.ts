@@ -57,7 +57,7 @@ export function appReducer(state = intitialApplicationState, action: any) {
     case CONSTANTS.UPDATE_LOADING_VERDICT:
       return { ...state, loadingVerdict: action.payload };
     case CONSTANTS.UPDATE_POPUP:
-      return { ...state, popup: action.payload };
+      return { ...state, popup: {...action.payload} };
     default:
       return state;
   }

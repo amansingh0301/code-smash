@@ -17,7 +17,7 @@ export function PopUpModel() {
             message: '',
             show: false
         }))
-        navigate('/');
+        navigate('/form');
     }
 
     const handleSubmitContest = () => {

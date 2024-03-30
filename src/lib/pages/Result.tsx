@@ -9,7 +9,7 @@ export function Result() {
     const result = useSelector((state: InitialState) => state.contest.result);
 
     const onPopState = () => {
-        navigate('/');
+        navigate('/form');
     }
 
     useEffect(() => {
