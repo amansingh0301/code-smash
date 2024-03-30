@@ -17,7 +17,8 @@ function App() {
           <Route path='/result' element={<ProtectedRoute><Result/></ProtectedRoute>}/>
           <Route path='/Contest' element={<ProtectedRoute><Contest/></ProtectedRoute>}/>
         </Routes>
-        <Footer/>
+        {/* <Footer/> */}
+        <div className='background_image'></div>
       </BrowserRouter>
     </Provider>
   );
