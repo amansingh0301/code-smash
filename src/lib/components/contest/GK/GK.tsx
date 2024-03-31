@@ -1,10 +1,10 @@
 import React, { Dispatch, SetStateAction, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { InitialState } from '../../../../store/initialStates';
-import { getNextQuestionId, getSelectedOption } from '../../../../utils';
+import { CONSTANTS, getNextQuestionId, getSelectedOption } from '../../../../utils';
 import { fetchQuestion } from '../../../../store/actions/actions';
 import { ThunkDispatch } from '@reduxjs/toolkit';
-import { updateCurrentQuestionId, updateSelectedOption, updateSelectedOptionsList } from '../../../../store/actions';
+import { updateCurrentQuestionId, updatePopup, updateRemainingTime, updateSelectedOption, updateSelectedOptionsList } from '../../../../store/actions';
 import { GKQuestion } from './GKQuestion';
 import { GKContestButtons } from './GKContestBottons';
 
@@ -41,7 +41,6 @@ export function GK( { setLoading, handleInvalidTest }: GKprops) {
             }
         }
     }, [currentQuestionId])
-    
     return (
         <>
         {

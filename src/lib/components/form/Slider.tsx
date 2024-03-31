@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateTime } from '../../../store/actions';
+import { updateTime, updateTotalTime } from '../../../store/actions';
 import { InitialState } from '../../../store/initialStates';
 
 export function  Slider(){
@@ -11,6 +11,7 @@ export function  Slider(){
 
     const handleChange = (event: any) => {
         dispatch(updateTime(event.target.value));
+        dispatch(updateTotalTime(event.target.value*60))
     }
 
   return (

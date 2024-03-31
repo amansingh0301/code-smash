@@ -1,9 +1,14 @@
 import React from 'react';
 import { Contest } from '../components';
+import { Progress, Timer } from '../components/timer';
 
 export function ContestPage() {
     return (
-        <Contest/>
+        <>
+            <Contest/>
+            <Timer/>
+            <Progress/>
+        </>
     )
 }
 

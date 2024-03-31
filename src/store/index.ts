@@ -1,13 +1,14 @@
 
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import { appReducer, contestGkReducer, formReducer, loaderReducer, popupReducer } from './reducers';
+import { appReducer, contestGkReducer, formReducer, loaderReducer, popupReducer, timerReducer } from './reducers';
 
 const rootReducer = combineReducers({
     app: appReducer,
     form: formReducer,
     contestGk: contestGkReducer,
     loader: loaderReducer,
-    popup: popupReducer
+    popup: popupReducer,
+    timer: timerReducer
   });
 
 export const store = configureStore({

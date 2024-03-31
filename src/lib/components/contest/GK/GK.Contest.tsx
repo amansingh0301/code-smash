@@ -10,8 +10,7 @@ import { GK } from './GK';
 import { updatePopup } from '../../../../store/actions';
 
 export function GKContest() {
-    const navigate = useNavigate();
-    
+    const remainingTime = useSelector((state: InitialState) => state.timer.remaining);
     const contestType = useSelector((state: InitialState) => state.contestGk.contestType);
     const popup = useSelector((state: InitialState) => state.popup);
     const [loading, setLoading] = useState(false);
@@ -38,15 +37,14 @@ export function GKContest() {
         }))
     }
 
-    const onPopState = () => {
-        navigate('/form');
-    }
-
     useEffect(() => {
-        window.addEventListener('popstate', onPopState);
-
-        return () => window.removeEventListener('popstate', onPopState);
-    },[])
+        if(remainingTime === 0)
+            dispatch(updatePopup({
+                type: CONSTANTS.TIME_OVER,
+                message: "Time's up!",
+                show: true
+            }))
+    },[remainingTime]);
 
     return (
         <>

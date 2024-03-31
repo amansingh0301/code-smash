@@ -75,6 +75,17 @@ export function PopUpModel() {
                     </div>
                 </div>
             )
+        case CONSTANTS.TIME_OVER:
+            return(
+                <div className='loading'>
+                    <div className='exitModel slide-in-right'>
+                        <div className='exitQuestion'>{popup.message}</div>
+                        <div className='exitOptions'>
+                            <button className='exitYes exitButtons' onClick={handleSubmitContest}>Submit</button>
+                        </div>
+                    </div>
+                </div>
+            )
         default:
             return <></>;
     }

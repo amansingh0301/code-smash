@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { InitialState } from '../../../store/initialStates';
-import { fetchToken, invalidateToken, resetContest} from '../../../store/actions';
+import { fetchToken, invalidateToken, resetContest, resetTimer} from '../../../store/actions';
 import { Loader } from '..';
 import { FormDeatils } from './FormDeatils';
 import { Clock } from './Clock';
@@ -18,6 +18,7 @@ export function Form() {
 
     useEffect(() => {
         dispatch(resetContest());
+        dispatch(resetTimer());
         dispatch(invalidateToken());
     }, [])
 

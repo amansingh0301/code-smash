@@ -4,7 +4,7 @@ import { TokenPayload } from "../models";
 
 export class AuthMapper {
     getToken(payload: TokenPayload, configs: AppConfig) {
-        const token = jwt.sign(payload, configs.getSecret(), { expiresIn: (payload.time ? payload.time : 1)*60 })
+        const token = jwt.sign(payload, configs.getSecret(), { expiresIn: (payload.time ? payload.time + 2 : 1)*60 })
         return token;
     }
 }

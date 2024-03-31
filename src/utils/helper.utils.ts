@@ -102,3 +102,7 @@ export const getSelectedOption = (currentQuestionId: string, selectedOptionsList
 
     return '';
 }
+
+export const getProgress = (questionsList: string[], currentQuestionId: string) => {
+   return questionsList.indexOf(currentQuestionId)+1;
+}

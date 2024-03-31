@@ -1,4 +1,4 @@
-import { InitialFormState, InitialLoaderState, InitialContestGKState, InitialPopupState } from ".";
+import { InitialFormState, InitialLoaderState, InitialContestGKState, InitialPopupState, IntitalTimerState } from ".";
 
 export interface ApplicationState {
     loadingVerdict: boolean;
@@ -14,5 +14,6 @@ export interface InitialState {
     form: InitialFormState,
     contestGk: InitialContestGKState,
     loader: InitialLoaderState,
-    popup: InitialPopupState
+    popup: InitialPopupState,
+    timer: IntitalTimerState
 }
