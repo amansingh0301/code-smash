@@ -1,3 +1,5 @@
+import { CONSTANTS } from "../../utils";
+
 export interface InitialFormState {
     name: string,
     questions: number,
@@ -8,6 +10,7 @@ export interface InitialFormState {
     minimumTime: number,
     maximumTime: number,
     roomCode: string,
+    mode: string
 }
 
 
@@ -20,5 +23,6 @@ export const initialFormState: InitialFormState = {
     time: 1,
     minimumTime: 1,
     maximumTime: 60,
-    roomCode: ''
+    roomCode: '',
+    mode: CONSTANTS.PRACTICE
 };

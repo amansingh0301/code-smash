@@ -17,6 +17,8 @@ export function GKContestButtons( {setLoading}: GKContestButtonprops) {
     const currentQuestionId = useSelector((state: InitialState) => state.contestGk.currentQuestionId);
     const selectedOption = useSelector((state: InitialState) => state.contestGk.selectedOption);
     const isLast = useSelector((state: InitialState) => state.contestGk.isLastQuestion);
+
+    const mode = useSelector((state: InitialState) => state.form.mode);
     const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
 
     const handleGoBackClick = () => {
@@ -51,9 +53,11 @@ export function GKContestButtons( {setLoading}: GKContestButtonprops) {
     },[currentQuestionId])
 
     const handleCheckAnswer = () => {
-        setLoading(true);
-        dispatch(updateLoadingVerdict(true));
-        dispatch(checkAnswer());
+        if(mode === CONSTANTS.PRACTICE){
+            setLoading(true);
+            dispatch(updateLoadingVerdict(true));
+            dispatch(checkAnswer());
+        }
     }
 
     const handleSubmitContest = () => {
@@ -64,7 +68,7 @@ export function GKContestButtons( {setLoading}: GKContestButtonprops) {
     return(
         <div className='contestButtons slide-in-top'>
             <button className='backButton' onClick={handleGoBackClick}>Back</button>
-            <button className='checkAnswer' disabled={selectedOption === ''} onClick={handleCheckAnswer}>Check</button>
+            {mode === CONSTANTS.PRACTICE && <button className='checkAnswer' disabled={selectedOption === ''} onClick={handleCheckAnswer}>Check</button>}
             {!isLast && <button className='nextQuestion' onClick={handleNextQuestionClick}>Next</button>}
             {isLast && <button className='submitContest' onClick={handleSubmitContest}>Submit</button>}
         </div>

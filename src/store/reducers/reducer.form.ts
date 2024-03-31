@@ -11,6 +11,8 @@ export function formReducer(state = initialFormState, action: any) {
         return { ...state, time: action.payload }
       case CONSTANTS.UPDATE_NUMBER_OF_QUESTIONS: 
         return { ...state, questions: action.payload }
+      case CONSTANTS.UPDATE_MODE: 
+        return { ...state, mode: action.payload }
       default:
         return state;
     }

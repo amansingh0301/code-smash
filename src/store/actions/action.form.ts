@@ -41,3 +41,10 @@ export const updateNoOfQuestions= (questions: number) => {
         payload: questions
     }
 }
+
+export const updateMode = (mode: string) => {
+    return {
+        type: CONSTANTS.UPDATE_MODE,
+        payload: mode
+    }
+}
