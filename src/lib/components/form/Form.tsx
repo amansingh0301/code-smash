@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import { useRef } from 'react';
-import { Clock, FormDeatils, Loader } from '../components';
 import { useDispatch, useSelector } from 'react-redux';
-import { InitialState } from '../../store/initialState';
-import { fetchToken, invalidateToken, resetContest } from '../../store/actions';
 import { useNavigate } from 'react-router-dom';
 import { ThunkDispatch } from '@reduxjs/toolkit';
+import { InitialState } from '../../../store/initialState';
+import { fetchToken, invalidateToken, resetContest } from '../../../store/actions';
+import { Loader } from '..';
+import { FormDeatils } from './FormDeatils';
+import { Clock } from './Clock';
 export function Form() {
     const navigate = useNavigate();
     const name = useSelector((state: InitialState) => state.form.name);

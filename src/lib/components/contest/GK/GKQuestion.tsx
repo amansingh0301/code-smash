@@ -1,10 +1,10 @@
 import React, { useEffect,useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { InitialState } from '../../store/initialState';
-import { updateSelectedOption, updateSelectedOptionsList } from '../../store/actions';
+import { InitialState } from '../../../../store/initialState';
+import { updateSelectedOption, updateSelectedOptionsList } from '../../../../store/actions';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { Option } from './Option';
-import { getQuestionNo } from '../../utils';
+import { getQuestionNo } from '../../../../utils';
 
 interface GKQuestionsProps {
     ref: React.MutableRefObject<null>

@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { GK, PopUpModel } from '../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { InitialState } from '../../store/initialState';
-import { Verdict } from '../components/Verdict';
+import { Verdict } from '../components/contest/GK/Verdict';
 import { CONSTANTS } from '../../utils';
 import { useNavigate } from 'react-router-dom';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { updatePopup } from '../../store/actions';
 
-export function Contest() {
+export function ContestPage() {
     const navigate = useNavigate();
     
     const contestType = useSelector((state: InitialState) => state.contest.contestType);
@@ -59,4 +59,4 @@ export function Contest() {
     )
 }
 
-export default React.memo(Contest);
+export default React.memo(ContestPage);

@@ -1,10 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CONSTANTS } from '../../utils';
-import { submitContest, updatePopup } from '../../store/actions';
+import { CONSTANTS } from '../../../utils';
+import { submitContest, updatePopup } from '../../../store/actions';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
-import { InitialState } from '../../store/initialState';
+import { InitialState } from '../../../store/initialState';
 
 export function PopUpModel() {
     const navigate = useNavigate();

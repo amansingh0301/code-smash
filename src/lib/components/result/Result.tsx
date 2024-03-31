@@ -1,10 +1,9 @@
 import React, {useEffect} from 'react';
 import { useSelector } from 'react-redux';
-import { InitialState } from '../../store/initialState';
 import { useNavigate } from 'react-router-dom';
+import { InitialState } from '../../../store/initialState';
 export function Result() {
     const navigate = useNavigate();
-    const currentPath = window.location.pathname;
     const questionsList = useSelector((state: InitialState) => state.contest.questionsList);
     const result = useSelector((state: InitialState) => state.contest.result);
 

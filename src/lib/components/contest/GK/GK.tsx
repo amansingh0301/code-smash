@@ -1,9 +1,9 @@
 import React, { Dispatch, SetStateAction, useEffect, useRef } from 'react';
-import { GKContestButtons, GKQuestion, PopUpModel } from '.';
+import { GKContestButtons, GKQuestion } from '../..';
 import { useDispatch, useSelector } from 'react-redux';
-import { InitialState } from '../../store/initialState';
-import { CONSTANTS, getNextQuestionId, getSelectedOption } from '../../utils';
-import { fetchQuestion, updateCurrentQuestionId, updateSelectedOption, updateSelectedOptionsList } from '../../store/actions';
+import { InitialState } from '../../../../store/initialState';
+import { getNextQuestionId, getSelectedOption } from '../../../../utils';
+import { fetchQuestion, updateCurrentQuestionId, updateSelectedOption, updateSelectedOptionsList } from '../../../../store/actions';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 
 interface GKprops {

@@ -1,9 +1,9 @@
 import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { InitialState } from '../../store/initialState';
+import { InitialState } from '../../../../store/initialState';
 import { ThunkDispatch } from '@reduxjs/toolkit';
-import { CONSTANTS, getNextQuestionId, getPreviousQuestionId, isFirstQuestion, isLastQuestion } from '../../utils';
-import { checkAnswer, submitContest, updateCurrentQuestionId, updateIsLast, updateLoadingVerdict, updatePopup } from '../../store/actions';
+import { CONSTANTS, getNextQuestionId, getPreviousQuestionId, isFirstQuestion, isLastQuestion } from '../../../../utils';
+import { checkAnswer, submitContest, updateCurrentQuestionId, updateIsLast, updateLoadingVerdict, updatePopup } from '../../../../store/actions';
 import { useNavigate } from 'react-router-dom';
 
 interface GKContestButtonprops {

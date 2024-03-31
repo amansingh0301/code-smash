@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import { InitialState } from '../../store/initialState';
+import { InitialState } from '../../../../store/initialState';
 
 interface VerdictProps {
     loading: boolean,
