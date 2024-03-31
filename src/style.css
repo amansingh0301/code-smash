@@ -941,6 +941,16 @@ svg {
       font-size: 0.8rem;
     }
 
+    .contest-type {
+      gap: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .contest-type__practice,
+    .contest-type__compete {
+      padding: 0.5rem;
+    }
+
     .timer {
       width: 0.5vw;
     }

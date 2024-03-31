@@ -4,7 +4,7 @@ import { intialTimerState } from "../initialStates";
 export function timerReducer(state = intialTimerState, action: any) {
   switch (action.type) {
     case CONSTANTS.UPDATE_TOTAL_TIME:
-      return { ...state, totalTime: action.payload };
+      return { ...state, totalTime: action.payload, remaining: action.payload };
     case CONSTANTS.UPDATE_REMAINING_TIME:
       return { ...state, remaining: Math.max(0,state.remaining - 1) };
     case CONSTANTS.UPDATE_PROGRESS:
