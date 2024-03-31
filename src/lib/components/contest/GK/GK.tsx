@@ -1,10 +1,12 @@
 import React, { Dispatch, SetStateAction, useEffect, useRef } from 'react';
-import { GKContestButtons, GKQuestion } from '../..';
 import { useDispatch, useSelector } from 'react-redux';
-import { InitialState } from '../../../../store/initialState';
+import { InitialState } from '../../../../store/initialStates';
 import { getNextQuestionId, getSelectedOption } from '../../../../utils';
-import { fetchQuestion, updateCurrentQuestionId, updateSelectedOption, updateSelectedOptionsList } from '../../../../store/actions';
+import { fetchQuestion } from '../../../../store/actions/actions';
 import { ThunkDispatch } from '@reduxjs/toolkit';
+import { updateCurrentQuestionId, updateSelectedOption, updateSelectedOptionsList } from '../../../../store/actions';
+import { GKQuestion } from './GKQuestion';
+import { GKContestButtons } from './GKContestBottons';
 
 interface GKprops {
     setLoading: Dispatch<SetStateAction<boolean>>,
@@ -13,9 +15,9 @@ interface GKprops {
 
 export function GK( { setLoading, handleInvalidTest }: GKprops) {
     const questionRef = useRef(null)
-    const questionsList = useSelector((state: InitialState) => state.contest.questionsList);
-    const currentQuestionId = useSelector((state: InitialState) => state.contest.currentQuestionId);
-    const selectedOptionsList = useSelector((state: InitialState) => state.contest.selectedOptionsList);
+    const questionsList = useSelector((state: InitialState) => state.contestGk.questionsList);
+    const currentQuestionId = useSelector((state: InitialState) => state.contestGk.currentQuestionId);
+    const selectedOptionsList = useSelector((state: InitialState) => state.contestGk.selectedOptionsList);
 
     const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
 

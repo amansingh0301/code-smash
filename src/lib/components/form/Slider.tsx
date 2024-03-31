@@ -1,12 +1,12 @@
-import * as React from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateTime } from '../../../store/actions';
-import { InitialState } from '../../../store/initialState';
+import { InitialState } from '../../../store/initialStates';
 
 export function  Slider(){
-    const time = useSelector((state: InitialState) => state?.form.time);
-    const minimumTime = useSelector((state: InitialState) => state?.form.minimumTime);
-    const maximumTime = useSelector((state: InitialState) => state?.form.maximumTime);
+    const time = useSelector((state: InitialState) => state.form.time);
+    const minimumTime = useSelector((state: InitialState) => state.form.minimumTime);
+    const maximumTime = useSelector((state: InitialState) => state.form.maximumTime);
     const dispatch = useDispatch();
 
     const handleChange = (event: any) => {
@@ -20,4 +20,3 @@ export function  Slider(){
     </div>
   );
 }
-

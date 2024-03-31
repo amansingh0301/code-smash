@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Slider } from './Slider';
-import { InitialState } from '../../../store/initialState';
+import { InitialState } from '../../../store/initialStates';
 import { useSelector } from 'react-redux';
 
 export function Clock () {

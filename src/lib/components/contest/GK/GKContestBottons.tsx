@@ -1,10 +1,11 @@
 import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { InitialState } from '../../../../store/initialState';
+import { InitialState } from '../../../../store/initialStates';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { CONSTANTS, getNextQuestionId, getPreviousQuestionId, isFirstQuestion, isLastQuestion } from '../../../../utils';
-import { checkAnswer, submitContest, updateCurrentQuestionId, updateIsLast, updateLoadingVerdict, updatePopup } from '../../../../store/actions';
+import { checkAnswer, submitContest } from '../../../../store/actions/actions';
 import { useNavigate } from 'react-router-dom';
+import { updateCurrentQuestionId, updateIsLast, updateLoadingVerdict, updatePopup } from '../../../../store/actions';
 
 interface GKContestButtonprops {
     setLoading: Dispatch<SetStateAction<boolean>>,
@@ -12,10 +13,10 @@ interface GKContestButtonprops {
 
 export function GKContestButtons( {setLoading}: GKContestButtonprops) {
     const navigate = useNavigate();
-    const questionsList = useSelector((state: InitialState) => state.contest.questionsList);
-    const currentQuestionId = useSelector((state: InitialState) => state.contest.currentQuestionId);
-    const selectedOption = useSelector((state: InitialState) => state.contest.selectedOption);
-    const isLast = useSelector((state: InitialState) => state.contest.isLastQuestion);
+    const questionsList = useSelector((state: InitialState) => state.contestGk.questionsList);
+    const currentQuestionId = useSelector((state: InitialState) => state.contestGk.currentQuestionId);
+    const selectedOption = useSelector((state: InitialState) => state.contestGk.selectedOption);
+    const isLast = useSelector((state: InitialState) => state.contestGk.isLastQuestion);
     const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
 
     const handleGoBackClick = () => {

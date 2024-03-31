@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { InitialState } from '../../../store/initialState'
+import { InitialState } from '../../../store/initialStates'
 import { updateNoOfQuestions } from '../../../store/actions';
 export function NumberPicker(){
     const [minusDisable, setMinusDisable] = useState(false);

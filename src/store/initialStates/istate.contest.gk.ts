@@ -33,31 +33,7 @@ export interface SelectedOptionList {
     [key: string]: string;
 }
 
-export interface Popup {
-    type: string,
-    message: string,
-    show: boolean
-}
-
-export interface ApplicationState {
-    loadingVerdict: boolean;
-    popup: Popup
-}
-
-export interface InitialFormState {
-    name: string,
-    questions: number,
-    maxQuestions: number,
-    startingDifficulty: string,
-    endingDifficulty: string,
-    time: number,
-    minimumTime: number,
-    maximumTime: number,
-    roomCode: string,
-    toggleLoading: boolean,
-}
-
-export interface InitialContestState {
+export interface InitialContestGKState {
     questionsList: string[],
     currentQuestionId: string,
     currentQuestion: Question,
@@ -69,8 +45,28 @@ export interface InitialContestState {
     result: Result
 }
 
-export interface InitialState {
-    app: ApplicationState,
-    form: InitialFormState,
-    contest: InitialContestState
-}
+export const initialContestState: InitialContestGKState = {
+    questionsList: [],
+    currentQuestionId: '',
+    currentQuestion: {
+      question: '',
+      options: []
+    },
+    selectedOption: '',
+    contestType: 'GK',
+    verdict: {
+      correct: false,
+      answer: '',
+      explanation: ''
+    },
+    isLastQuestion: false,
+    selectedOptionsList: {},
+    result: {
+      result: {
+        correct: 0,
+        inCorrect: 0,
+        unAttempted: 0
+      },
+      questions: []
+    }
+};

@@ -1,5 +1,5 @@
 import {v4 as uuid} from 'uuid';
-import { InitialState, SelectedOptionList } from "../store/initialState"
+import { InitialState, SelectedOptionList } from "../store/initialStates"
 
 export const prepareTokenBody = (state: InitialState) => {
     const form = state.form;
@@ -13,7 +13,7 @@ export const prepareTokenBody = (state: InitialState) => {
 
 export const prepareContestQuestionsBody = (state: InitialState) => {
     const form = state.form;
-    const contest = state.contest;
+    const contest = state.contestGk;
     return JSON.stringify({
         reqId: uuid(),
         questions: form.questions,
@@ -22,7 +22,7 @@ export const prepareContestQuestionsBody = (state: InitialState) => {
 }
 
 export const prepareGetQuestionBody = (state: InitialState) => {
-    const contest = state.contest;
+    const contest = state.contestGk;
     return JSON.stringify({
         reqId: uuid(),
         questionId: contest.currentQuestionId,
@@ -31,7 +31,7 @@ export const prepareGetQuestionBody = (state: InitialState) => {
 }
 
 export const preparecheckAnswerBody = (state: InitialState) => {
-    const contest = state.contest;
+    const contest = state.contestGk;
     return JSON.stringify({
         reqId: uuid(),
         questionId: contest.currentQuestionId,
@@ -41,7 +41,7 @@ export const preparecheckAnswerBody = (state: InitialState) => {
 }
 
 export const prepareSubmitContestBody = (state: InitialState) => {
-    const contest = state.contest;
+    const contest = state.contestGk;
     return JSON.stringify({
         reqId: uuid(),
         questionResponseMap: contest.selectedOptionsList,

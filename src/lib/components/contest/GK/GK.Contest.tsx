@@ -2,17 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ThunkDispatch } from '@reduxjs/toolkit';
-import { InitialState } from '../../../../store/initialState';
-import { updatePopup } from '../../../../store/actions';
+import { InitialState } from '../../../../store/initialStates';
 import { CONSTANTS } from '../../../../utils';
-import { GK, PopUpModel } from '../..';
+import { PopUpModel } from '../..';
 import { Verdict } from './Verdict';
+import { GK } from './GK';
+import { updatePopup } from '../../../../store/actions';
 
 export function GKContest() {
     const navigate = useNavigate();
     
-    const contestType = useSelector((state: InitialState) => state.contest.contestType);
-    const popup = useSelector((state: InitialState) => state.app.popup);
+    const contestType = useSelector((state: InitialState) => state.contestGk.contestType);
+    const popup = useSelector((state: InitialState) => state.popup);
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
 

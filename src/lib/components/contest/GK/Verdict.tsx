@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { InitialState } from '../../../../store/initialState';
+import { InitialState } from '../../../../store/initialStates';
 
 interface VerdictProps {
     loading: boolean,
@@ -10,7 +10,7 @@ interface VerdictProps {
 export function Verdict({loading, removeVerdict}: VerdictProps) {
 
     const loadingVerdict = useSelector((state: InitialState) => state.app.loadingVerdict);
-    const verdict = useSelector((state: InitialState) => state.contest.verdict);
+    const verdict = useSelector((state: InitialState) => state.contestGk.verdict);
 
     return (
         <>

@@ -1,14 +1,15 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CONSTANTS } from '../../../utils';
-import { submitContest, updatePopup } from '../../../store/actions';
+import { submitContest } from '../../../store/actions/actions';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
-import { InitialState } from '../../../store/initialState';
+import { InitialState } from '../../../store/initialStates';
+import { updatePopup } from '../../../store/actions';
 
 export function PopUpModel() {
     const navigate = useNavigate();
-    const popup = useSelector((state: InitialState) => state.app.popup);
+    const popup = useSelector((state: InitialState) => state.popup);
     const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
 
     const handleExit = () => {

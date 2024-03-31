@@ -1,11 +1,11 @@
 import React from 'react';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateName } from '../../../store/actions';
-import { InitialState } from '../../../store/initialState';
+import { InitialState } from '../../../store/initialStates';
 import { Input } from './Input';
 import { Label } from './Label';
 import { NumberPicker } from './NumberPicker';
+import { updateName } from '../../../store/actions';
 
 interface FormDeatilsProps {
     nameRef: React.MutableRefObject<null>

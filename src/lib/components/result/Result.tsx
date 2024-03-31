@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { InitialState } from '../../../store/initialState';
+import { InitialState } from '../../../store/initialStates';
 export function Result() {
     const navigate = useNavigate();
-    const questionsList = useSelector((state: InitialState) => state.contest.questionsList);
-    const result = useSelector((state: InitialState) => state.contest.result);
+    const questionsList = useSelector((state: InitialState) => state.contestGk.questionsList);
+    const result = useSelector((state: InitialState) => state.contestGk.result);
 
     const onPopState = () => {
         navigate('/form');

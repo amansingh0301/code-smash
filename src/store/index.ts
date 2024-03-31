@@ -1,11 +1,13 @@
 
-import { ThunkDispatch, combineReducers, configureStore } from '@reduxjs/toolkit'
-import { appReducer, contestReducer, formReducer } from './reducers';
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import { appReducer, contestGkReducer, formReducer, loaderReducer, popupReducer } from './reducers';
 
 const rootReducer = combineReducers({
     app: appReducer,
     form: formReducer,
-    contest: contestReducer,
+    contestGk: contestGkReducer,
+    loader: loaderReducer,
+    popup: popupReducer
   });
 
 export const store = configureStore({
