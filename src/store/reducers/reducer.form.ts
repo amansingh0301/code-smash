@@ -13,6 +13,8 @@ export function formReducer(state = initialFormState, action: any) {
         return { ...state, questions: action.payload }
       case CONSTANTS.UPDATE_MODE: 
         return { ...state, mode: action.payload }
+      case CONSTANTS.RESET: 
+        return { ...initialFormState }
       default:
         return state;
     }

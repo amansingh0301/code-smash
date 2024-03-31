@@ -48,3 +48,9 @@ export const updateMode = (mode: string) => {
         payload: mode
     }
 }
+
+export const resetForm = () => {
+    return {
+        type: CONSTANTS.RESET,
+    }
+}
