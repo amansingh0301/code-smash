@@ -52,7 +52,7 @@ export function Result() {
                         return result.questions.filter(questionDetail => questionDetail._id === questionId).map(
                             question => {
                                 return (
-                                    <>
+                                     <div className={`questionAns ${!question.marked ? 'unattemptedQuestion' : question.marked === question.answer ? 'correctQuestion' : 'wrongQuestion'}`}>
                                         <div className='questionLine slide-in-top'>
                                             Q{index+1}. {question.question}
                                         </div>
@@ -60,7 +60,7 @@ export function Result() {
                                             {
                                                 question.options.map(option => {
                                                     return (
-                                                        <div className={`questionOptions ${question.answer === option ? 'correctOption' : ''} ${ question.marked !== question.answer && question.marked === option ? 'choseWrong' : ''} ${question.marked === '' && question.answer !== option ? 'unattempted' : ''}`}>
+                                                        <div className={`questionOptions ${question.answer === option ? 'correctOption' : ''} ${ question.marked !== question.answer && question.marked === option ? 'choseWrong' : ''}`}>
                                                             {option}
                                                         </div>
                                                     )
@@ -76,7 +76,7 @@ export function Result() {
                                                </>
                                             }
                                         </div>
-                                    </>
+                                     </div>
                                 )
                             }
                         )
