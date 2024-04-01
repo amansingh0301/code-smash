@@ -39,6 +39,9 @@ class Routes {
             console.log('request received');
             res.json('health ok');
         });
+        server.get('/*', (req, res) => {
+            res.redirect('/');
+        });
         server.use(middlewares_1.errorMiddleware);
     }
 }

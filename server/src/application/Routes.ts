@@ -32,6 +32,10 @@ export class Routes {
             res.json('health ok');
         })
 
+        server.get('/*',(req, res) => {
+            res.redirect('/');
+        })
+
         server.use(errorMiddleware);
     }
 }
