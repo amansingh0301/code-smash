@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { CONSTANTS } from "../../utils/CONSTANTS"
 import { prepareContestQuestionsBody, prepareGetQuestionBody, prepareSubmitContestBody, prepareTokenBody, preparecheckAnswerBody } from "../../utils"
-import { InitialPopupState, InitialState } from "../initialStates"
+import { InitialState } from "../initialStates"
 import { updateCurrentQuestion, updateLoadingVerdict, updateQuestionsList, updateResult, updateVerdict } from "./action.contest.gk"
 import { toggleLoading } from "./action.loader"
 
@@ -19,7 +19,11 @@ export const fetchToken = createAsyncThunk(
                     'content-type': 'application/json'
                 }
             });
-            await dispatch(fetchQuestionsList());
+            const mode = state.form.mode;
+            if(mode === CONSTANTS.PRACTICE)
+                await dispatch(fetchQuestionsList());
+            else
+                await dispatch(establishConnection());
         }catch(err){
             dispatch(toggleLoading());
             console.log(err);
@@ -132,6 +136,36 @@ export const fetchToken = createAsyncThunk(
             });
             const result = await response.json();
             dispatch(updateResult(result));
+            dispatch(toggleLoading());
+        }catch(err){
+            dispatch(toggleLoading());
+            console.log(err);
+        }
+    }
+  )
+
+  export const establishConnection = createAsyncThunk(
+    'data/fetch',
+    async ( _, thunkAPI ) => {
+        const dispatch = thunkAPI.dispatch;
+        const state: InitialState = thunkAPI.getState() as InitialState;
+        try{
+            dispatch(toggleLoading());
+            let ws = new WebSocket(`ws://${window.location.hostname}:8080/`);
+            ws.onopen = () => {
+                ws.send('Hello from client');
+            }
+
+            ws.onmessage = (data) => {
+                console.log(data);
+            }
+
+            ws.onclose = function () {
+                // Try to reconnect in 3 seconds
+                setInterval(function () {
+                  ws = new WebSocket(`ws://${window.location.hostname}:8080/`);
+                }, 5000);
+              };
             dispatch(toggleLoading());
         }catch(err){
             dispatch(toggleLoading());

@@ -8,10 +8,12 @@ import { fetchToken, invalidateToken, resetContest, resetForm, resetTimer} from 
 import { Loader } from '..';
 import { FormDeatils } from './FormDeatils';
 import { Clock } from './Clock';
+import { CONSTANTS } from '../../../utils';
 
 export function Form() {
     const navigate = useNavigate();
     const name = useSelector((state: InitialState) => state.form.name);
+    const mode = useSelector((state: InitialState) => state.form.mode);
     const toggleLoading = useSelector((state: InitialState) => state.loader.toggleLoading);
     const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
     const nameRef = useRef(null)
@@ -36,7 +38,10 @@ export function Form() {
             }
         }else{
             await dispatch(fetchToken());
-            navigate('/contest');
+            if(mode === CONSTANTS.PRACTICE)
+                navigate('/contest');
+            else
+                navigate('/lobby');
         }
     }
     return (

@@ -20,7 +20,7 @@ const path_1 = __importDefault(require("path"));
 const routes_1 = require("../routes");
 const middlewares_1 = require("../middlewares");
 class Routes {
-    constructor(server) {
+    constructor(server, ws) {
         server.use(body_parser_1.default.json());
         server.use(body_parser_1.default.urlencoded({ extended: true }));
         server.use((0, cookie_parser_1.default)());
@@ -28,6 +28,13 @@ class Routes {
         //All features routes
         server.use('/auth', routes_1.authRoutes);
         server.use('/contest', routes_1.contestRoutes);
+        ws.on('request', (req) => {
+            const connection = req.accept();
+            connection.on('message', (data) => {
+                console.log('data--', data);
+                connection.send('message from server');
+            });
+        });
         server.get('/insert', (req, res) => __awaiter(this, void 0, void 0, function* () {
             // await dbClient.connect();
             // await dbClient.insertQuestions();

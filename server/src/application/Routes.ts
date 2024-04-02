@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import {server as websocket} from 'websocket';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser'
 import path from 'path';
@@ -8,7 +9,7 @@ import { dbClient } from '../clients';
 
 export class Routes {
 
-    constructor(server: express.Express) {
+    constructor(server: express.Application, ws: websocket) {
 
         server.use(bodyParser.json());
         server.use(bodyParser.urlencoded({ extended: true }))
@@ -18,6 +19,17 @@ export class Routes {
         //All features routes
         server.use('/auth', authRoutes);
         server.use('/contest', contestRoutes);
+
+        
+
+        ws.on('request', (req) => {
+            const connection = req.accept();
+
+            connection.on('message', (data) => {
+                console.log('data--', data);
+                connection.send('message from server');
+            })
+        })
 
         server.get('/insert',async (req: Request, res: Response) => {
             // await dbClient.connect();
