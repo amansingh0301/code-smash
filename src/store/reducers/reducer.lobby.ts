@@ -7,7 +7,7 @@ export function lobbyReducer(state = intialLobbyState, action: any) {
         return { ...state, showLobby: action.payload }
       case CONSTANTS.UPDATE_OPPONENT_NAME: 
         let opponents = state.opponents.map((opponent: Opponent) => {
-          if(opponent.id === action.payload.id){
+          if(opponent.userId === action.payload.id){
             return {...opponent, name: action.payload.name};
           }
           return opponent;
@@ -15,7 +15,7 @@ export function lobbyReducer(state = intialLobbyState, action: any) {
         return { ...state, opponents: opponents }
       case CONSTANTS.UPDATE_OPPONENT_SCORE: 
         opponents = state.opponents.map((opponent: Opponent) => {
-          if(opponent.id === action.payload.id){
+          if(opponent.userId === action.payload.id){
             return {...opponent, score: action.payload.score};
           }
           return opponent;
@@ -23,7 +23,7 @@ export function lobbyReducer(state = intialLobbyState, action: any) {
         return { ...state, opponents: opponents }
       case CONSTANTS.UPDATE_OPPONENT_STATUS: 
         opponents = state.opponents.map((opponent: Opponent) => {
-          if(opponent.id === action.payload.id){
+          if(opponent.userId === action.payload.id){
             return {...opponent, status: action.payload.status};
           }
           return opponent;
@@ -36,7 +36,3 @@ export function lobbyReducer(state = intialLobbyState, action: any) {
         return state;
     }
   }
-
-  const getOpponentWithId = (id: string, state: IntialLobbyState) => {
-    return state.opponents.find((opponent: Opponent) => opponent.id === id)
-  } 

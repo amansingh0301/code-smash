@@ -1,15 +1,12 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { InitialState, Opponent } from '../../../store/initialStates';
 import { Opponents } from './Opponents';
 
 export function Lobby() {
-    
+    const roomCode = localStorage.getItem('roomCode');
     return(
         <div className='lobby'>
-            {
-                <Opponents/>
-            }
+            <Opponents/>
+            <div className='roomcode'>{roomCode}</div>
         </div>
     )
 }

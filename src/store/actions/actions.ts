@@ -155,12 +155,15 @@ export const fetchToken = createAsyncThunk(
             let ws = new WebSocket(`wss://${window.location.hostname}`);
             ws.onopen = () => {
                 dispatch(toggleLoading());
-                dispatch(updateShowLobby(true));
                 ws.send(JSON.stringify({type: 'create'}))
             }
 
             ws.onmessage = (data) => {
-                console.log(JSON.parse(data.data));
+                const res = JSON.parse(data.data);
+                localStorage.setItem('roomCode', res.roomCode);
+                localStorage.setItem('userId', res.userId);
+                dispatch(updateShowLobby(true));
+
             }
 
             ws.onclose = function () {
