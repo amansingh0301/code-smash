@@ -772,11 +772,19 @@ svg {
   }
 
   .person {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     height: 3rem;
     width: 3rem;
     padding: 2rem;
     background-color: rgba(110, 113, 116, 0.2);
-    border-radius: 8px;
+    border-radius: 100%;
+  }
+
+  .person-ready {
+    background-color: rgb(144, 238, 144, 0.2)
   }
 
   /*Result-page*/

@@ -2,7 +2,7 @@ export interface Opponent {
     id: string,
     name: string,
     status: string,
-    score: number
+    score: number,
 }
 export interface IntialLobbyState {
     showLobby: boolean;
@@ -14,7 +14,7 @@ export const intialLobbyState: IntialLobbyState = {
     opponents: [{
         id:'8887878',
         name: 'Aman',
-        status: 'Joined',
+        status: 'ready',
         score: 0
     },
     {
@@ -26,6 +26,12 @@ export const intialLobbyState: IntialLobbyState = {
     {
         id:'8887878',
         name: 'Pankita',
+        status: 'Joined',
+        score: 0
+    },
+    {
+        id:'8887878',
+        name: 'Ekta',
         status: 'Joined',
         score: 0
     },

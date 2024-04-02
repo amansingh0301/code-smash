@@ -7,12 +7,9 @@ interface PersonProps {
 
 export function Person({person}: PersonProps) {
     return (
-        <div className='person'>
+        <div className={`person ${person.status === 'ready' ? 'person-ready' : ''}`}>
             <div className='person-name'>
                 {person.name}
-            </div>
-            <div className='person-status'>
-                <p>{person.status}</p>
             </div>
         </div>
     )

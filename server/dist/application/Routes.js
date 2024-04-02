@@ -19,6 +19,7 @@ const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const path_1 = __importDefault(require("path"));
 const routes_1 = require("../routes");
 const middlewares_1 = require("../middlewares");
+const handlers_1 = require("../handlers");
 class Routes {
     constructor(server, ws) {
         server.use(body_parser_1.default.json());
@@ -30,10 +31,8 @@ class Routes {
         server.use('/contest', routes_1.contestRoutes);
         ws.on('request', (req) => {
             const connection = req.accept();
-            connection.on('message', (data) => {
-                console.log('data--', data);
-                connection.send('message from server');
-            });
+            connection.on('message', (message) => handlers_1.connectionHandler.handleMessage(connection, message));
+            connection.on('error', (error) => handlers_1.connectionHandler.handleError(connection, error));
         });
         server.get('/insert', (req, res) => __awaiter(this, void 0, void 0, function* () {
             // await dbClient.connect();

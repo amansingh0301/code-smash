@@ -20,3 +20,5 @@ __exportStar(require("./GKQuestions"), exports);
 __exportStar(require("./QuestionPayload"), exports);
 __exportStar(require("./CheckAnswerPayload"), exports);
 __exportStar(require("./SubmitPayload"), exports);
+__exportStar(require("./ConnectionPayload"), exports);
+__exportStar(require("./Room"), exports);

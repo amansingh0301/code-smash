@@ -6,6 +6,8 @@ import path from 'path';
 import { authRoutes, contestRoutes } from '../routes';
 import { errorMiddleware } from '../middlewares';
 import { dbClient } from '../clients';
+import { logger } from '../utils';
+import { connectionHandler } from '../handlers';
 
 export class Routes {
 
@@ -25,10 +27,9 @@ export class Routes {
         ws.on('request', (req) => {
             const connection = req.accept();
 
-            connection.on('message', (data) => {
-                console.log('data--', data);
-                connection.send('message from server');
-            })
+            connection.on('message', (message) => connectionHandler.handleMessage(connection, message));
+
+            connection.on('error', (error) => connectionHandler.handleError(connection, error));
         })
 
         server.get('/insert',async (req: Request, res: Response) => {

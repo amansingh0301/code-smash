@@ -11,6 +11,20 @@ export const generateUniquePositiveNumbers = (numberOfQuestions: number, totalNu
     return Array.from(generatedNumbers);
   }
 
+  export const generateRoomCode = () => {
+    return Math.random().toString(36).substr(2, 6).toUpperCase();
+  }
+
+  export const generateUserId = () => {
+    // Ensure the number starts with a non-zero digit to avoid leading zeros
+    while (true) {
+      const uniqueNumber = Math.floor(Math.random() * (9000000000 - 100000000) + 1000000000);
+      if (uniqueNumber.toString().length === 10) {
+        return uniqueNumber.toString();
+      }
+    }
+  }
+
   export type optionToIdxMap = {
     'a': number;
     'b': number;

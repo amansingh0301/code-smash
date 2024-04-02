@@ -152,19 +152,21 @@ export const fetchToken = createAsyncThunk(
         const state: InitialState = thunkAPI.getState() as InitialState;
         try{
             dispatch(toggleLoading());
-            let ws = new WebSocket(`ws://${window.location.hostname}:8080/`);
+            let ws = new WebSocket(`wss://${window.location.hostname}:8080/`);
             ws.onopen = () => {
                 dispatch(toggleLoading());
                 dispatch(updateShowLobby(true));
+                ws.send(JSON.stringify({type: 'create'}))
             }
 
             ws.onmessage = (data) => {
+                console.log(JSON.parse(data.data));
             }
 
             ws.onclose = function () {
                 // Try to reconnect in 3 seconds
                 setInterval(function () {
-                  ws = new WebSocket(`ws://${window.location.hostname}:8080/`);
+                  ws = new WebSocket(`wss://${window.location.hostname}:8080/`);
                 }, 5000);
               };
             
