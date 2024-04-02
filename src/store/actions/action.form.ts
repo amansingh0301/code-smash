@@ -21,13 +21,6 @@ export const updateScore = (score: number) => {
     }
 }
 
-export const updateOpponentScore = (score: number) => {
-    return {
-        type: CONSTANTS.UPDATE_OPPONENT_SCORE,
-        payload: score
-    }
-}
-
 export const updateTime = (time: number) => {
     return {
         type: CONSTANTS.UPDATE_TIME,

@@ -4,6 +4,7 @@ import { prepareContestQuestionsBody, prepareGetQuestionBody, prepareSubmitConte
 import { InitialState } from "../initialStates"
 import { updateCurrentQuestion, updateLoadingVerdict, updateQuestionsList, updateResult, updateVerdict } from "./action.contest.gk"
 import { toggleLoading } from "./action.loader"
+import { updateShowLobby } from "."
 
 export const fetchToken = createAsyncThunk(
     'data/fetch', // Action type string
@@ -153,11 +154,11 @@ export const fetchToken = createAsyncThunk(
             dispatch(toggleLoading());
             let ws = new WebSocket(`ws://${window.location.hostname}:8080/`);
             ws.onopen = () => {
-                ws.send('Hello from client');
+                dispatch(toggleLoading());
+                dispatch(updateShowLobby(true));
             }
 
             ws.onmessage = (data) => {
-                console.log(data);
             }
 
             ws.onclose = function () {
@@ -166,7 +167,7 @@ export const fetchToken = createAsyncThunk(
                   ws = new WebSocket(`ws://${window.location.hostname}:8080/`);
                 }, 5000);
               };
-            dispatch(toggleLoading());
+            
         }catch(err){
             dispatch(toggleLoading());
             console.log(err);
