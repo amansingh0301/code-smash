@@ -2,11 +2,12 @@ import { CONSTANTS } from "../../utils";
 import { Opponent, intialLobbyState } from "../initialStates";
 
 export function lobbyReducer(state = intialLobbyState, action: any) {
+  let opponents = [];
     switch (action.type) {
       case CONSTANTS.UPDATE_SHOW_LOBBY: 
         return { ...state, showLobby: action.payload }
       case CONSTANTS.UPDATE_OPPONENT_NAME: 
-        let opponents = state.opponents.map((opponent: Opponent) => {
+        opponents = state.opponents.map((opponent: Opponent) => {
           if(opponent.userId === action.payload.id){
             return {...opponent, name: action.payload.name};
           }
@@ -30,8 +31,9 @@ export function lobbyReducer(state = intialLobbyState, action: any) {
         })
         return { ...state, opponents: opponents }
       case CONSTANTS.ADD_OPPONENT: 
-        // opponents = [...state.opponents, {...action.payload}]
         return { ...state, opponents: [...state.opponents, action.payload] }
+      case CONSTANTS.UPDATE_CURRENT_USER: 
+        return { ...state, currentUser: {...state.currentUser, ...action.payload} }
       default:
         return state;
     }

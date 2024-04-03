@@ -3,7 +3,7 @@ import { ConnectionPayload, User } from "../models";
 
 export class ConnectionMapper {
     mapCreateRoom(connection: connection, svcResponse: any) {
-        connection.send(JSON.stringify({type: 'created',svcResponse}))
+        connection.send(JSON.stringify({type: 'create',svcResponse}))
     }
 
     mapJoinRoom(connection: connection, svcResponse: any) {
@@ -18,7 +18,7 @@ export class ConnectionMapper {
                     status: currentUser.status,
                     score: currentUser.score
                 }
-                user.connection.send(JSON.stringify({type: 'joined',opponent}));
+                user.connection.send(JSON.stringify({type: 'join',opponent}));
             }
         })
 
@@ -47,6 +47,19 @@ export class ConnectionMapper {
         console.log(svcResponse);
     }
 
+    mapStatusUpddate(connection: connection, svcResponse: any) {
+        const users = (svcResponse.users as User[]);
+
+        const userId = svcResponse.userId;
+        const currentUser = users.find(user => user.userId === userId)
+
+        users.forEach((user: User) => {
+            if(user.userId !== userId) {
+                user.connection.send(JSON.stringify({type: 'status', userId: userId, status: currentUser?.status}));
+            }
+        })
+    }
+
     getAppropriateConnectionMapper(payload: ConnectionPayload) {
         switch(payload.type) {
             case 'create':
@@ -59,6 +72,8 @@ export class ConnectionMapper {
                 return this.mapCloseRoom;
             case 'post':
                 return this.mapPostMessage;
+            case 'status':
+                return this.mapStatusUpddate;
         }
     }
 

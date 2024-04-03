@@ -5,22 +5,11 @@ import { Person } from './Person';
 
 export function Opponents() {
     const opponents = useSelector((state: InitialState) => state.lobby.opponents);
-    const name = useSelector((state: InitialState) => state.form.name);
-    const [self, setSelf] = useState<Opponent | undefined>(undefined);
+    const currentUser = useSelector((state: InitialState) => state.lobby.currentUser);
 
-    useEffect(() => {
-        const person: Opponent = {
-            userId: localStorage.getItem('userId') as string,
-            name,
-            status: 'joined',
-            score: 0
-        }
-
-        setSelf(person);
-    },[])
     return (
         <div className='opponents'>
-            <Person person={self}/>
+            <Person person={currentUser}/>
             {
                 opponents.map((opponent: Opponent) => <Person person={opponent}/>)
             }

@@ -5,6 +5,28 @@ import { InitialState } from "../initialStates"
 import { updateCurrentQuestion, updateLoadingVerdict, updateQuestionsList, updateResult, updateVerdict } from "./action.contest.gk"
 import { toggleLoading } from "./action.loader"
 import { updateShowLobby } from "."
+import { useDispatch } from "react-redux"
+
+let ws: WebSocket;
+
+export const useConnect = () => {
+    return (dispatch: any) => {
+
+        ws = new WebSocket(`wss://${window.location.hostname}/`);
+
+        ws.onmessage = (data) => {
+            const res = JSON.parse(data.data);
+            handleConnectionMessage(dispatch, res)
+            dispatch(updateShowLobby(true));
+        }
+
+        ws.onclose = function () {
+            setInterval(function () {
+            ws = new WebSocket(`wss://${window.location.hostname}/`);
+            }, 5000);
+        };
+    }
+}
 
 export const fetchToken = createAsyncThunk(
     'data/fetch', // Action type string
@@ -23,7 +45,7 @@ export const fetchToken = createAsyncThunk(
             const mode = state.form.mode;
             if(mode === CONSTANTS.PRACTICE)
                 await dispatch(fetchQuestionsList());
-            else
+            else if(mode === CONSTANTS.COMPETE)
                 await dispatch(establishConnection());
         }catch(err){
             dispatch(toggleLoading());
@@ -148,36 +170,10 @@ export const fetchToken = createAsyncThunk(
   export const establishConnection = createAsyncThunk(
     'data/fetch',
     async ( _, thunkAPI ) => {
-        const dispatch = thunkAPI.dispatch;
         const state: InitialState = thunkAPI.getState() as InitialState;
         try{
-            let ws = new WebSocket(`wss://${window.location.hostname}/`);
-            ws.onopen = () => {
-                dispatch(toggleLoading());
-                ws.send(JSON.stringify({type: 'create', name: state.form.name}))
-            }
-
-            ws.onmessage = (data) => {
-                const res = JSON.parse(data.data);
-                console.log(res);
-                handleConnectionMessage(dispatch, res)
-                // if(res.roomCode) {
-                //     localStorage.setItem('roomCode', res.roomCode);
-                //     localStorage.setItem('userId', res.userId);
-                // }
-                dispatch(updateShowLobby(true));
-
-            }
-
-            ws.onclose = function () {
-                // Try to reconnect in 3 seconds
-                setInterval(function () {
-                  ws = new WebSocket(`wss://${window.location.hostname}/`);
-                }, 5000);
-              };
-            
+            ws.send(JSON.stringify({type: 'create', name: state.form.name}))
         }catch(err){
-            dispatch(toggleLoading());
             console.log(err);
         }
     }
@@ -186,34 +182,22 @@ export const fetchToken = createAsyncThunk(
   export const joinConnection = createAsyncThunk(
     'data/fetch',
     async ( _, thunkAPI ) => {
-        const dispatch = thunkAPI.dispatch;
         const state: InitialState = thunkAPI.getState() as InitialState;
         try{
-            dispatch(toggleLoading());
-            let ws = new WebSocket(`wss://${window.location.hostname}/`);
-            ws.onopen = () => {
-                dispatch(toggleLoading());
-                ws.send(JSON.stringify({type: 'join', name: state.form.name ,roomCode: localStorage.getItem('roomCode')}))
-            }
-
-            ws.onmessage = (data) => {
-                const res = JSON.parse(data.data);
-                console.log(res);
-                handleConnectionMessage(dispatch, res)
-                // localStorage.setItem('userId', res.userId);
-                dispatch(updateShowLobby(true));
-
-            }
-
-            ws.onclose = function () {
-                // Try to reconnect in 3 seconds
-                setInterval(function () {
-                  ws = new WebSocket(`wss://${window.location.hostname}/`);
-                }, 5000);
-              };
-            
+            ws.send(JSON.stringify({type: 'join', name: state.form.name ,roomCode: localStorage.getItem('roomCode')}))
         }catch(err){
-            dispatch(toggleLoading());
+            console.log(err);
+        }
+    }
+  )
+
+  export const sendReadyUpdate = createAsyncThunk(
+    'data/fetch',
+    async ( _, thunkAPI ) => {
+        const state: InitialState = thunkAPI.getState() as InitialState;
+        try{
+            ws.send(JSON.stringify({type: 'status', status: state.lobby.currentUser.status, roomCode: localStorage.getItem('roomCode'), userId: state.lobby.currentUser.userId}))
+        }catch(err){
             console.log(err);
         }
     }

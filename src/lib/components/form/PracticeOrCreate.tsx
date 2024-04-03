@@ -1,16 +1,17 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { FormDeatils } from './FormDeatils';
 import { Clock } from './Clock';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { InitialState } from '../../../store/initialStates';
 import { ThunkDispatch } from '@reduxjs/toolkit';
-import { fetchToken } from '../../../store/actions';
+import { fetchToken, updateCurrentUser, updateMode, useConnect } from '../../../store/actions';
 import { CONSTANTS } from '../../../utils';
 
 export function PracticeOrCreate() {
 
     const navigate = useNavigate();
+    const connect = useConnect();
     const name = useSelector((state: InitialState) => state.form.name);
     const mode = useSelector((state: InitialState) => state.form.mode);
     const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
@@ -28,13 +29,23 @@ export function PracticeOrCreate() {
                 console.error('nameRef is not attached to a DOM element yet.');
             }
         }else{
+            connect(dispatch);
             await dispatch(fetchToken());
             if(mode === CONSTANTS.PRACTICE)
                 navigate('/contest');
-            else
+            else{
+                dispatch(updateCurrentUser({
+                    name,
+                    score: 0
+                }))
                 navigate('/lobby');
+            }
         }
     }
+
+    useEffect(() => {
+        dispatch(updateMode(CONSTANTS.PRACTICE));
+    },[])
     return (
         <div className='form slide-in-top'>
                 <FormDeatils nameRef={nameRef}/>

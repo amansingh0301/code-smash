@@ -6,10 +6,17 @@ export interface Opponent {
 }
 export interface IntialLobbyState {
     showLobby: boolean;
+    currentUser: Opponent;
     opponents: Opponent[];
 }
 
 export const intialLobbyState: IntialLobbyState = {
     showLobby: false,
+    currentUser: {
+        userId: '',
+        name: '',
+        status: '',
+        score: 0
+    },
     opponents: []
 }

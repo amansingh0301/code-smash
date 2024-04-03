@@ -13,7 +13,7 @@ class ConnectionClient {
                 roomCode,
                 users: []
             }];
-        (_a = this.lobby.find((lobby) => lobby.roomCode === roomCode)) === null || _a === void 0 ? void 0 : _a.users.push(userId);
+        (_a = this.getLobby(roomCode)) === null || _a === void 0 ? void 0 : _a.users.push(userId);
     }
     JoinRoom(connection, roomCode, userId, payload) {
         this.users.push(this.createNewUser(connection, userId, payload.name));
@@ -25,6 +25,18 @@ class ConnectionClient {
             throw new Error(`Joining failed in room: ${roomCode}`);
         }
         return this.users.filter(user => lobby.users.includes(user.userId));
+    }
+    updateStatus(connection, roomCode, userId, status) {
+        const lobby = this.getLobby(roomCode);
+        return this.users.map(user => {
+            if (user.userId === userId) {
+                user.status = status;
+            }
+            return user;
+        }).filter(user => lobby === null || lobby === void 0 ? void 0 : lobby.users.includes(user.userId));
+    }
+    getLobby(roomCode) {
+        return this.lobby.find((lobby) => lobby.roomCode === roomCode);
     }
     createNewUser(connection, userId, name) {
         return {

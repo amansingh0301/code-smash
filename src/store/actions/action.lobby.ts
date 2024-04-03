@@ -44,3 +44,10 @@ export const updateOpponentStatus = (id: string, status: string) => {
         }
     }
 }
+
+export const updateCurrentUser = (currentUser: any) => {
+    return {
+        type: CONSTANTS.UPDATE_CURRENT_USER,
+        payload: currentUser
+    }
+}

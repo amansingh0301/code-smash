@@ -28,6 +28,16 @@ class ConnectionServiceInterface {
     }
     postMessage(connection, payload) {
     }
+    updateStatus(connection, payload) {
+        const roomCode = payload.roomCode;
+        const userId = payload.userId;
+        const status = payload.status;
+        const users = clients_1.connectionClient.updateStatus(connection, roomCode, userId, status);
+        return {
+            userId,
+            users
+        };
+    }
     getAppropriateConnectionMethod(payload) {
         switch (payload.type) {
             case 'create':
@@ -40,6 +50,8 @@ class ConnectionServiceInterface {
                 return this.closeRoom;
             case 'post':
                 return this.postMessage;
+            case 'status':
+                return this.updateStatus;
         }
     }
 }

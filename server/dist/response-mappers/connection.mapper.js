@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConnectionMapper = void 0;
 class ConnectionMapper {
     mapCreateRoom(connection, svcResponse) {
-        connection.send(JSON.stringify({ type: 'created', svcResponse }));
+        connection.send(JSON.stringify({ type: 'create', svcResponse }));
     }
     mapJoinRoom(connection, svcResponse) {
         const users = svcResponse.users;
@@ -17,7 +17,7 @@ class ConnectionMapper {
                     status: currentUser.status,
                     score: currentUser.score
                 };
-                user.connection.send(JSON.stringify({ type: 'joined', opponent }));
+                user.connection.send(JSON.stringify({ type: 'join', opponent }));
             }
         });
         const opponents = users.filter(user => user.userId !== currentUserId).map(user => {
@@ -40,6 +40,16 @@ class ConnectionMapper {
     mapPostMessage(connection, svcResponse) {
         console.log(svcResponse);
     }
+    mapStatusUpddate(connection, svcResponse) {
+        const users = svcResponse.users;
+        const userId = svcResponse.userId;
+        const currentUser = users.find(user => user.userId === userId);
+        users.forEach((user) => {
+            if (user.userId !== userId) {
+                user.connection.send(JSON.stringify({ type: 'status', userId: userId, status: currentUser === null || currentUser === void 0 ? void 0 : currentUser.status }));
+            }
+        });
+    }
     getAppropriateConnectionMapper(payload) {
         switch (payload.type) {
             case 'create':
@@ -52,6 +62,8 @@ class ConnectionMapper {
                 return this.mapCloseRoom;
             case 'post':
                 return this.mapPostMessage;
+            case 'status':
+                return this.mapStatusUpddate;
         }
     }
     createOpponent(user) {

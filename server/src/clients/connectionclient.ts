@@ -16,7 +16,7 @@ export class ConnectionClient {
             roomCode,
             users: []
         }]
-        this.lobby.find((lobby: Lobby) => lobby.roomCode === roomCode)?.users.push(userId)
+        this.getLobby(roomCode)?.users.push(userId)
     }
 
     JoinRoom(connection: connection, roomCode:string, userId: string, payload: JoinRoomPayload) {
@@ -29,6 +29,20 @@ export class ConnectionClient {
         }
 
         return this.users.filter(user => lobby.users.includes(user.userId));
+    }
+
+    updateStatus(connection: connection, roomCode:string, userId: string, status: string) {
+        const lobby = this.getLobby(roomCode);
+        return this.users.map(user => {
+            if(user.userId === userId){
+                user.status = status
+            }
+            return user;
+        }).filter(user => lobby?.users.includes(user.userId));
+    }
+
+    getLobby(roomCode: string) {
+        return this.lobby.find((lobby: Lobby) => lobby.roomCode === roomCode);
     }
 
     createNewUser(connection: connection, userId: string, name: string) {

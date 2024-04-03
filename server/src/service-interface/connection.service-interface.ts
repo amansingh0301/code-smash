@@ -1,5 +1,5 @@
 import { connection } from "websocket";
-import { ConnectionPayload, CreateRoomPayload, JoinRoomPayload } from "../models";
+import { ConnectionPayload, CreateRoomPayload, JoinRoomPayload, statusUpdatePayload } from "../models";
 import { CONSTANTS, generateRoomCode, generateUserId } from "../utils";
 import { connectionClient, dbClient } from "../clients";
 
@@ -33,6 +33,17 @@ export class ConnectionServiceInterface {
     postMessage(connection: connection, payload: ConnectionPayload){
     }
 
+    updateStatus(connection: connection, payload: ConnectionPayload){
+        const roomCode = (payload as statusUpdatePayload).roomCode;
+        const userId = (payload as statusUpdatePayload).userId;
+        const status = (payload as statusUpdatePayload).status;
+        const users = connectionClient.updateStatus(connection, roomCode, userId, status);
+        return {
+            userId,
+            users
+        }
+    }
+
     getAppropriateConnectionMethod(payload: ConnectionPayload) {
         switch(payload.type) {
             case 'create':
@@ -45,6 +56,8 @@ export class ConnectionServiceInterface {
                 return this.closeRoom;
             case 'post':
                 return this.postMessage;
+            case 'status':
+                return this.updateStatus;
         }
     }
 

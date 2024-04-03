@@ -1,7 +1,7 @@
 import {v4 as uuid} from 'uuid';
 import { InitialState, Opponent, SelectedOptionList } from "../store/initialStates"
 import { Dispatch } from '@reduxjs/toolkit';
-import { addOpponent } from '../store/actions';
+import { addOpponent, updateCurrentUser, updateOpponentStatus } from '../store/actions';
 
 export const prepareTokenBody = (state: InitialState) => {
     const form = state.form;
@@ -111,18 +111,24 @@ export const getProgress = (questionsList: string[], currentQuestionId: string) 
 
 export const handleConnectionMessage = (dispatch: Dispatch, res: any) => {
     switch(res.type) {
-        case 'created':
+        case 'create':
             return handleCreatedRoomRes(dispatch, res.svcResponse);
-        case 'joined':
+        case 'join':
             return handleSomeoneJoined(dispatch, res.opponent);
         case 'opponents':
             return handleOpponents(dispatch, res.opponents, res.userId);
+        case 'status':
+            return handleOpponentStatusUpdate(dispatch, res.userId, res.status);
     }
 }
 
 const handleCreatedRoomRes = (dispatch: Dispatch, res: any) => {
         localStorage.setItem('roomCode', res.roomCode);
         localStorage.setItem('userId', res.userId);
+        dispatch(updateCurrentUser({
+            userId: res.userId,
+            status: 'joined'
+        }))
 }
 
 const handleSomeoneJoined = (dispatch: Dispatch, opponent: Opponent) => {
@@ -131,5 +137,13 @@ const handleSomeoneJoined = (dispatch: Dispatch, opponent: Opponent) => {
 
 const handleOpponents = (dispatch: Dispatch, opponents: Opponent[], userId: string) => {
     localStorage.setItem('userId', userId);
+    dispatch(updateCurrentUser({
+        userId,
+        status: 'joined'
+    }))
     opponents.forEach((opponent: Opponent) => dispatch(addOpponent(opponent)));
+}
+
+const handleOpponentStatusUpdate = (dispatch: Dispatch, userId: string, status: string) => {
+    dispatch(updateOpponentStatus(userId, status));
 }

@@ -794,6 +794,7 @@ svg {
     flex: 1;
     min-height: 80vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
   }
@@ -803,6 +804,8 @@ svg {
     flex-wrap: wrap;
     gap: 1rem;
     justify-content: center;
+    align-items: center;
+    flex: 1;
   }
 
   .person {
@@ -866,6 +869,45 @@ svg {
     transform: rotateY(180deg);
     border-radius: 5px;
     padding: 0.2rem;
+  }
+
+  .lobby-btn__container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    
+  }
+
+  .waiting {
+    font-size: 2rem;
+  }
+
+  .lobby-btn {
+    font-size: inherit;
+    border-radius: 8px;
+    padding: 0.3rem 1.5rem;
+    border: 2px solid aliceblue;
+    background: none;
+    color: aliceblue;
+    transition: border 0 ease;
+    cursor: pointer;
+    width: fit-content;
+    align-self: center;
+  }
+
+  .lobby-btn:active {
+    transform: translateY(2px);
+  }
+
+  .ready {
+    color: #5bbe5f;
+    border: 2px solid #5bbe5f;
+  }
+
+  .not-ready {
+    color: #df3939;
+    border: 2px solid #df3939;;
   }
 
   /*Result-page*/
@@ -1052,6 +1094,10 @@ svg {
       padding: 0.5rem;
     }
 
+    .waiting {
+      font-size: 1.2rem;
+    }
+
     /*Contest Page*/
 
     .contest-page {
@@ -1140,6 +1186,10 @@ svg {
     .copied {
       font-size: 0.8rem;
       padding: 0.5rem;
+    }
+  
+    .waiting {
+      font-size: 1rem;
     }
 
     .result {
