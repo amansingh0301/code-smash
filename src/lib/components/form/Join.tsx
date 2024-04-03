@@ -35,6 +35,16 @@ export function Join() {
             } else {
                 console.error('codeRef is not attached to a DOM element yet.');
             }
+        }else if(!name.trim()){
+            if (nameRef.current) {
+                const inputElement = nameRef.current as HTMLInputElement; 
+                inputElement.scrollIntoView({ behavior: "smooth", block: 'center', inline: 'center' });
+                setTimeout(() => {
+                    inputElement.focus();
+                },1000)
+            } else {
+                console.error('nameRef is not attached to a DOM element yet.');
+            }
         }else {
             await dispatch(fetchToken());
             localStorage.setItem('roomCode', roomCode);
