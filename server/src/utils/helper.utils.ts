@@ -18,8 +18,8 @@ export const generateUniquePositiveNumbers = (numberOfQuestions: number, totalNu
   export const generateUserId = () => {
     // Ensure the number starts with a non-zero digit to avoid leading zeros
     while (true) {
-      const uniqueNumber = Math.floor(Math.random() * (9000000000 - 100000000) + 1000000000);
-      if (uniqueNumber.toString().length === 10) {
+      const uniqueNumber = Math.floor(Math.random() * (9000000 - 100000) + 1000000);
+      if (uniqueNumber.toString().length === 7) {
         return uniqueNumber.toString();
       }
     }

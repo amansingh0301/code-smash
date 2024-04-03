@@ -784,6 +784,10 @@ svg {
     transition: transform 0.5s ease-in-out;
   }
 
+  .person:hover {
+    cursor: pointer;
+  }
+
   .person.person-flip {
     transform: rotateY(180deg); /* Rotate 180deg for a "flip" effect */
   }
@@ -798,7 +802,7 @@ svg {
   }
 
   .person-ready {
-    background-color: rgb(144, 238, 144, 0.2)
+    background-color: rgb(144, 238, 144, 0.2);
   }
 
   .roomcode {
@@ -810,6 +814,24 @@ svg {
     bottom: 1rem;
     left: 1rem;
     border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .roomcode:active {
+    transform: translateY(2px);
+  }
+
+  .copied-notification {
+    transform: rotateY(180deg);
+  }
+
+  .copied {
+    font-size: 1.5rem;
+    height: 100%;
+    background-color: rgb(144, 238, 144, 0.2);
+    transform: rotateY(180deg);
+    border-radius: 5px;
+    padding: 0.2rem;
   }
 
   /*Result-page*/
