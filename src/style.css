@@ -1085,6 +1085,15 @@ svg {
       width: 1.2rem;
       left: 0.1rem;
     }
+
+    .form-wrapper {
+      margin-top: 4rem;
+      gap: 2rem;
+    }
+
+    .form {
+      justify-content: flex-start;
+  }
   
     .main-revise {
       font-size: 2rem;
