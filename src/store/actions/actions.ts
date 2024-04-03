@@ -151,7 +151,6 @@ export const fetchToken = createAsyncThunk(
         const dispatch = thunkAPI.dispatch;
         const state: InitialState = thunkAPI.getState() as InitialState;
         try{
-            dispatch(toggleLoading());
             let ws = new WebSocket(`wss://${window.location.hostname}/`);
             ws.onopen = () => {
                 dispatch(toggleLoading());
