@@ -29,16 +29,21 @@ export function PracticeOrCreate() {
                 console.error('nameRef is not attached to a DOM element yet.');
             }
         }else{
-            connect(dispatch);
-            await dispatch(fetchToken());
-            if(mode === CONSTANTS.PRACTICE)
+            const ws = connect(dispatch);
+            
+            if(mode === CONSTANTS.PRACTICE){
+                await dispatch(fetchToken());
                 navigate('/contest');
+            }
             else{
-                dispatch(updateCurrentUser({
-                    name,
-                    score: 0
-                }))
-                navigate('/lobby');
+                ws.onopen = async () => { 
+                    await dispatch(fetchToken());
+                    dispatch(updateCurrentUser({
+                        name,
+                        score: 0
+                    }))
+                    navigate('/lobby');
+                }
             }
         }
     }

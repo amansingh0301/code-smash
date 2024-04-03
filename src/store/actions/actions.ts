@@ -25,6 +25,7 @@ export const useConnect = () => {
             ws = new WebSocket(`wss://${window.location.hostname}/`);
             }, 5000);
         };
+        return ws;
     }
 }
 
