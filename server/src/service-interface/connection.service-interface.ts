@@ -1,5 +1,5 @@
 import { connection } from "websocket";
-import { ConnectionPayload } from "../models";
+import { ConnectionPayload, CreateRoomPayload, JoinRoomPayload } from "../models";
 import { CONSTANTS, generateRoomCode, generateUserId } from "../utils";
 import { connectionClient, dbClient } from "../clients";
 
@@ -7,7 +7,7 @@ export class ConnectionServiceInterface {
     createRoom(connection: connection, payload: ConnectionPayload){
         const roomCode = generateRoomCode();
         const userId = generateUserId();
-        connectionClient.createRoom(connection, roomCode, userId);
+        connectionClient.createRoom(connection, roomCode, userId, payload as CreateRoomPayload);
         return {
             roomCode,
             userId,
@@ -15,6 +15,13 @@ export class ConnectionServiceInterface {
     }
 
     joinRoom(connection: connection, payload: ConnectionPayload){
+        const roomCode = (payload as JoinRoomPayload).roomCode
+        const userId = generateUserId();
+        const users =connectionClient.JoinRoom(connection, roomCode, userId, payload as JoinRoomPayload);
+        return {
+            userId,
+            users
+        }
     }
 
     leaveRoom(connection: connection, payload: ConnectionPayload){

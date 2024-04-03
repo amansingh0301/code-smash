@@ -1,33 +1,35 @@
 
 
-interface CreateRoom {
-    type: 'create'
+export interface CreateRoomPayload {
+    type: 'create',
+    name: string
 }
 
-interface JoinRoom {
+export interface JoinRoomPayload {
     type: 'join',
-    roomId: string
+    name: string,
+    roomCode: string
 }
 
-interface LeaveRoom {
+interface LeaveRoomPayload {
     type: 'leave',
-    roomId: string
+    roomCode: string
 }
 
-interface CloseRoom {
+interface CloseRoomPayload {
     type: 'close',
-    roomId: string
+    roomCode: string
 }
 
 interface PostMessage {
     type: 'post',
-    roomId: string,
+    roomCode: string,
     message: string
 }
 
 export type ConnectionPayload = 
-| CreateRoom 
-| JoinRoom 
-| LeaveRoom 
-| CloseRoom 
+| CreateRoomPayload
+| JoinRoomPayload
+| LeaveRoomPayload
+| CloseRoomPayload
 | PostMessage

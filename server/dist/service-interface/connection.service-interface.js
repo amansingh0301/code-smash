@@ -7,13 +7,20 @@ class ConnectionServiceInterface {
     createRoom(connection, payload) {
         const roomCode = (0, utils_1.generateRoomCode)();
         const userId = (0, utils_1.generateUserId)();
-        clients_1.connectionClient.createRoom(connection, roomCode, userId);
+        clients_1.connectionClient.createRoom(connection, roomCode, userId, payload);
         return {
             roomCode,
             userId,
         };
     }
     joinRoom(connection, payload) {
+        const roomCode = payload.roomCode;
+        const userId = (0, utils_1.generateUserId)();
+        const users = clients_1.connectionClient.JoinRoom(connection, roomCode, userId, payload);
+        return {
+            userId,
+            users
+        };
     }
     leaveRoom(connection, payload) {
     }

@@ -1,5 +1,7 @@
 import {v4 as uuid} from 'uuid';
-import { InitialState, SelectedOptionList } from "../store/initialStates"
+import { InitialState, Opponent, SelectedOptionList } from "../store/initialStates"
+import { Dispatch } from '@reduxjs/toolkit';
+import { addOpponent } from '../store/actions';
 
 export const prepareTokenBody = (state: InitialState) => {
     const form = state.form;
@@ -105,4 +107,29 @@ export const getSelectedOption = (currentQuestionId: string, selectedOptionsList
 
 export const getProgress = (questionsList: string[], currentQuestionId: string) => {
    return questionsList.indexOf(currentQuestionId)+1;
+}
+
+export const handleConnectionMessage = (dispatch: Dispatch, res: any) => {
+    switch(res.type) {
+        case 'created':
+            return handleCreatedRoomRes(dispatch, res.svcResponse);
+        case 'joined':
+            return handleSomeoneJoined(dispatch, res.opponent);
+        case 'opponents':
+            return handleOpponents(dispatch, res.opponents, res.userId);
+    }
+}
+
+const handleCreatedRoomRes = (dispatch: Dispatch, res: any) => {
+        localStorage.setItem('roomCode', res.roomCode);
+        localStorage.setItem('userId', res.userId);
+}
+
+const handleSomeoneJoined = (dispatch: Dispatch, opponent: Opponent) => {
+    dispatch(addOpponent(opponent));
+}
+
+const handleOpponents = (dispatch: Dispatch, opponents: Opponent[], userId: string) => {
+    localStorage.setItem('userId', userId);
+    opponents.forEach((opponent: Opponent) => dispatch(addOpponent(opponent)));
 }

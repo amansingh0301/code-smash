@@ -2,10 +2,13 @@ import { connection } from "websocket"
 
 export interface User {
     connection: connection,
-    userId: string
+    userId: string,
+    name: string,
+    status: string,
+    score: number
 }
 
-export interface Room {
+export interface Lobby {
     roomCode: string,
-    users: User[]
+    users: string[];
 }

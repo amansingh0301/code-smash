@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { CONSTANTS } from "../../utils/CONSTANTS"
-import { prepareContestQuestionsBody, prepareGetQuestionBody, prepareSubmitContestBody, prepareTokenBody, preparecheckAnswerBody } from "../../utils"
+import { getWebsocketConnectionString, handleConnectionMessage, prepareContestQuestionsBody, prepareGetQuestionBody, prepareSubmitContestBody, prepareTokenBody, preparecheckAnswerBody } from "../../utils"
 import { InitialState } from "../initialStates"
 import { updateCurrentQuestion, updateLoadingVerdict, updateQuestionsList, updateResult, updateVerdict } from "./action.contest.gk"
 import { toggleLoading } from "./action.loader"
@@ -152,16 +152,20 @@ export const fetchToken = createAsyncThunk(
         const state: InitialState = thunkAPI.getState() as InitialState;
         try{
             dispatch(toggleLoading());
-            let ws = new WebSocket(`ws://${window.location.hostname}:8080`);
+            let ws = new WebSocket(getWebsocketConnectionString());
             ws.onopen = () => {
                 dispatch(toggleLoading());
-                ws.send(JSON.stringify({type: 'create'}))
+                ws.send(JSON.stringify({type: 'create', name: state.form.name}))
             }
 
             ws.onmessage = (data) => {
                 const res = JSON.parse(data.data);
-                localStorage.setItem('roomCode', res.roomCode);
-                localStorage.setItem('userId', res.userId);
+                console.log(res);
+                handleConnectionMessage(dispatch, res)
+                // if(res.roomCode) {
+                //     localStorage.setItem('roomCode', res.roomCode);
+                //     localStorage.setItem('userId', res.userId);
+                // }
                 dispatch(updateShowLobby(true));
 
             }
@@ -169,7 +173,43 @@ export const fetchToken = createAsyncThunk(
             ws.onclose = function () {
                 // Try to reconnect in 3 seconds
                 setInterval(function () {
-                  ws = new WebSocket(`ws://${window.location.hostname}:8080`);
+                  ws = new WebSocket(getWebsocketConnectionString());
+                }, 5000);
+              };
+            
+        }catch(err){
+            dispatch(toggleLoading());
+            console.log(err);
+        }
+    }
+  )
+
+  export const joinConnection = createAsyncThunk(
+    'data/fetch',
+    async ( _, thunkAPI ) => {
+        const dispatch = thunkAPI.dispatch;
+        const state: InitialState = thunkAPI.getState() as InitialState;
+        try{
+            dispatch(toggleLoading());
+            let ws = new WebSocket(getWebsocketConnectionString());
+            ws.onopen = () => {
+                dispatch(toggleLoading());
+                ws.send(JSON.stringify({type: 'join', name: state.form.name ,roomCode: localStorage.getItem('roomCode')}))
+            }
+
+            ws.onmessage = (data) => {
+                const res = JSON.parse(data.data);
+                console.log(res);
+                handleConnectionMessage(dispatch, res)
+                // localStorage.setItem('userId', res.userId);
+                dispatch(updateShowLobby(true));
+
+            }
+
+            ws.onclose = function () {
+                // Try to reconnect in 3 seconds
+                setInterval(function () {
+                  ws = new WebSocket(getWebsocketConnectionString());
                 }, 5000);
               };
             

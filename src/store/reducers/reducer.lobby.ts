@@ -1,5 +1,5 @@
 import { CONSTANTS } from "../../utils";
-import { IntialLobbyState, Opponent, intialLobbyState } from "../initialStates";
+import { Opponent, intialLobbyState } from "../initialStates";
 
 export function lobbyReducer(state = intialLobbyState, action: any) {
     switch (action.type) {
@@ -30,8 +30,8 @@ export function lobbyReducer(state = intialLobbyState, action: any) {
         })
         return { ...state, opponents: opponents }
       case CONSTANTS.ADD_OPPONENT: 
-        opponents = [...state.opponents, {...action.payload}]
-        return { ...state, opponents: opponents }
+        // opponents = [...state.opponents, {...action.payload}]
+        return { ...state, opponents: [...state.opponents, action.payload] }
       default:
         return state;
     }

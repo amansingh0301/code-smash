@@ -1,33 +1,44 @@
 import { connection } from "websocket";
-import { Room, User } from "../models";
+import { CreateRoomPayload, JoinRoomPayload, Lobby, User } from "../models";
 
 export class ConnectionClient {
-    private rooms: Room[];
+    private users: User[];
+    private lobby: Lobby[];
 
     constructor() {
-        this.rooms = [];
+        this.users = [];
+        this.lobby = [];
     }
 
-    createRoom(connection: connection, roomCode:string, userId: string) {
-        const user: User = {
-            userId,
-            connection
-        } 
-        const users: User[] = [user];
-        const room: Room = {
+    createRoom(connection: connection, roomCode:string, userId: string, payload: CreateRoomPayload) {
+        this.users.push(this.createNewUser(connection, userId, payload.name))
+        this.lobby = [{
             roomCode,
-            users
+            users: []
+        }]
+        this.lobby.find((lobby: Lobby) => lobby.roomCode === roomCode)?.users.push(userId)
+    }
+
+    JoinRoom(connection: connection, roomCode:string, userId: string, payload: JoinRoomPayload) {
+        this.users.push(this.createNewUser(connection, userId, payload.name));
+        const lobby = this.lobby.find((room: Lobby) => room.roomCode === roomCode);
+        if(lobby){
+            lobby.users.push(userId);
+        }else{
+            throw new Error(`Joining failed in room: ${roomCode}`);
         }
 
-        this.rooms.push(room);
+        return this.users.filter(user => lobby.users.includes(user.userId));
     }
 
-    getRoom(roomCode: string) {
-        return this.rooms.find(room => room.roomCode === roomCode);
-    }
-
-    getAllMembers(roomCode: string) {
-        return this.rooms.find(room => room.roomCode === roomCode)?.users;
+    createNewUser(connection: connection, userId: string, name: string) {
+        return {
+            connection,
+            userId,
+            name,
+            status: 'joined',
+            score: 0
+        } as User;
     }
 
 }
