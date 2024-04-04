@@ -1,6 +1,6 @@
 import React from 'react';
 import { Opponents } from './Opponents';
-import { ChatIcon } from './ChatIcon';
+import { Chat } from './Chat';
 import { Readybtn } from './Readybtn';
 import { RoomCode } from './RoomCode';
 
@@ -11,7 +11,7 @@ export function Lobby() {
         <div className='lobby'>
             <Opponents/>
             <Readybtn />
-            <ChatIcon/>
+            <Chat/>
             <RoomCode/>
         </div>
     )

@@ -8,3 +8,4 @@ export * from './istate.lobby';
 export * from './istate.popup';
 export * from './istate.result';
 export * from './istate.timer';
+export * from './istate.chat';

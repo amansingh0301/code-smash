@@ -493,7 +493,91 @@ svg {
     }
   }
 
-  /* ChatIcon */
+  /* Chat */
+
+  .chat-window {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    bottom: 2rem;
+    right: 2rem;
+    height: 0vh;
+    width: 0rem;
+    border: 2px solid #9bb13b;
+    background-color: aliceblue;
+    border-radius: 10px;
+    opacity: 0;
+    transform: scale(0);
+    transform-origin: center; 
+  }
+
+
+  .chat-window.visible {
+    height: 40vh;
+    width: 20rem;
+    opacity: 1; 
+    transform: scale(1); 
+    transition: all 0.5s ease-in-out;
+  }
+
+  .chat-header {
+    display: flex;
+    background-color: #9bb13b;
+  }
+
+  .chat-history {
+    flex:1;
+  }
+
+  .chat-close-icon{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .chat-console {
+    height: 3rem;
+    display: flex;
+  }
+
+  .textAreaWrapper {
+    flex: 6;
+    display: flex;
+  }
+
+  .textArea {
+    flex: 1;
+    resize: none;
+    outline: none;
+    border-radius: 8px;
+    max-height: 10rem;
+    border: none;
+    padding: 0.5rem;
+    padding-top: 1rem;
+  }
+
+  .textArea::placeholder {
+    color: #b3b3b3;
+  }
+
+  .textArea::-webkit-scrollbar {
+    width: 0px;
+  }
+
+  .sendicon {
+    min-width: 0;
+    height: 2rem;
+    width: 2rem;
+  }
+
+  .send-btn {
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+    padding-left: 0.5rem;
+  }
 
   .chat {
     position: fixed;
@@ -1132,6 +1216,12 @@ svg {
       font-size: 1.2rem;
     }
 
+    /* chat */
+
+    .chat-window {
+      z-index: 1;
+    }
+
     /*Contest Page*/
 
     .contest-page {
@@ -1225,6 +1315,33 @@ svg {
     .waiting {
       font-size: 1rem;
     }
+
+    /*chat */
+
+    .chat-window {
+      bottom: 0;
+      right: 0;
+      border-radius: 0;
+      z-index: 1;
+    }
+  
+  
+    .chat-window.visible {
+      height: 100vh;
+      width: 100vw;
+    }
+  
+    .chat {
+      bottom: 1rem;
+      right: 1rem;
+    }
+  
+    .ionicon {
+      height: 2.5rem;
+      width: 2.5rem;
+    }
+
+    /* result */
 
     .result {
       margin-top: 3rem;

@@ -8,3 +8,4 @@ export * from './reducer.lobby';
 export * from './reducer.popup';
 export * from './reducer.result';
 export * from './reducer.timer';
+export * from './reducer.chat';

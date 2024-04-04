@@ -1,6 +1,6 @@
 
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import { appReducer, contestGkReducer, formReducer, loaderReducer, lobbyReducer, popupReducer, timerReducer } from './reducers';
+import { appReducer, chatReducer, contestGkReducer, formReducer, loaderReducer, lobbyReducer, popupReducer, timerReducer } from './reducers';
 
 const rootReducer = combineReducers({
     app: appReducer,
@@ -9,7 +9,8 @@ const rootReducer = combineReducers({
     loader: loaderReducer,
     popup: popupReducer,
     timer: timerReducer,
-    lobby: lobbyReducer
+    lobby: lobbyReducer,
+    chat: chatReducer
   });
 
 export const store = configureStore({

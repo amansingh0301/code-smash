@@ -7,3 +7,4 @@ export * from './action.lobby';
 export * from './action.popup';
 export * from './action.result';
 export * from './action.timer';
+export * from './action.chat';
