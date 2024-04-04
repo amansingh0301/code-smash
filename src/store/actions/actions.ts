@@ -171,9 +171,11 @@ export const fetchToken = createAsyncThunk(
   export const establishConnection = createAsyncThunk(
     'data/fetch',
     async ( _, thunkAPI ) => {
+        const dispatch = thunkAPI.dispatch;
         const state: InitialState = thunkAPI.getState() as InitialState;
         try{
             ws.send(JSON.stringify({type: 'create', name: state.form.name}))
+            dispatch(toggleLoading());
         }catch(err){
             console.log(err);
         }

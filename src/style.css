@@ -493,6 +493,39 @@ svg {
     }
   }
 
+  /* ChatIcon */
+
+  .chat {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    cursor: pointer;
+    stroke: #9bb13b;
+    fill: #9bb13b;
+    border-radius: 100%;
+    box-shadow: 5px 10px 8px #202020;
+  }
+
+  .chat:hover {
+    stroke: #cfd4b6;
+    fill: #cfd4b6;
+  }
+
+  .chat:active {
+    box-shadow: 0 0 0;
+    transform: translateY(2px);
+  }
+
+  .ionicon {
+    height: 3rem;
+    width: 3rem;
+    min-width: 0;
+  }
+
+  #chatIcon {
+    stroke: inherit;
+  }
+
   /*contestpase style*/
 
   .timer {
@@ -791,6 +824,7 @@ svg {
   }
 
   .lobby {
+    /* position: relative; */
     flex: 1;
     min-height: 80vh;
     display: flex;

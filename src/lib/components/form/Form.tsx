@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { InitialState } from '../../../store/initialStates';
-import { fetchToken, invalidateToken, resetContest, resetForm, resetTimer} from '../../../store/actions';
+import { invalidateToken, resetContest, resetForm, resetTimer} from '../../../store/actions';
 import { Loader } from '..';
-import { FormDeatils } from './FormDeatils';
-import { Clock } from './Clock';
-import { CONSTANTS } from '../../../utils';
+
 import { PracticeOrCreate } from './PracticeOrCreate';
 import { Join } from './Join';
 
