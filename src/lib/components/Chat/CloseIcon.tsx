@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
-import { updateIsChatOpenState } from '../../../../store/actions';
+import { updateIsChatOpenState } from '../../../store/actions';
 
 export function CloseIcon() {
     const dispatch = useDispatch();

@@ -3,6 +3,7 @@ export interface Opponent {
     name: string,
     status: string,
     score: number,
+    message?: string 
 }
 export interface IntialLobbyState {
     showLobby: boolean;

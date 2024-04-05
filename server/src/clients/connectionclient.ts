@@ -21,7 +21,7 @@ export class ConnectionClient {
 
     JoinRoom(connection: connection, roomCode:string, userId: string, payload: JoinRoomPayload) {
         this.users.push(this.createNewUser(connection, userId, payload.name));
-        const lobby = this.lobby.find((room: Lobby) => room.roomCode === roomCode);
+        const lobby = this.getLobby(roomCode);
         if(lobby){
             lobby.users.push(userId);
         }else{
@@ -43,6 +43,14 @@ export class ConnectionClient {
 
     getLobby(roomCode: string) {
         return this.lobby.find((lobby: Lobby) => lobby.roomCode === roomCode);
+    }
+
+    getUsers(roomCode: string) {
+        const lobby = this.getLobby(roomCode);
+        if(lobby)
+            return this.users.filter(user => lobby.users.includes(user.userId));
+        
+        throw new Error(`Post Message failed in room: ${roomCode}`);
     }
 
     createNewUser(connection: connection, userId: string, name: string) {

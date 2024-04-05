@@ -1,7 +1,7 @@
 import {v4 as uuid} from 'uuid';
-import { InitialState, Opponent, SelectedOptionList } from "../store/initialStates"
+import { InitialState, Message, Opponent, SelectedOptionList } from "../store/initialStates"
 import { Dispatch } from '@reduxjs/toolkit';
-import { addOpponent, updateCurrentUser, updateOpponentStatus } from '../store/actions';
+import { addMessage, addOpponent, updateCurrentUser, updateOpponentStatus } from '../store/actions';
 
 export const prepareTokenBody = (state: InitialState) => {
     const form = state.form;
@@ -119,6 +119,10 @@ export const handleConnectionMessage = (dispatch: Dispatch, res: any) => {
             return handleOpponents(dispatch, res.opponents, res.userId);
         case 'status':
             return handleOpponentStatusUpdate(dispatch, res.userId, res.status);
+        case 'infoMessage':
+            return handleInfoMessage(dispatch, res.text, res.opponent)
+        case 'message':
+            return handleMessage(dispatch, res.message, res.userId)
     }
 }
 
@@ -146,4 +150,24 @@ const handleOpponents = (dispatch: Dispatch, opponents: Opponent[], userId: stri
 
 const handleOpponentStatusUpdate = (dispatch: Dispatch, userId: string, status: string) => {
     dispatch(updateOpponentStatus(userId, status));
+}
+
+const handleInfoMessage = (dispatch: Dispatch, text: string, opponent: Opponent) => {
+    const message: Message = {
+        type: 'infoMessage',
+        text: `${opponent.name} ${text}`,
+        userId: opponent.userId
+    }
+
+    dispatch(addMessage(message));
+}
+
+const handleMessage = (dispatch: Dispatch, text: string, userId: string) => {
+    const message: Message = {
+        type: 'message',
+        text,
+        userId: userId
+    }
+
+    dispatch(addMessage(message));
 }

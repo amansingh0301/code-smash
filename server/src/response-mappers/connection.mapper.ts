@@ -19,6 +19,7 @@ export class ConnectionMapper {
                     score: currentUser.score
                 }
                 user.connection.send(JSON.stringify({type: 'join',opponent}));
+                user.connection.send(JSON.stringify({type: 'infoMessage',text: 'joined',opponent}))
             }
         })
 
@@ -44,7 +45,16 @@ export class ConnectionMapper {
     }
 
     mapPostMessage(connection: connection, svcResponse: any) {
-        console.log(svcResponse);
+        const users = (svcResponse.users as User[]);
+        const userId = svcResponse.userId;
+        const message = svcResponse.message;
+        const currentUser = users.find(user => user.userId === userId)
+
+        users.forEach((user: User) => {
+            if(user.userId !== userId) {
+                user.connection.send(JSON.stringify({type: 'message', userId: userId, message }));
+            }
+        })
     }
 
     mapStatusUpddate(connection: connection, svcResponse: any) {
@@ -70,7 +80,7 @@ export class ConnectionMapper {
                 return this.mapLeaveRoom;
             case 'close':
                 return this.mapCloseRoom;
-            case 'post':
+            case 'message':
                 return this.mapPostMessage;
             case 'status':
                 return this.mapStatusUpddate;

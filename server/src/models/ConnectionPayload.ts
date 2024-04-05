@@ -21,10 +21,11 @@ interface CloseRoomPayload {
     roomCode: string
 }
 
-interface PostMessagePayload {
-    type: 'post',
-    roomCode: string,
+export interface PostMessagePayload {
+    type: 'message',
     message: string
+    roomCode: string,
+    userId: string    
 }
 
 export interface statusUpdatePayload {

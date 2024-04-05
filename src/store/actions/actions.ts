@@ -1,10 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { CONSTANTS } from "../../utils/CONSTANTS"
 import { getWebsocketConnectionString, handleConnectionMessage, prepareContestQuestionsBody, prepareGetQuestionBody, prepareSubmitContestBody, prepareTokenBody, preparecheckAnswerBody } from "../../utils"
-import { InitialState } from "../initialStates"
+import { InitialState, Message } from "../initialStates"
 import { updateCurrentQuestion, updateLoadingVerdict, updateQuestionsList, updateResult, updateVerdict } from "./action.contest.gk"
 import { toggleLoading } from "./action.loader"
-import { updateShowLobby } from "."
+import { addMessage, updateShowLobby } from "."
 import { useDispatch } from "react-redux"
 
 let ws: WebSocket;
@@ -12,7 +12,7 @@ let ws: WebSocket;
 export const useConnect = () => {
     return (dispatch: any) => {
 
-        ws = new WebSocket(`wss://${window.location.hostname}/`);
+        ws = new WebSocket(`ws://${window.location.hostname}:8080/`);
 
         ws.onmessage = (data) => {
             const res = JSON.parse(data.data);
@@ -22,7 +22,7 @@ export const useConnect = () => {
 
         ws.onclose = function () {
             setInterval(function () {
-            ws = new WebSocket(`wss://${window.location.hostname}/`);
+            ws = new WebSocket(`ws://${window.location.hostname}:8080/`);
             }, 5000);
         };
         return ws;
@@ -200,6 +200,25 @@ export const fetchToken = createAsyncThunk(
         const state: InitialState = thunkAPI.getState() as InitialState;
         try{
             ws.send(JSON.stringify({type: 'status', status: state.lobby.currentUser.status, roomCode: localStorage.getItem('roomCode'), userId: state.lobby.currentUser.userId}))
+        }catch(err){
+            console.log(err);
+        }
+    }
+  )
+
+  export const sendMessage = createAsyncThunk(
+    'data/fetch',
+    async ( text, thunkAPI ) => {
+        const dispatch = thunkAPI.dispatch;
+        const state: InitialState = thunkAPI.getState() as InitialState;
+        try{
+            const message: Message ={
+                type: 'message',
+                text: state.lobby.currentUser.message as string,
+                userId: localStorage.getItem('userId') as string
+            }
+            dispatch(addMessage(message))
+            ws.send(JSON.stringify({type: 'message', message: state.lobby.currentUser.message, roomCode: localStorage.getItem('roomCode'), userId: state.lobby.currentUser.userId}))
         }catch(err){
             console.log(err);
         }

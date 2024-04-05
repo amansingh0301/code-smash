@@ -1,6 +1,6 @@
 import React from 'react';
 import { Opponents } from './Opponents';
-import { Chat } from './Chat';
+import { Chat } from '../Chat';
 import { Readybtn } from './Readybtn';
 import { RoomCode } from './RoomCode';
 

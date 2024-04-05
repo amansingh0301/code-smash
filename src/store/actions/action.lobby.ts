@@ -51,3 +51,10 @@ export const updateCurrentUser = (currentUser: any) => {
         payload: currentUser
     }
 }
+
+export const updateCurrentUserMessage = (message: string) => {
+    return {
+        type: CONSTANTS.UPDATE_CURRENT_USER_MESSAGE,
+        payload: message
+    }
+}

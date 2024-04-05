@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { InitialState } from '../../../../store/initialStates';
+import { InitialState } from '../../../store/initialStates';
 import { ChatWindow } from './ChatWindow';
 import { ChatIcon } from './ChatIcon';
 

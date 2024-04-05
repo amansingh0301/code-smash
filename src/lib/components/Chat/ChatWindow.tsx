@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ChatHeader } from './ChatHeader'
 import { useSelector } from 'react-redux';
-import { InitialState } from '../../../../store/initialStates';
+import { InitialState } from '../../../store/initialStates';
 import { ChatConsole } from './ChatConsole';
 import { ChatHistory } from './ChatHistory';
 

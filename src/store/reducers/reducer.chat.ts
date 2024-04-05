@@ -4,7 +4,9 @@ import { initialChatState } from "../initialStates";
 export function chatReducer(state = initialChatState, action: any) {
   switch (action.type) {
     case CONSTANTS.UPDATE_IS_CHAT_OPEN:
-      return { isChatOpen: action.payload };
+      return { ...state , isChatOpen: action.payload };
+    case CONSTANTS.ADD_MESSAGE:
+      return { ...state, messages: [ ...state.messages, action.payload]}
     default:
       return state;
   }

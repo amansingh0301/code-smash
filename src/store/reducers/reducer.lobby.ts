@@ -34,6 +34,8 @@ export function lobbyReducer(state = intialLobbyState, action: any) {
         return { ...state, opponents: [...state.opponents, action.payload] }
       case CONSTANTS.UPDATE_CURRENT_USER: 
         return { ...state, currentUser: {...state.currentUser, ...action.payload} }
+      case CONSTANTS.UPDATE_CURRENT_USER_MESSAGE: 
+        return { ...state, currentUser: {...state.currentUser, message: action.payload} }
       default:
         return state;
     }

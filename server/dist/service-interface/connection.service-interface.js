@@ -27,6 +27,15 @@ class ConnectionServiceInterface {
     closeRoom(connection, payload) {
     }
     postMessage(connection, payload) {
+        const roomCode = payload.roomCode;
+        const userId = payload.userId;
+        const message = payload.message;
+        const users = clients_1.connectionClient.getUsers(roomCode);
+        return {
+            message,
+            userId,
+            users
+        };
     }
     updateStatus(connection, payload) {
         const roomCode = payload.roomCode;
@@ -48,10 +57,10 @@ class ConnectionServiceInterface {
                 return this.leaveRoom;
             case 'close':
                 return this.closeRoom;
-            case 'post':
-                return this.postMessage;
             case 'status':
                 return this.updateStatus;
+            case 'message':
+                return this.postMessage;
         }
     }
 }
