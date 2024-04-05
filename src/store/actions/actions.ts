@@ -12,7 +12,7 @@ let ws: WebSocket;
 export const useConnect = () => {
     return (dispatch: any) => {
 
-        ws = new WebSocket(`ws://${window.location.hostname}:8080/`);
+        ws = new WebSocket(`wss://${window.location.hostname}/`);
 
         ws.onmessage = (data) => {
             const res = JSON.parse(data.data);
@@ -22,7 +22,7 @@ export const useConnect = () => {
 
         ws.onclose = function () {
             setInterval(function () {
-            ws = new WebSocket(`ws://${window.location.hostname}:8080/`);
+            ws = new WebSocket(`wss://${window.location.hostname}/`);
             }, 5000);
         };
         return ws;
@@ -213,7 +213,7 @@ export const fetchToken = createAsyncThunk(
         const state: InitialState = thunkAPI.getState() as InitialState;
         try{
             const message: Message ={
-                type: 'message',
+                type: 'userMessage',
                 text: state.lobby.currentUser.message as string,
                 userId: localStorage.getItem('userId') as string
             }

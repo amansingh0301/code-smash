@@ -109,6 +109,14 @@ export const getProgress = (questionsList: string[], currentQuestionId: string) 
    return questionsList.indexOf(currentQuestionId)+1;
 }
 
+export const getNameFromOpponentList = (opponents: Opponent[], userId: string) => {
+    return opponents.find(opponent => opponent.userId === userId)?.name;
+}
+
+export const getCurrentUserName = (currentUser: Opponent) => {
+    return currentUser.name;
+}
+
 export const handleConnectionMessage = (dispatch: Dispatch, res: any) => {
     switch(res.type) {
         case 'create':

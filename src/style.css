@@ -587,12 +587,69 @@ svg {
   }
 
   .info-message {
+    margin: 0.5rem;
     text-align: center;
     color: grey;
   }
 
   .message {
     color: black;
+    margin: 0.5rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .user-message {
+    background-color: #9bb13b;
+    padding: 0.5rem;
+    width: fit-content;
+    border-radius: 5px;
+    max-width: 80%;
+    position: relative;
+    left: 1rem;
+  }
+
+  .opponent-message {
+    background-color: #9bb13b;
+    padding: 0.5rem;
+    width: fit-content;
+    border-radius: 5px;
+    margin-right: auto;
+    max-width: 80%;
+    position: relative;
+    right: 1rem;
+  }
+
+  .pointyIconRight{
+    min-width: 0;
+    position: relative;
+    left: 0.5rem;
+    top: 0.3rem;
+    stroke: #9bb13b;
+  }
+
+  .pointyIconLeft{
+    min-width: 0;
+    position: relative;
+    right: 0.5rem;
+    top: -0.3rem;
+    stroke: #9bb13b;
+    transform: rotate(180deg);
+  }
+
+  #pointyIcon{
+    stroke: #9bb13b;
+    fill: #9bb13b;
+  }
+
+  .person-icon {
+    font-size: 0.6rem;
+    /* margin-left: 0.5rem; */
+    text-align: center;
+    padding: 0.5rem;
+    background-color: rgba(110, 113, 116, 0.2);
+    border-radius: 100%;
   }
 
   .chat {

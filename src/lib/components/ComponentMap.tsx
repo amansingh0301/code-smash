@@ -9,9 +9,11 @@ interface ComponentMapProps {
 export function ComponentMap({message}: ComponentMapProps) {
     switch(message.type){
         case 'message':
-            return <MessageComopnent message={message}/>
+            return <MessageComopnent message={message} type='opponent-message'/>
         case 'infoMessage':
             return <InfoMessage message={message}/>
+        case 'userMessage':
+            return <MessageComopnent message={message} type='user-message'/>
         default:
             return <></>
     }

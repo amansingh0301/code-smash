@@ -1,10 +1,13 @@
 import React, { ChangeEvent } from 'react';
 import { SendButton } from './SendButton';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { sendMessage, updateCurrentUserMessage } from '../../../store/actions';
+import { InitialState } from '../../../store/initialStates';
 
 export function ChatConsole() {
+
+    const currentUser = useSelector((state: InitialState) => state.lobby.currentUser);
 
     const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
 
@@ -13,7 +16,15 @@ export function ChatConsole() {
     }
 
     const sendMessageClick = () => {
-        dispatch(sendMessage())
+        if(currentUser.message?.trim()){
+            const textArea = document.querySelector(".textArea") as HTMLTextAreaElement;
+            textArea.value = "";
+
+            dispatch(sendMessage())
+            setTimeout(() => {
+                dispatch(updateCurrentUserMessage(''));
+            }, 500);
+        }
     }
 
     return (
