@@ -1,5 +1,7 @@
 import { connection } from "websocket";
 import { CreateRoomPayload, JoinRoomPayload, Lobby, User } from "../models";
+import { CONSTANTS } from "../utils";
+import { ObjectId } from "mongodb";
 
 export class ConnectionClient {
     private users: User[];
@@ -10,19 +12,23 @@ export class ConnectionClient {
         this.lobby = [];
     }
 
-    createRoom(connection: connection, roomCode:string, userId: string, payload: CreateRoomPayload) {
+    createRoom(connection: connection, roomCode:string, userId: string, payload: CreateRoomPayload, questionIdList: ObjectId[]) {
         this.users.push(this.createNewUser(connection, userId, payload.name))
         this.lobby = [{
             roomCode,
-            users: []
+            users: [],
+            time: payload.time,
+            questions: questionIdList
         }]
         this.getLobby(roomCode)?.users.push(userId)
     }
 
     JoinRoom(connection: connection, roomCode:string, userId: string, payload: JoinRoomPayload) {
-        this.users.push(this.createNewUser(connection, userId, payload.name));
         const lobby = this.getLobby(roomCode);
         if(lobby){
+            if(this.isEveryOneReady(lobby))
+                return new Error(CONSTANTS.CONTEST_IN_PROGRESS);
+            this.users.push(this.createNewUser(connection, userId, payload.name));
             lobby.users.push(userId);
         }else{
             throw new Error(`Joining failed in room: ${roomCode}`);
@@ -32,13 +38,28 @@ export class ConnectionClient {
     }
 
     updateStatus(connection: connection, roomCode:string, userId: string, status: string) {
-        const lobby = this.getLobby(roomCode);
-        return this.users.map(user => {
+        const lobby = this.getLobby(roomCode) as Lobby;
+        const users = this.users.map(user => {
             if(user.userId === userId){
                 user.status = status
             }
             return user;
         }).filter(user => lobby?.users.includes(user.userId));
+
+        const isEveryOneReady = this.isEveryOneReady(lobby);
+
+        return {
+            users,
+            allReady:  isEveryOneReady
+        };
+    }
+
+    getLobbyQuestions(connection: connection, roomCode: string) {
+        const lobby = this.getLobby(roomCode) as Lobby;
+        return {
+            questions: lobby.questions,
+            time: lobby.time
+        };
     }
 
     getLobby(roomCode: string) {
@@ -61,6 +82,22 @@ export class ConnectionClient {
             status: 'joined',
             score: 0
         } as User;
+    }
+
+    isEveryOneReady(lobby: Lobby) {
+        let totalUsers: number = 0;
+        let isEveryoneready = true;
+        const res = this.users.map(user => {
+            if(lobby.users.includes(user.userId)) {
+                totalUsers++;
+                if(user.status !== 'ready')
+                    isEveryoneready = false;
+            }
+        });
+
+        if(totalUsers < 2)
+            return false;
+        return isEveryoneready;
     }
 
 }

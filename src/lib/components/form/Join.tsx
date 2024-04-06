@@ -51,7 +51,7 @@ export function Join() {
                 console.error('nameRef is not attached to a DOM element yet.');
             }
         }else {
-            const ws = connect(dispatch);
+            const ws = connect(dispatch, navigate);
 
             ws.onopen = async() => {
                 dispatch(updateCurrentUser({
@@ -61,7 +61,6 @@ export function Join() {
                 await dispatch(fetchToken());
                 localStorage.setItem('roomCode', roomCode);
                 dispatch(joinConnection());
-                navigate('/lobby');
             }
         }
     }

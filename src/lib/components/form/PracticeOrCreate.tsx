@@ -29,7 +29,7 @@ export function PracticeOrCreate() {
                 console.error('nameRef is not attached to a DOM element yet.');
             }
         }else{
-            const ws = connect(dispatch);
+            const ws = connect(dispatch, navigate);
             
             if(mode === CONSTANTS.PRACTICE){
                 await dispatch(fetchToken());
@@ -42,7 +42,6 @@ export function PracticeOrCreate() {
                         name,
                         score: 0
                     }))
-                    navigate('/lobby');
                 }
             }
         }

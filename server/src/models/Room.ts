@@ -1,5 +1,5 @@
+import { ObjectId } from "mongodb"
 import { connection } from "websocket"
-
 export interface User {
     connection: connection,
     userId: string,
@@ -10,5 +10,7 @@ export interface User {
 
 export interface Lobby {
     roomCode: string,
-    users: string[];
+    users: string[],
+    time: number,
+    questions: ObjectId[]
 }

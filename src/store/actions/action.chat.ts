@@ -14,3 +14,9 @@ export const addMessage = (message: Message) => {
         payload: message
     }
 }
+
+export const resetChat = () => {
+    return {
+        type: CONSTANTS.RESET
+    }
+}

@@ -1,22 +1,21 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { CONSTANTS } from "../../utils/CONSTANTS"
-import { getWebsocketConnectionString, handleConnectionMessage, prepareContestQuestionsBody, prepareGetQuestionBody, prepareSubmitContestBody, prepareTokenBody, preparecheckAnswerBody } from "../../utils"
+import { handleConnectionMessage, prepareContestQuestionsBody, prepareGetQuestionBody, prepareSubmitContestBody, prepareTokenBody, preparecheckAnswerBody } from "../../utils"
 import { InitialState, Message } from "../initialStates"
 import { updateCurrentQuestion, updateLoadingVerdict, updateQuestionsList, updateResult, updateVerdict } from "./action.contest.gk"
 import { toggleLoading } from "./action.loader"
 import { addMessage, updateShowLobby } from "."
-import { useDispatch } from "react-redux"
 
 let ws: WebSocket;
 
 export const useConnect = () => {
-    return (dispatch: any) => {
+    return (dispatch: any, navigate: any) => {
 
         ws = new WebSocket(`wss://${window.location.hostname}/`);
 
         ws.onmessage = (data) => {
             const res = JSON.parse(data.data);
-            handleConnectionMessage(dispatch, res)
+            handleConnectionMessage(dispatch, navigate, res)
             dispatch(updateShowLobby(true));
         }
 
@@ -174,7 +173,7 @@ export const fetchToken = createAsyncThunk(
         const dispatch = thunkAPI.dispatch;
         const state: InitialState = thunkAPI.getState() as InitialState;
         try{
-            ws.send(JSON.stringify({type: 'create', name: state.form.name}))
+            ws.send(JSON.stringify({type: 'create', name: state.form.name, time: state.form.time, noOfQuestions: state.form.questions}))
             dispatch(toggleLoading());
         }catch(err){
             console.log(err);
@@ -219,6 +218,18 @@ export const fetchToken = createAsyncThunk(
             }
             dispatch(addMessage(message))
             ws.send(JSON.stringify({type: 'message', message: state.lobby.currentUser.message, roomCode: localStorage.getItem('roomCode'), userId: state.lobby.currentUser.userId}))
+        }catch(err){
+            console.log(err);
+        }
+    }
+  )
+
+  export const fetchLobbyQuestions = createAsyncThunk(
+    'data/fetch',
+    async ( text, thunkAPI ) => {
+        const state: InitialState = thunkAPI.getState() as InitialState;
+        try{
+            ws.send(JSON.stringify({type: 'questions', roomCode: localStorage.getItem('roomCode')}))
         }catch(err){
             console.log(err);
         }

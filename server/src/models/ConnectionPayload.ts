@@ -2,7 +2,9 @@
 
 export interface CreateRoomPayload {
     type: 'create',
-    name: string
+    name: string,
+    time: number,
+    noOfQuestions: number
 }
 
 export interface JoinRoomPayload {
@@ -35,6 +37,11 @@ export interface statusUpdatePayload {
     userId: string
 }
 
+export interface LobbyQuestionsPayload {
+    type: 'questions',
+    roomCode: string,
+}
+
 export type ConnectionPayload = 
 | CreateRoomPayload
 | JoinRoomPayload
@@ -42,3 +49,4 @@ export type ConnectionPayload =
 | CloseRoomPayload
 | PostMessagePayload
 | statusUpdatePayload
+| LobbyQuestionsPayload

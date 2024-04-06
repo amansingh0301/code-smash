@@ -7,6 +7,12 @@ export class ConnectionMapper {
     }
 
     mapJoinRoom(connection: connection, svcResponse: any) {
+
+        if(svcResponse.users instanceof Error) {
+            connection.send(JSON.stringify({type: 'inProgress'}));
+            return;
+        }
+
         const users = (svcResponse.users as User[]);
         const currentUserId = svcResponse.userId;
         const currentUser = users.find(user => user.userId === currentUserId) as User;
@@ -58,7 +64,7 @@ export class ConnectionMapper {
     }
 
     mapStatusUpddate(connection: connection, svcResponse: any) {
-        const users = (svcResponse.users as User[]);
+        const users = (svcResponse.clientResponse.users as User[]);
 
         const userId = svcResponse.userId;
         const currentUser = users.find(user => user.userId === userId)
@@ -66,8 +72,17 @@ export class ConnectionMapper {
         users.forEach((user: User) => {
             if(user.userId !== userId) {
                 user.connection.send(JSON.stringify({type: 'status', userId: userId, status: currentUser?.status}));
+                if(svcResponse.clientResponse.allReady)
+                    user.connection.send(JSON.stringify({type: 'start', time: 10}));
+            }else{
+                if(svcResponse.clientResponse.allReady)
+                    user.connection.send(JSON.stringify({type: 'start', time: 10}));
             }
         })
+    }
+
+    mapGetLobbyQuestions(connection: connection, svcResponse: any){
+        connection.send(JSON.stringify({type: 'questions', questions: svcResponse.questions, timer: svcResponse.time}));
     }
 
     getAppropriateConnectionMapper(payload: ConnectionPayload) {
@@ -84,6 +99,8 @@ export class ConnectionMapper {
                 return this.mapPostMessage;
             case 'status':
                 return this.mapStatusUpddate;
+            case 'questions':
+                return this.mapGetLobbyQuestions;
         }
     }
 

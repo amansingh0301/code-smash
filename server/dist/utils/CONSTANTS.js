@@ -6,5 +6,6 @@ exports.CONSTANTS = {
     SECRET_ABSENT: 'secret absent',
     DB_NAME_ABSENT: 'db name absent',
     WS_CONNECTION_URL_ABSENT: 'WS_CONNECTION_URL_ABSENT',
-    ROOMS: 'rooms'
+    ROOMS: 'rooms',
+    CONTEST_IN_PROGRESS: 'Contest already started'
 };

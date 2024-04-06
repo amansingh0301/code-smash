@@ -1,13 +1,17 @@
 import { connection } from "websocket";
-import { ConnectionPayload, CreateRoomPayload, JoinRoomPayload, PostMessagePayload, statusUpdatePayload } from "../models";
+import { ConnectionPayload, CreateRoomPayload, JoinRoomPayload, LobbyQuestionsPayload, PostMessagePayload, statusUpdatePayload } from "../models";
 import { CONSTANTS, generateRoomCode, generateUserId } from "../utils";
 import { connectionClient, dbClient } from "../clients";
+import { contestServiceInterface } from ".";
+import { appConfig } from "../configs";
+import { ObjectId } from "mongodb";
 
 export class ConnectionServiceInterface {
-    createRoom(connection: connection, payload: ConnectionPayload){
+    async createRoom(connection: connection, payload: ConnectionPayload){
         const roomCode = generateRoomCode();
         const userId = generateUserId();
-        connectionClient.createRoom(connection, roomCode, userId, payload as CreateRoomPayload);
+        const questionIdList = await contestServiceInterface.getQuestions({questions: (payload as CreateRoomPayload).noOfQuestions, type: 'GK'}, appConfig);
+        await connectionClient.createRoom(connection, roomCode, userId, payload as CreateRoomPayload, questionIdList as ObjectId[]);
         return {
             roomCode,
             userId,
@@ -17,7 +21,7 @@ export class ConnectionServiceInterface {
     joinRoom(connection: connection, payload: ConnectionPayload){
         const roomCode = (payload as JoinRoomPayload).roomCode
         const userId = generateUserId();
-        const users =connectionClient.JoinRoom(connection, roomCode, userId, payload as JoinRoomPayload);
+        const users = connectionClient.JoinRoom(connection, roomCode, userId, payload as JoinRoomPayload);
         return {
             userId,
             users
@@ -46,11 +50,16 @@ export class ConnectionServiceInterface {
         const roomCode = (payload as statusUpdatePayload).roomCode;
         const userId = (payload as statusUpdatePayload).userId;
         const status = (payload as statusUpdatePayload).status;
-        const users = connectionClient.updateStatus(connection, roomCode, userId, status);
+        const clientResponse = connectionClient.updateStatus(connection, roomCode, userId, status);
         return {
             userId,
-            users
+            clientResponse
         }
+    }
+
+    questions(connection: connection, payload: ConnectionPayload){
+        const roomCode = (payload as LobbyQuestionsPayload).roomCode;
+        return connectionClient.getLobbyQuestions(connection, roomCode);
     }
 
     getAppropriateConnectionMethod(payload: ConnectionPayload) {
@@ -67,6 +76,8 @@ export class ConnectionServiceInterface {
                 return this.updateStatus;
             case 'message':
                 return this.postMessage;
+            case 'questions':
+                return this.questions;
         }
     }
 

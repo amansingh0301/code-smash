@@ -15,11 +15,13 @@ const service_interface_1 = require("../service-interface");
 const response_mappers_1 = require("../response-mappers");
 class ConnectionHandler {
     handleMessage(connection, message) {
-        const payload = JSON.parse(message.utf8Data);
-        const serviceInterface = service_interface_1.connectionServiceInterface.getAppropriateConnectionMethod(payload);
-        const svcResponse = serviceInterface(connection, payload);
-        const mapper = response_mappers_1.connectionMapper.getAppropriateConnectionMapper(payload);
-        mapper(connection, svcResponse);
+        return __awaiter(this, void 0, void 0, function* () {
+            const payload = JSON.parse(message.utf8Data);
+            const serviceInterface = service_interface_1.connectionServiceInterface.getAppropriateConnectionMethod(payload);
+            const svcResponse = yield serviceInterface(connection, payload);
+            const mapper = response_mappers_1.connectionMapper.getAppropriateConnectionMapper(payload);
+            mapper(connection, svcResponse);
+        });
     }
     handleError(connection, error) {
         return __awaiter(this, void 0, void 0, function* () {

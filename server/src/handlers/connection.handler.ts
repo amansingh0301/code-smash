@@ -4,12 +4,12 @@ import { connectionServiceInterface } from "../service-interface";
 import { connectionMapper } from "../response-mappers";
 
 export class ConnectionHandler {
-    handleMessage(connection: connection, message: Message) {
+    async handleMessage(connection: connection, message: Message) {
         const payload = JSON.parse((message as IUtf8Message).utf8Data)
 
         const serviceInterface = connectionServiceInterface.getAppropriateConnectionMethod(payload);
 
-        const svcResponse = serviceInterface(connection, payload);
+        const svcResponse = await serviceInterface(connection, payload);
 
         const mapper = connectionMapper.getAppropriateConnectionMapper(payload);
 

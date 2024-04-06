@@ -1,7 +1,10 @@
 import {v4 as uuid} from 'uuid';
 import { InitialState, Message, Opponent, SelectedOptionList } from "../store/initialStates"
-import { Dispatch } from '@reduxjs/toolkit';
-import { addMessage, addOpponent, updateCurrentUser, updateOpponentStatus } from '../store/actions';
+import { Dispatch, ThunkDispatch } from '@reduxjs/toolkit';
+import { addMessage, addOpponent, fetchLobbyQuestions, fetchQuestionsList, updateCurrentUser, updateMode, updateOpponentStatus, updateQuestionsList, updateTime, updateTotalTime } from '../store/actions';
+import { NavigateFunction } from 'react-router-dom';
+import { toggleLoading } from '../store/actions/action.loader';
+import { CONSTANTS } from '.';
 
 export const prepareTokenBody = (state: InitialState) => {
     const form = state.form;
@@ -117,43 +120,52 @@ export const getCurrentUserName = (currentUser: Opponent) => {
     return currentUser.name;
 }
 
-export const handleConnectionMessage = (dispatch: Dispatch, res: any) => {
+export const handleConnectionMessage = (dispatch: Dispatch, navigate: NavigateFunction, res: any) => {
     switch(res.type) {
         case 'create':
-            return handleCreatedRoomRes(dispatch, res.svcResponse);
+            return handleCreatedRoomRes(dispatch, navigate, res.svcResponse);
         case 'join':
-            return handleSomeoneJoined(dispatch, res.opponent);
+            return handleSomeoneJoined(dispatch, navigate, res.opponent);
         case 'opponents':
-            return handleOpponents(dispatch, res.opponents, res.userId);
+            return handleOpponents(dispatch, navigate, res.opponents, res.userId);
         case 'status':
             return handleOpponentStatusUpdate(dispatch, res.userId, res.status);
         case 'infoMessage':
-            return handleInfoMessage(dispatch, res.text, res.opponent)
+            return handleInfoMessage(dispatch, res.text, res.opponent);
         case 'message':
-            return handleMessage(dispatch, res.message, res.userId)
+            return handleMessage(dispatch, res.message, res.userId);
+        case 'inProgress':
+            return handleInProgress(dispatch);
+        case 'start':
+            return startContest(dispatch, navigate, res.time);
+        case 'questions':
+            return setQuestionsList(dispatch, navigate, res.questions, res.timer);
     }
 }
 
-const handleCreatedRoomRes = (dispatch: Dispatch, res: any) => {
+const handleCreatedRoomRes = (dispatch: Dispatch, navigate: NavigateFunction, res: any) => {
         localStorage.setItem('roomCode', res.roomCode);
         localStorage.setItem('userId', res.userId);
         dispatch(updateCurrentUser({
             userId: res.userId,
             status: 'joined'
         }))
+        navigate('/lobby');
 }
 
-const handleSomeoneJoined = (dispatch: Dispatch, opponent: Opponent) => {
+const handleSomeoneJoined = (dispatch: Dispatch, navigate: NavigateFunction, opponent: Opponent) => {
     dispatch(addOpponent(opponent));
 }
 
-const handleOpponents = (dispatch: Dispatch, opponents: Opponent[], userId: string) => {
+const handleOpponents = (dispatch: Dispatch, navigate: NavigateFunction, opponents: Opponent[], userId: string) => {
     localStorage.setItem('userId', userId);
     dispatch(updateCurrentUser({
         userId,
         status: 'joined'
     }))
     opponents.forEach((opponent: Opponent) => dispatch(addOpponent(opponent)));
+    navigate('/lobby');
+    dispatch(toggleLoading());
 }
 
 const handleOpponentStatusUpdate = (dispatch: Dispatch, userId: string, status: string) => {
@@ -178,4 +190,32 @@ const handleMessage = (dispatch: Dispatch, text: string, userId: string) => {
     }
 
     dispatch(addMessage(message));
+}
+
+const handleInProgress = (dispatch: Dispatch) => {
+    alert('Contest in progress! Cannot join.');
+    dispatch(toggleLoading());
+}
+
+const startContest = (dispatch: ThunkDispatch<any, any, any> , navigate: NavigateFunction, time: number) => {
+    let t = time;
+    const intervalId = setInterval(async () => {
+        t = t -1;
+        console.log(t);
+        if(t == 0) {
+            dispatch(toggleLoading());
+            await dispatch(fetchLobbyQuestions());
+            clearInterval(intervalId);
+        }
+    },1000)
+
+    dispatch(updateMode(CONSTANTS.COMPETE));
+}
+
+const setQuestionsList = (dispatch: ThunkDispatch<any, any, any> , navigate: NavigateFunction, questions: string[], timer: string) => {
+    dispatch(updateQuestionsList(questions));
+    dispatch(toggleLoading());
+    dispatch(updateTime(parseInt(timer)));
+    dispatch(updateTotalTime(parseInt(timer)*60))
+    navigate('/contest');
 }

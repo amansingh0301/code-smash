@@ -6,6 +6,10 @@ class ConnectionMapper {
         connection.send(JSON.stringify({ type: 'create', svcResponse }));
     }
     mapJoinRoom(connection, svcResponse) {
+        if (svcResponse.users instanceof Error) {
+            connection.send(JSON.stringify({ type: 'inProgress' }));
+            return;
+        }
         const users = svcResponse.users;
         const currentUserId = svcResponse.userId;
         const currentUser = users.find(user => user.userId === currentUserId);
@@ -50,14 +54,23 @@ class ConnectionMapper {
         });
     }
     mapStatusUpddate(connection, svcResponse) {
-        const users = svcResponse.users;
+        const users = svcResponse.clientResponse.users;
         const userId = svcResponse.userId;
         const currentUser = users.find(user => user.userId === userId);
         users.forEach((user) => {
             if (user.userId !== userId) {
                 user.connection.send(JSON.stringify({ type: 'status', userId: userId, status: currentUser === null || currentUser === void 0 ? void 0 : currentUser.status }));
+                if (svcResponse.clientResponse.allReady)
+                    user.connection.send(JSON.stringify({ type: 'start', time: 10 }));
+            }
+            else {
+                if (svcResponse.clientResponse.allReady)
+                    user.connection.send(JSON.stringify({ type: 'start', time: 10 }));
             }
         });
+    }
+    mapGetLobbyQuestions(connection, svcResponse) {
+        connection.send(JSON.stringify({ type: 'questions', questions: svcResponse.questions, timer: svcResponse.time }));
     }
     getAppropriateConnectionMapper(payload) {
         switch (payload.type) {
@@ -73,6 +86,8 @@ class ConnectionMapper {
                 return this.mapPostMessage;
             case 'status':
                 return this.mapStatusUpddate;
+            case 'questions':
+                return this.mapGetLobbyQuestions;
         }
     }
     createOpponent(user) {

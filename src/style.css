@@ -1455,4 +1455,26 @@ svg {
       height: 80vh;
       width: 90vw;
     }
+
+    .send-btn {
+      padding-left: 3rem;
+    }
+
+    .user-message {
+      left: 2rem;
+    }
+  
+    .opponent-message {
+      right: 2rem;
+    }
+  
+    .pointyIconRight{
+      left: 1.1rem;
+      top: 0.65rem;
+    }
+  
+    .pointyIconLeft{
+      right: 1.1rem;
+      top: -0.65rem;
+    }
   }

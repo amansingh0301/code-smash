@@ -58,3 +58,9 @@ export const updateCurrentUserMessage = (message: string) => {
         payload: message
     }
 }
+
+export const resetLobby = () => {
+    return {
+        type: CONSTANTS.RESET
+    }
+}

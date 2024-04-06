@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { InitialState } from '../../../store/initialStates';
-import { invalidateToken, resetContest, resetForm, resetTimer} from '../../../store/actions';
+import { invalidateToken, resetChat, resetContest, resetForm, resetLobby, resetTimer} from '../../../store/actions';
 import { Loader } from '..';
 
 import { PracticeOrCreate } from './PracticeOrCreate';
@@ -25,6 +25,8 @@ export function Form() {
         dispatch(resetContest());
         dispatch(resetTimer());
         dispatch(resetForm());
+        dispatch(resetLobby());
+        dispatch(resetChat());
         dispatch(invalidateToken());
     }, [])
     return (
