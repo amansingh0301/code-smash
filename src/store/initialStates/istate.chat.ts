@@ -12,7 +12,7 @@ export const initialChatState: InitialChatState = {
     isChatOpen: false,
     messages: [{
         type: 'infoMessage',
-        text: 'welcome',
+        text: 'Welcome',
         userId: ''
     }]
 }

@@ -11,6 +11,10 @@ export function timerReducer(state = intialTimerState, action: any) {
       return { ...state, progress: Math.max(state.progress, action.payload) };
     case CONSTANTS.RESET:
       return { ...intialTimerState };
+    case CONSTANTS.UPDATE_STARTING_IN:
+      return { ...state, startingIn: action.payload };
+    case CONSTANTS.UPDATE_IS_EVERYONE_READY:
+      return { ...state, isEveryOneReady: action.payload };
     default:
       return state;
   }

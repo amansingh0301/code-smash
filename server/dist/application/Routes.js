@@ -31,6 +31,7 @@ class Routes {
         server.use('/contest', routes_1.contestRoutes);
         ws.on('request', (req) => {
             const connection = req.accept();
+            console.log('request accepted');
             connection.on('message', (message) => handlers_1.connectionHandler.handleMessage(connection, message));
             connection.on('error', (error) => handlers_1.connectionHandler.handleError(connection, error));
         });

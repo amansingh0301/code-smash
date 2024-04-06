@@ -1,7 +1,7 @@
 import {v4 as uuid} from 'uuid';
 import { InitialState, Message, Opponent, SelectedOptionList } from "../store/initialStates"
 import { Dispatch, ThunkDispatch } from '@reduxjs/toolkit';
-import { addMessage, addOpponent, fetchLobbyQuestions, fetchQuestionsList, updateCurrentUser, updateMode, updateOpponentStatus, updateQuestionsList, updateTime, updateTotalTime } from '../store/actions';
+import { addMessage, addOpponent, fetchLobbyQuestions, fetchQuestionsList, updateCurrentUser, updateIsEveryOneReady, updateMode, updateOpponentStatus, updateQuestionsList, updateStartingIn, updateTime, updateTotalTime } from '../store/actions';
 import { NavigateFunction } from 'react-router-dom';
 import { toggleLoading } from '../store/actions/action.loader';
 import { CONSTANTS } from '.';
@@ -198,10 +198,11 @@ const handleInProgress = (dispatch: Dispatch) => {
 }
 
 const startContest = (dispatch: ThunkDispatch<any, any, any> , navigate: NavigateFunction, time: number) => {
+    dispatch(updateIsEveryOneReady(true));
     let t = time;
     const intervalId = setInterval(async () => {
         t = t -1;
-        console.log(t);
+        dispatch(updateStartingIn(t));
         if(t == 0) {
             dispatch(toggleLoading());
             await dispatch(fetchLobbyQuestions());

@@ -9,6 +9,8 @@ export function Readybtn() {
     const [dots, setDots] = useState('..');
 
     const currentUser = useSelector((state: InitialState) => state.lobby.currentUser);
+    const startingIn = useSelector((state: InitialState) => state.timer.startingIn);
+    const isEveryOneReady = useSelector((state: InitialState) => state.timer.isEveryOneReady);
     const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
 
     const handleReady = () => {
@@ -28,7 +30,7 @@ export function Readybtn() {
 
     return (
         <div className='lobby-btn__container'>
-            <div className='waiting'>Waiting for others{dots}</div>
+            <div className='waiting'>{isEveryOneReady ? `Starting in ${startingIn === null ? '' : startingIn}` : `Waiting for others${dots}`}</div>
             <button className={`lobby-btn ${currentUser.status === 'ready' ? 'not-ready' : 'ready'}`} onClick={handleReady}>{currentUser.status === 'ready' ? 'Not ready?' : 'Ready'}</button>
         </div>
     )

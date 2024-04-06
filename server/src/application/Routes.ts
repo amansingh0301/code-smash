@@ -26,6 +26,7 @@ export class Routes {
 
         ws.on('request', (req) => {
             const connection = req.accept();
+            console.log('request accepted');
 
             connection.on('message', (message) => connectionHandler.handleMessage(connection, message));
 

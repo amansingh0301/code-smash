@@ -26,6 +26,16 @@ export function Join() {
         dispatch(updateName(event.target.value));
     }
 
+    const join = async () => {
+        dispatch(updateCurrentUser({
+            name,
+            score: 0
+        }))
+        await dispatch(fetchToken());
+        localStorage.setItem('roomCode', roomCode);
+        dispatch(joinConnection());
+    }
+
     useEffect(() => {
         dispatch(updateMode(''));
     },[])
@@ -53,17 +63,7 @@ export function Join() {
             }
         }else {
             dispatch(toggleLoading());
-            const ws = connect(dispatch, navigate);
-
-            ws.onopen = async() => {
-                dispatch(updateCurrentUser({
-                    name,
-                    score: 0
-                }))
-                await dispatch(fetchToken());
-                localStorage.setItem('roomCode', roomCode);
-                dispatch(joinConnection());
-            }
+            const ws = connect(dispatch, navigate, join);
         }
     }
 

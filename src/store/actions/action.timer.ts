@@ -25,3 +25,17 @@ export const resetTimer = () => {
         type: CONSTANTS.RESET
     }
 }
+
+export const updateStartingIn = (time: number) => {
+    return {
+        type: CONSTANTS.UPDATE_STARTING_IN,
+        payload: time
+    }
+}
+
+export const updateIsEveryOneReady = (isEveryOneReady: boolean) => {
+    return {
+        type: CONSTANTS.UPDATE_IS_EVERYONE_READY,
+        payload: isEveryOneReady
+    }
+}

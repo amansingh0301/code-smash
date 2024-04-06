@@ -9,9 +9,9 @@ import { addMessage, updateShowLobby } from "."
 let ws: WebSocket;
 
 export const useConnect = () => {
-    return (dispatch: any, navigate: any) => {
+    return (dispatch: any, navigate: any, callback: any) => {
 
-        ws = new WebSocket(`wss://${window.location.hostname}/`);
+        ws = new WebSocket(`ws://${window.location.hostname}:8080/`);
 
         ws.onmessage = (data) => {
             const res = JSON.parse(data.data);
@@ -19,9 +19,19 @@ export const useConnect = () => {
             dispatch(updateShowLobby(true));
         }
 
-        ws.onclose = function () {
+        ws.onopen = callback;
+
+        ws.onerror = (error) => {
+            console.log(error);
             setInterval(function () {
-            ws = new WebSocket(`wss://${window.location.hostname}/`);
+                ws = new WebSocket(`ws://${window.location.hostname}:8080/`);
+            }, 5000);
+        }
+
+        ws.onclose = function () {
+            console.log('retrying')
+            setInterval(function () {
+            ws = new WebSocket(`ws://${window.location.hostname}:8080/`);
             }, 5000);
         };
         return ws;

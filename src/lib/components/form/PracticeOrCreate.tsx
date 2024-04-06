@@ -18,6 +18,14 @@ export function PracticeOrCreate() {
     const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
     const nameRef = useRef(null)
 
+    const start = async () => {
+        await dispatch(fetchToken());
+        dispatch(updateCurrentUser({
+            name,
+            score: 0
+        }))
+    }
+
     const handleStart = async (event: React.MouseEvent<HTMLButtonElement>) => {
         if(!name.trim()){
             if (nameRef.current) {
@@ -31,7 +39,6 @@ export function PracticeOrCreate() {
             }
         }else{
             dispatch(toggleLoading());
-            const ws = connect(dispatch, navigate);
             
             if(mode === CONSTANTS.PRACTICE){
                 
@@ -39,13 +46,7 @@ export function PracticeOrCreate() {
                 navigate('/contest');
             }
             else{
-                ws.onopen = async () => { 
-                    await dispatch(fetchToken());
-                    dispatch(updateCurrentUser({
-                        name,
-                        score: 0
-                    }))
-                }
+                const ws = connect(dispatch, navigate, start);
             }
         }
     }

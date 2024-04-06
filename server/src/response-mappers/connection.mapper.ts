@@ -73,10 +73,10 @@ export class ConnectionMapper {
             if(user.userId !== userId) {
                 user.connection.send(JSON.stringify({type: 'status', userId: userId, status: currentUser?.status}));
                 if(svcResponse.clientResponse.allReady)
-                    user.connection.send(JSON.stringify({type: 'start', time: 10}));
+                    user.connection.send(JSON.stringify({type: 'start', time: 11}));
             }else{
                 if(svcResponse.clientResponse.allReady)
-                    user.connection.send(JSON.stringify({type: 'start', time: 10}));
+                    user.connection.send(JSON.stringify({type: 'start', time: 11}));
             }
         })
     }
