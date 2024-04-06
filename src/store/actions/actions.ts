@@ -11,7 +11,7 @@ let ws: WebSocket;
 export const useConnect = () => {
     return (dispatch: any, navigate: any, callback: any) => {
 
-        ws = new WebSocket(`ws://${window.location.hostname}:8080/`);
+        ws = new WebSocket(`wss://${window.location.hostname}/`);
 
         ws.onmessage = (data) => {
             const res = JSON.parse(data.data);
@@ -24,14 +24,14 @@ export const useConnect = () => {
         ws.onerror = (error) => {
             console.log(error);
             setInterval(function () {
-                ws = new WebSocket(`ws://${window.location.hostname}:8080/`);
+                ws = new WebSocket(`wss://${window.location.hostname}/`);
             }, 5000);
         }
 
         ws.onclose = function () {
             console.log('retrying')
             setInterval(function () {
-            ws = new WebSocket(`ws://${window.location.hostname}:8080/`);
+            ws = new WebSocket(`wss://${window.location.hostname}/`);
             }, 5000);
         };
         return ws;
