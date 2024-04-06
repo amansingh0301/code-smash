@@ -7,6 +7,7 @@ import { InitialState } from '../../../store/initialStates';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { fetchToken, updateCurrentUser, updateMode, useConnect } from '../../../store/actions';
 import { CONSTANTS } from '../../../utils';
+import { toggleLoading } from '../../../store/actions/action.loader';
 
 export function PracticeOrCreate() {
 
@@ -29,9 +30,11 @@ export function PracticeOrCreate() {
                 console.error('nameRef is not attached to a DOM element yet.');
             }
         }else{
+            dispatch(toggleLoading());
             const ws = connect(dispatch, navigate);
             
             if(mode === CONSTANTS.PRACTICE){
+                
                 await dispatch(fetchToken());
                 navigate('/contest');
             }

@@ -34,7 +34,7 @@ export const fetchToken = createAsyncThunk(
         const dispatch = thunkAPI.dispatch;
         const state: InitialState = thunkAPI.getState() as InitialState;
         try{
-            dispatch(toggleLoading());
+            
             await fetch('/auth/token', {
                 method: 'POST',
                 body: prepareTokenBody(state),

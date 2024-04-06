@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { InitialState } from '../../../store/initialStates';
 import { useNavigate } from 'react-router-dom';
+import { toggleLoading } from '../../../store/actions/action.loader';
 
 export function Join() {
     const [roomCode, setRoomCode] = useState<string>('');
@@ -51,6 +52,7 @@ export function Join() {
                 console.error('nameRef is not attached to a DOM element yet.');
             }
         }else {
+            dispatch(toggleLoading());
             const ws = connect(dispatch, navigate);
 
             ws.onopen = async() => {
